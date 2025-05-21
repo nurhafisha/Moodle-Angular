@@ -1,0 +1,11 @@
+.nav-link.active {
+    font-weight: bold;
+    border-bottom: 3px solid #007bff;
+}
+.nav-link {
+    color: #007bff !important;
+    cursor: pointer;
+}
+.nav-tabs {
+    border-bottom: 1px solid #ccc;
+}
