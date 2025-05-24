@@ -1,0 +1,40 @@
+main {
+  margin: 3em 5vw;
+  padding: 3em;
+  background-color: white;
+  border: 0.5px solid lightgray;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  text-align: left;
+  color: #333;
+  margin: 20px;
+}
+
+
+.styled-table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 12px;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+  height: 10px;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.styled-table thead tr {
+  background-color: #010101;
+  color: #ffffff;
+  text-align: left;
+}
+
+

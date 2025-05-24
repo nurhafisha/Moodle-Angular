@@ -1,0 +1,163 @@
+<app-navbar></app-navbar>
+<main>
+  <div class="header">
+    <h1>Catalogue ⚙️</h1>
+  </div>
+  <div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link active"
+          id="gestionUser"
+          data-bs-toggle="tab"
+          data-bs-target="#user"
+          type="button"
+          role="tab"
+          aria-controls="user"
+          aria-selected="true"
+        >
+          Gestion des utilisateurs
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="profile-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#profile"
+          type="button"
+          role="tab"
+          aria-controls="profile"
+          aria-selected="false"
+        >
+          Gestion des UEs
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div
+        class="tab-pane fade show active"
+        id="user"
+        role="tabpanel"
+        aria-labelledby="gestionUser"
+      >
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th scope="col">Prenom</th>
+              <th scope="col">Nom</th>
+              <th scope="col">Email</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Muhammad Akmal</td>
+              <td>BIN MOHD SABRI</td>
+              <td>muhammad.bin&#64;utbm.fr</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <!-- Button trigger modal -->
+                  <button
+                    type="button"
+                    class="btn btn-warning"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    Modifier
+                  </button>
+                  <button type="button" class="btn btn-danger ms-2">
+                    Supprimer
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Muhammad Akmal</td>
+              <td>BIN MOHD SABRI</td>
+              <td>muhammad.bin&#64;utbm.fr</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <!-- Button trigger modal -->
+                  <button
+                    type="button"
+                    class="btn btn-warning"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    Modifier
+                  </button>
+                  <button type="button" class="btn btn-danger ms-2">
+                    Supprimer
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Muhammad Akmal</td>
+              <td>BIN MOHD SABRI</td>
+              <td>muhammad.bin&#64;utbm.fr</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <!-- Button trigger modal -->
+                  <button
+                    type="button"
+                    class="btn btn-warning"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    Modifier
+                  </button>
+                  <button type="button" class="btn btn-danger ms-2">
+                    Supprimer
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="profile"
+        role="tabpanel"
+        aria-labelledby="profile-tab"
+      >
+        ...
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">...</div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
