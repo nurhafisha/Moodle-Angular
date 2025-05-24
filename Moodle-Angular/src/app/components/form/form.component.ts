@@ -12,9 +12,4 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  showPassword: boolean = false;
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
-
 }
