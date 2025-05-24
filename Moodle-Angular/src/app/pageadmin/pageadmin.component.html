@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <main>
   <div class="header">
-    <h1>Catalogue ⚙️</h1>
+    <h2>Catalogue ⚙️</h2>
   </div>
   <div>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -22,12 +22,12 @@
       <li class="nav-item" role="presentation">
         <button
           class="nav-link"
-          id="profile-tab"
+          id="gestionUe"
           data-bs-toggle="tab"
-          data-bs-target="#profile"
+          data-bs-target="#ue"
           type="button"
           role="tab"
-          aria-controls="profile"
+          aria-controls="ue"
           aria-selected="false"
         >
           Gestion des UEs
@@ -41,122 +41,17 @@
         role="tabpanel"
         aria-labelledby="gestionUser"
       >
-        <table class="styled-table">
-          <thead>
-            <tr>
-              <th scope="col">Prenom</th>
-              <th scope="col">Nom</th>
-              <th scope="col">Email</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Muhammad Akmal</td>
-              <td>BIN MOHD SABRI</td>
-              <td>muhammad.bin&#64;utbm.fr</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <!-- Button trigger modal -->
-                  <button
-                    type="button"
-                    class="btn btn-warning"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    Modifier
-                  </button>
-                  <button type="button" class="btn btn-danger ms-2">
-                    Supprimer
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Muhammad Akmal</td>
-              <td>BIN MOHD SABRI</td>
-              <td>muhammad.bin&#64;utbm.fr</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <!-- Button trigger modal -->
-                  <button
-                    type="button"
-                    class="btn btn-warning"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    Modifier
-                  </button>
-                  <button type="button" class="btn btn-danger ms-2">
-                    Supprimer
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Muhammad Akmal</td>
-              <td>BIN MOHD SABRI</td>
-              <td>muhammad.bin&#64;utbm.fr</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <!-- Button trigger modal -->
-                  <button
-                    type="button"
-                    class="btn btn-warning"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    Modifier
-                  </button>
-                  <button type="button" class="btn btn-danger ms-2">
-                    Supprimer
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- Composant pour la table des utilisateurs -->
+        <app-user-table></app-user-table>
       </div>
       <div
         class="tab-pane fade"
-        id="profile"
+        id="ue"
         role="tabpanel"
-        aria-labelledby="profile-tab"
+        aria-labelledby="gestionUe"
       >
-        ...
-      </div>
-    </div>
-  </div>
-  <!-- Modal -->
-  <div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">...</div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+        <!-- Composant pour la table des UEs -->
+        <app-ue-table></app-ue-table>
       </div>
     </div>
   </div>

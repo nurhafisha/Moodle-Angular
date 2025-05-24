@@ -11,30 +11,3 @@ main {
   color: #333;
   margin: 20px;
 }
-
-
-.styled-table {
-  width: 100%;
-  table-layout: auto;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 12px;
-  text-align: left;
-}
-
-.styled-table th,
-.styled-table td {
-  height: 10px;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  word-wrap: break-word;
-  white-space: normal;
-}
-
-.styled-table thead tr {
-  background-color: #010101;
-  color: #ffffff;
-  text-align: left;
-}
-
-
