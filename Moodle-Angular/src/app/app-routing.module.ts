@@ -6,7 +6,6 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { FormsModule } from '@angular/forms';
 import { FormComponent } from './components/form/form.component'; // Import the FormComponent
 import { PageadminComponent } from './pages/page-admin/pageadmin.component';
-import { AppComponent } from './app.component';
 import { ContenuUeComponent } from './pages/contenu-ue/contenu-ue.component';
 
 // Define routes
