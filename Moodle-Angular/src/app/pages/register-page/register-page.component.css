@@ -1,0 +1,9 @@
+.btn:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.bi {
+  font-size: 1.2rem;
+  color: #6c757d; /* Adjust color as needed */
+}
