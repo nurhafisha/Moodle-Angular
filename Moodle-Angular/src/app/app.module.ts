@@ -6,7 +6,7 @@ import { PostComponent } from './components/post/post.component';
 import { ParticipantsComponent } from './components/participants/participants.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { FormComponent } from './components/form/form.component';
-import  {AngularFireModule} from '@angular/fire/compat';
+import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AppRoutingModule } from './app-routing.module'; // Import AngularFireAuthModule for authentication
@@ -20,7 +20,6 @@ import { PageadminComponent } from './pages/pageadmin/pageadmin.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { UETableComponent } from './components/ue-table/ue-table.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,15 +28,7 @@ import { UETableComponent } from './components/ue-table/ue-table.component';
     ParticipantsComponent,
     LoginPageComponent,
     FormComponent,
-    RegisterPageComponent
-  ],
-
-  imports: [
-    BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase), // Initialize Firebase with the environment configuration
-    AngularFireAuthModule, 
-    AppRoutingModule,
-    FormsModule
+    RegisterPageComponent,
     ActualiteComponent,
     UeComponent,
     ChoixUeComponent,
@@ -47,7 +38,13 @@ import { UETableComponent } from './components/ue-table/ue-table.component';
     UETableComponent,
   ],
 
-  imports: [BrowserModule],
+  imports: [
+    BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase), // Initialize Firebase with the environment configuration
+    AngularFireAuthModule,
+    AppRoutingModule,
+    FormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

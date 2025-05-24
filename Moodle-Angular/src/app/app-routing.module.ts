@@ -5,21 +5,19 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { FormsModule } from '@angular/forms';
 import { FormComponent } from './components/form/form.component'; // Import the FormComponent
+import { PageadminComponent } from './pages/pageadmin/pageadmin.component';
 
 // Define routes
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
-  {path: 'form' , component: FormComponent}
+  { path: 'form', component: FormComponent },
+  { path: 'espace-admin', component: PageadminComponent },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule.forRoot(routes)  
-  ],
-  exports: [RouterModule]  
+  imports: [CommonModule, FormsModule, RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
