@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { ContenuUeComponent } from './pages/contenu-ue/contenu-ue.component';
 import { PostComponent } from './components/post/post.component';
@@ -8,10 +7,10 @@ import { ParticipantsComponent } from './components/participants/participants.co
 import { ActualiteComponent } from './components/actualite/actualite.component';
 import { UeComponent } from './components/ue/ue.component';
 import { ChoixUeComponent } from './pages/choix-ue/choix-ue.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { PageadminComponent } from './pageadmin/pageadmin.component';
-import { UserTableComponent } from './user-table/user-table.component';
-import { UETableComponent } from './ue-table/ue-table.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { PageadminComponent } from './pages/pageadmin/pageadmin.component';
+import { UserTableComponent } from './components/user-table/user-table.component';
+import { UETableComponent } from './components/ue-table/ue-table.component';
 
 @NgModule({
   declarations: [
