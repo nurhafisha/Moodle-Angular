@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PageadminComponent } from './pageadmin.component';
+import { PageadminComponent } from './page-admin.component';
 
 describe('PageadminComponent', () => {
   let component: PageadminComponent;
@@ -8,9 +8,8 @@ describe('PageadminComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageadminComponent ]
-    })
-    .compileComponents();
+      declarations: [PageadminComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
