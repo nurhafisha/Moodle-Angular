@@ -1,0 +1,13 @@
+main {
+  margin: 3em 5vw;
+  padding: 3em;
+  background-color: white;
+  border: 0.5px solid lightgray;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  text-align: left;
+  color: #333;
+  margin: 20px;
+}

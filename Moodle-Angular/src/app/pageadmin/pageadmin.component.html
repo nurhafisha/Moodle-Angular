@@ -1,0 +1,58 @@
+<app-navbar></app-navbar>
+<main>
+  <div class="header pb-3">
+    <h2>Catalogue ⚙️</h2>
+  </div>
+  <div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link active"
+          id="gestionUser"
+          data-bs-toggle="tab"
+          data-bs-target="#user"
+          type="button"
+          role="tab"
+          aria-controls="user"
+          aria-selected="true"
+        >
+          Gestion des utilisateurs
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="gestionUe"
+          data-bs-toggle="tab"
+          data-bs-target="#ue"
+          type="button"
+          role="tab"
+          aria-controls="ue"
+          aria-selected="false"
+        >
+          Gestion des UEs
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div
+        class="tab-pane fade show active"
+        id="user"
+        role="tabpanel"
+        aria-labelledby="gestionUser"
+      >
+        <!-- Composant pour la table des utilisateurs -->
+        <app-user-table></app-user-table>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="ue"
+        role="tabpanel"
+        aria-labelledby="gestionUe"
+      >
+        <!-- Composant pour la table des UEs -->
+        <app-ue-table></app-ue-table>
+      </div>
+    </div>
+  </div>
+</main>

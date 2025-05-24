@@ -8,6 +8,10 @@ import { ParticipantsComponent } from './components/participants/participants.co
 import { ActualiteComponent } from './components/actualite/actualite.component';
 import { UeComponent } from './components/ue/ue.component';
 import { ChoixUeComponent } from './pages/choix-ue/choix-ue.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { PageadminComponent } from './pageadmin/pageadmin.component';
+import { UserTableComponent } from './user-table/user-table.component';
+import { UETableComponent } from './ue-table/ue-table.component';
 
 @NgModule({
   declarations: [
@@ -18,11 +22,14 @@ import { ChoixUeComponent } from './pages/choix-ue/choix-ue.component';
     ActualiteComponent,
     UeComponent,
     ChoixUeComponent,
+    NavbarComponent,
+    PageadminComponent,
+    UserTableComponent,
+    UETableComponent,
   ],
-  imports: [
-    BrowserModule
-  ],
+
+  imports: [BrowserModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
