@@ -1,0 +1,105 @@
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Prenom</th>
+      <th scope="col">Email</th>
+      <th scope="col">Role</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.nom }}</td>
+      <td>{{ user.prenom }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.role }}</td>
+      <td>
+        <div class="d-flex align-items-center">
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-warning"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Modifier
+          </button>
+          <button type="button" class="btn btn-danger ms-2">Supprimer</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Modifier l'utilisateur
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- Champ pour modifier les donnees sur l'utilisateur -->
+        <div class="mb-3">
+          <label for="basic-url" class="form-label fw-bold">Nom</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nom"
+            aria-label="Nom"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="basic-url" class="form-label fw-bold">Prenom</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Prenom"
+            aria-label="Prenom"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="basic-url" class="form-label">
+            Nouvel mot de passe
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            aria-label="password"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+
+        <div class="input-group">
+          <span class="input-group-text">With textarea</span>
+          <textarea class="form-control" aria-label="With textarea"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Annuler
+        </button>
+        <button type="button" class="btn btn-success">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
