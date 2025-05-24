@@ -7,6 +7,12 @@ import { PostComponent } from './components/post/post.component';
 import { ParticipantsComponent } from './components/participants/participants.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { FormComponent } from './components/form/form.component';
+import  {AngularFireModule} from '@angular/fire/compat';
+import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AppRoutingModule } from './app-routing.module'; // Import AngularFireAuthModule for authentication
+import { FormsModule } from '@angular/forms';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 
 @NgModule({
   declarations: [
@@ -16,9 +22,15 @@ import { FormComponent } from './components/form/form.component';
     ParticipantsComponent,
     LoginPageComponent,
     FormComponent,
+    RegisterPageComponent
   ],
+
   imports: [
-    BrowserModule
+    BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase), // Initialize Firebase with the environment configuration
+    AngularFireAuthModule, 
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
