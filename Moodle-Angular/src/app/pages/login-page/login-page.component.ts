@@ -4,18 +4,15 @@ import { AuthService } from 'src/app/shared/auth.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent implements OnInit {
-
   email: string = '';
   password: string = '';
 
+  constructor(private auth: AuthService) {}
 
-  constructor(private auth : AuthService) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   login() {
     if (this.email === '' || this.password === '') {
@@ -27,9 +24,8 @@ export class LoginPageComponent implements OnInit {
     this.password = '';
   }
 
-    showPassword: boolean = false;
+  showPassword: boolean = false;
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-
 }
