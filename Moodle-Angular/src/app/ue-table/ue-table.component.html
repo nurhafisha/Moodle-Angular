@@ -1,0 +1,20 @@
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th scope="col">CodeUE</th>
+      <th scope="col">Name UE</th>
+      <th scope="col">Image</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ue of ues">
+      <td>{{ ue.code }}</td>
+      <td>{{ ue.name }}</td>
+      <td><img [src]="ue.image" alt="{{ ue.name }}" class="ue-image" /></td>
+      <td>
+        <p>Button</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
