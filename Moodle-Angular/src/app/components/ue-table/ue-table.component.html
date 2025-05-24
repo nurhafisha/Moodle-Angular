@@ -1,0 +1,94 @@
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th scope="col">Code UE</th>
+      <th scope="col">Name UE</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ue of ues">
+      <td>{{ ue.code }}</td>
+      <td>{{ ue.name }}</td>
+      <td>
+        <div class="d-flex align-items-center">
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-warning"
+            data-bs-toggle="modal"
+            data-bs-target="#ue-modal"
+          >
+            Modifier
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger ms-2"
+            data-bs-toggle="modal"
+            data-bs-target="#ue-modal"
+          >
+            Supprimer
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="ue-modal"
+  tabindex="-1"
+  aria-labelledby="ue-modalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ue-modalLabel">Modifier l'UE</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- Champ pour modifier les donnees sur l'utilisateur -->
+        <div class="mb-3">
+          <label for="basic-url" class="form-label fw-bold">Code UE</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Code UE"
+            aria-label="code-ue"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="basic-url" class="form-label fw-bold">Nom UE</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nom UE"
+            aria-label="nom-ue"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+
+        <div class="input-group">
+          <span class="input-group-text">With textarea</span>
+          <textarea class="form-control" aria-label="With textarea"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Annuler
+        </button>
+        <button type="button" class="btn btn-success">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>

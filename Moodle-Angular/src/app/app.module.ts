@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { ContenuUeComponent } from './pages/contenu-ue/contenu-ue.component';
 import { PostComponent } from './components/post/post.component';
@@ -13,6 +12,14 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AppRoutingModule } from './app-routing.module'; // Import AngularFireAuthModule for authentication
 import { FormsModule } from '@angular/forms';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { ActualiteComponent } from './components/actualite/actualite.component';
+import { UeComponent } from './components/ue/ue.component';
+import { ChoixUeComponent } from './pages/choix-ue/choix-ue.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { PageadminComponent } from './pages/pageadmin/pageadmin.component';
+import { UserTableComponent } from './components/user-table/user-table.component';
+import { UETableComponent } from './components/ue-table/ue-table.component';
+
 
 @NgModule({
   declarations: [
@@ -31,8 +38,17 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
     AngularFireAuthModule, 
     AppRoutingModule,
     FormsModule
+    ActualiteComponent,
+    UeComponent,
+    ChoixUeComponent,
+    NavbarComponent,
+    PageadminComponent,
+    UserTableComponent,
+    UETableComponent,
   ],
+
+  imports: [BrowserModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
