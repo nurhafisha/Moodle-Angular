@@ -16,7 +16,7 @@ import { ActualiteComponent } from './components/actualite/actualite.component';
 import { UeComponent } from './components/ue/ue.component';
 import { ChoixUeComponent } from './pages/choix-ue/choix-ue.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { PageadminComponent } from './pages/pageadmin/pageadmin.component';
+import { PageadminComponent } from './pages/page-admin/pageadmin.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { UETableComponent } from './components/ue-table/ue-table.component';
 
