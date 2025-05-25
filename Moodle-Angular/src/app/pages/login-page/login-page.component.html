@@ -45,7 +45,7 @@
                       />
 
                       <label for="email" class="form-label"
-                        >Prenom-Nom&#64;utbm.fr</label
+                        >prenom-nom&#64;utbm.fr</label
                       >
                       <!-- @ as &#64; -->
                     </div>
@@ -101,13 +101,20 @@
                     </div>
                   </div>
                   <div class="col-12">
-                    <div class="d-grid my-3">
+                    <div class="d-flex justify-content-around my-3">
                       <button
                         class="btn btn-primary btn-lg"
                         type="submit"
                         (click)="login()"
                       >
                         Se connecter
+                      </button>
+                      <button
+                        class="btn btn-success btn-lg"
+                        type="submit"
+                        (click)="register()"
+                      >
+                        S'inscrire ?
                       </button>
                     </div>
                   </div>
