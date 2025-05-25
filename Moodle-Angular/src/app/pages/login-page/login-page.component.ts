@@ -28,4 +28,8 @@ export class LoginPageComponent implements OnInit {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
+
+  register() {
+    this.auth.registerPage();
+  }
 }
