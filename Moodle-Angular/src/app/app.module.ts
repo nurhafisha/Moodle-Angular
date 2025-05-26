@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ContenuUeComponent } from './pages/contenu-ue/contenu-ue.component';
 import { PostComponent } from './components/post/post.component';
-import { ParticipantsComponent } from './components/participants/participants.component';
+import { DiscussionsComponent } from './components/discussions/discussions.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { FormComponent } from './components/form/form.component';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -25,7 +25,7 @@ import { UETableComponent } from './components/ue-table/ue-table.component';
     AppComponent,
     ContenuUeComponent,
     PostComponent,
-    ParticipantsComponent,
+    DiscussionsComponent,
     LoginPageComponent,
     FormComponent,
     RegisterPageComponent,
