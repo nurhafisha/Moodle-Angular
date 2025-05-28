@@ -6,11 +6,12 @@
           <div class="card-body p-md-5">
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-
+                <!-- Titre  -->
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">S'inscrire</p>
 
                 <form class="mx-1 mx-md-4">
 
+                <!-- Champ : Nom -->
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div data-mdb-input-init class="form-outline flex-fill mb-0">
@@ -19,6 +20,7 @@
                     </div>
                   </div>
 
+                    <!-- Champ : Email -->
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div data-mdb-input-init class="form-outline flex-fill mb-0">
@@ -27,6 +29,7 @@
                     </div>
                   </div>
 
+                    <!-- Champ : Mot de Passe -->
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div data-mdb-input-init class="form-outline flex-fill mb-0 position-relative">
@@ -36,7 +39,7 @@
                   </div>
 
                   
-
+                    <!-- Champ : Role -->
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                     <select class="form-select" [(ngModel)]="role" name="role" required>
@@ -48,7 +51,7 @@
                   </div>
 
                   
-
+                  <!-- button Sauvergarder -->
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg" (click)="register()">S'incrire</button>
                   </div>
