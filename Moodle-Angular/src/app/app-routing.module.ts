@@ -5,7 +5,8 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { FormsModule } from '@angular/forms';
 import { FormComponent } from './components/form/form.component'; // Import the FormComponent
-import { PageadminComponent } from './pages/pageadmin/pageadmin.component';
+import { PageadminComponent } from './pages/page-admin/page-admin.component';
+import { ContenuUeComponent } from './pages/contenu-ue/contenu-ue.component';
 
 
 // Define routes
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: 'espace-admin', component: PageadminComponent },
+  { path: 'mes-cours', component: ContenuUeComponent },
 ];
 
 @NgModule({

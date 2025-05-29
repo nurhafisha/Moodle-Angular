@@ -22,15 +22,25 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">
-            <i class="bi bi-mortarboard-fill me-2"></i>
-            Mes Cours</a
+          <a
+            class="nav-link"
+            routerLink="/mes-cours"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
           >
+            <i class="bi bi-mortarboard-fill me-2"></i>
+            Mes Cours
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"
-            ><i class="bi bi-database-fill-lock me-2"></i>Espace Admin</a
+          <a
+            class="nav-link"
+            routerLink="/espace-admin"
+            routerLinkActive="active"
           >
+            <i class="bi bi-database-fill-lock me-2"></i>
+            Espace Admin
+          </a>
         </li>
       </ul>
     </div>

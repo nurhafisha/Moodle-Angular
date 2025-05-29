@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PageadminComponent } from './pageadmin.component';
+import { SectionComponent } from './section.component';
 
-describe('PageadminComponent', () => {
-  let component: PageadminComponent;
-  let fixture: ComponentFixture<PageadminComponent>;
+describe('SectionComponent', () => {
+  let component: SectionComponent;
+  let fixture: ComponentFixture<SectionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageadminComponent ]
+      declarations: [ SectionComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PageadminComponent);
+    fixture = TestBed.createComponent(SectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
