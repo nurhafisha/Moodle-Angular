@@ -6,9 +6,13 @@ This is a full-stack web application inspired by Moodle, built using:
 - MongoDB Atlas (database)
 
 ## 📦 Project Structure
-/Moodle-Angular
-├── /frontend-angular     # Angular frontend
-└── /backend              # Node.js + Express backend
+
+
+    ├── Moodle-Angular
+    │   ├── frontend-angular     # Angular frontend
+    │   ├── /backend             # Node.js + Express backend
+        
+
 
 ---
 
@@ -28,6 +32,7 @@ This is a full-stack web application inspired by Moodle, built using:
    cd Moodle-Angular
 
 2. **Backend Setup**:
+   ```bash
     cd backend
     npm install
 
@@ -37,8 +42,10 @@ This is a full-stack web application inspired by Moodle, built using:
 
 4. **Running the website**:
     - In one terminal (backend):
+      ```bash
         cd backend
         npm start
-    -In another terminal (frontend)
+    - In another terminal (frontend)
+      ```bash
         cd Moodle-Angular
         ng serve
