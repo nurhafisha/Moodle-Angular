@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+<nav class="navbar navbar-expand-lg sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img
         src="../assets/img/utbm.png"
         alt="Bootstrap"
         width="auto"
-        height="24"
+        height="30"
       />
     </a>
     <button
@@ -43,6 +43,13 @@
           </a>
         </li>
       </ul>
+      <!-- Right side user info -->
+      <div class="d-flex align-items-center">
+        <span class="me-2 fw-semibold">Isaac Kasyful</span>
+        <button class="btn btn-link p-0" title="Logout" (click)="logout()">
+          <i class="bi bi-box-arrow-right fs-5"></i>
+        </button>
+      </div>
     </div>
   </div>
 </nav>

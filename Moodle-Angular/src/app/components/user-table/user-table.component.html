@@ -1,49 +1,56 @@
-<table class="styled-table">
-  <thead>
+<div class="table-responsive">
+  <table class="styled-table">
+    <thead>
     <tr>
       <th scope="col">Nom</th>
       <th scope="col">Prenom</th>
       <th scope="col">Email</th>
-      <th scope="col">Role</th>
+      <!--<th scope="col">Role</th>-->
       <th scope="col">Action</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr *ngFor="let user of users">
       <td>{{ user.nom }}</td>
       <td>{{ user.prenom }}</td>
       <td>{{ user.email }}</td>
-      <td>{{ user.role }}</td>
+      <!--      <td>{{ user.role }}</td>-->
       <td>
         <div class="d-flex align-items-center">
           <!-- Button trigger modal -->
           <button
             type="button"
-            class="btn btn-warning"
+            class="btn btn-sm btn-warning"
             data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+            data-bs-target="#user-modify"
           >
             Modifier
           </button>
-          <button type="button" class="btn btn-danger ms-2">Supprimer</button>
+          <button type="button" class="btn btn-sm btn-danger ms-2">
+            Supprimer
+          </button>
         </div>
       </td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
+
+
+
 
 <!-- Modal -->
 <div
   class="modal fade"
-  id="exampleModal"
+  id="user-modify"
   tabindex="-1"
-  aria-labelledby="exampleModalLabel"
+  aria-labelledby="user-modifyLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">
+        <h5 class="modal-title" id="user-modifyLabel">
           Modifier l'utilisateur
         </h5>
         <button
