@@ -6,7 +6,6 @@
   </div>
   
   <div class="login-content">
-    <!-- Your existing login card -->
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
@@ -25,34 +24,28 @@
               </a>
             </div>
             <!-- <h2 class="fs-8 fw-bold text-center text-secondary mb-4">Login</h2> -->
-            <form action="#!">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
                 <!-- Email -->
               <div class="row gy-2 overflow-hidden">
                 <div class="col-12">
                   <div class="form-floating mb-3">
-                    <input type="email" 
-                    class="form-control w-100" 
-                    name="email" i
-                    d="email" 
-                    placeholder="name@example.com" 
-                    [(ngModel)]="email">
-
-                    <label for="email" class="form-label">Prenom-Nom&#64;utbm.fr</label> 
+                    <input formControlName="email" type="email" class="form-control w-100" name="email" id="email" placeholder="name@example.com" >
+                    <label for="email" class="form-label">Nom&#64;utbm.fr</label>
                     <!-- @ as &#64; -->
+                    <div *ngIf="loginForm.controls['email']?.errors?.['email'] && (loginForm.controls['email'].touched || loginForm.controls['email'].dirty)" class="text-danger mt-1">
+                      Invalid email format.
+                    </div>
                   </div>
                 </div>
                 <div class="col-12">
                     <!-- Mot de Passe avec montrer/cacher-->
                   <div class="form-floating mb-3">
-                    <input 
-                      [type]="showPassword ? 'text' : 'password'" 
-                      class="form-control" 
-                      name="password" 
-                      id="password" 
-                      placeholder="Password"
-                      [(ngModel)]="password" 
-                      required>
+                    <input formControlName = "password" [type]="showPassword ? 'text' : 'password'" class="form-control" name="password" id="password" placeholder="Password" required>
                     <label for="password" class="form-label">Mot de Passe</label>
+                    <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].touched || loginForm.controls['password'].dirty)" class="text-danger mt-1">
+                    Password is required.
+                    </div>
+
                     <!-- Bouton montrer/cacher -->
                      <button
                      type="button"
@@ -77,14 +70,37 @@
                 </div>
                 <div class="col-12">
                   <div class="d-grid my-3">
-                    <button class="btn btn-primary btn-lg" type="submit" (click)="login()">Log in</button>
+                    <button
+                      class="btn btn-primary btn-lg"
+                      type="submit"
+                      (click)="login()"
+                      [disabled]="loginForm.invalid"
+                      [ngClass]="{ 'disabled-btn': loginForm.invalid }">Log in
+                    </button>
                   </div>
                 </div>
               </div>
             </form>
-                
-
+            <!-- Toast Container -->
+            <div class="position-fixed top-0 end-0 p-3" style="z-index: 1055">
+              <div 
+                #liveToast 
+                class="toast align-items-center text-white border-0" 
+                [ngClass]="toastType === 'success' ? 'bg-success' : 'bg-danger'" 
+                role="alert" 
+                aria-live="assertive" 
+                aria-atomic="true"
+                >
+                <div class="d-flex">
+                  <div class="toast-body">
+                    {{ toastMessage }}
+                  </div>
+                  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+              </div>
             </div>
+
+          </div>
           </div>
         </div>
       </div>
