@@ -54,13 +54,24 @@
                       class="form-outline flex-fill mb-0"
                     >
                       <input
+                        formControlName="prenom"
                         type="text"
-                        [(ngModel)]="name"
-                        name="name"
+                        name="Prenom"
                         class="form-control"
+                        placeholder="Prenom"
                         required
                       />
-                      <label class="form-label" for="form3Example1c">Nom</label>
+                      <!-- Error message shown only if invalid and submitted -->
+                      <div
+                        *ngIf="
+                          registerForm.controls['prenom'].invalid &&
+                          (registerForm.controls['prenom'].touched ||
+                            registerForm.controls['prenom'].dirty)
+                        "
+                        class="text-danger mt-1"
+                      >
+                        Prenom is required.
+                      </div>
                     </div>
                   </div>
 
@@ -72,16 +83,26 @@
                       class="form-outline flex-fill mb-0"
                     >
                       <input
+                        formControlName="email"
                         type="email"
                         id="form3Example3c"
                         class="form-control"
                         name="email"
-                        [(ngModel)]="email"
+                        placeholder="Email"
                         required
                       />
-                      <label class="form-label" for="form3Example3c"
-                        >Mail</label
+                      <div
+                        *ngIf="registerForm.controls['email']?.errors?.['required'] && (registerForm.controls['email'].touched || registerForm.controls['email'].dirty)"
+                        class="text-danger mt-1"
                       >
+                        Email is required.
+                      </div>
+                      <div
+                        *ngIf="registerForm.controls['email']?.errors?.['email'] && (registerForm.controls['email'].touched || registerForm.controls['email'].dirty)"
+                        class="text-danger mt-1"
+                      >
+                        Invalid email format.
+                      </div>
                     </div>
                   </div>
 
@@ -93,34 +114,44 @@
                       class="form-outline flex-fill mb-0 position-relative"
                     >
                       <input
+                        formControlName="password"
                         type="password"
                         id="form3Example4c"
                         class="form-control pe-5"
                         name="password"
-                        [(ngModel)]="password"
+                        placeholder="Mot de Passe"
                         required
                       />
-                      <label class="form-label" for="form3Example4c"
-                        >Mot de Passe</label
+                      <div
+                        *ngIf="
+                          registerForm.controls['password'].invalid &&
+                          (registerForm.controls['password'].touched ||
+                            registerForm.controls['password'].dirty)
+                        "
+                        class="text-danger mt-1"
                       >
+                        Password is required.
+                      </div>
                     </div>
                   </div>
 
+                  <!-- Champ : Role -->
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                    <select
-                      class="form-select"
-                      [(ngModel)]="role"
-                      name="role"
-                      required
-                    >
-                      <option value="Enseignant">Enseignant</option>
-                      <option value="Admin-Enseignant">Admin-Enseignant</option>
-                      <option value="Etudiant">Etudiant</option>
-                      <label class="form-label" for="role">Rôle</label>
-                    </select>
+                    <div class="form-outline flex-fill mb-0">
+                      <select
+                        class="form-select"
+                        formControlName="role"
+                        required
+                      >
+                        <option *ngFor="let role of roles" [value]="role">
+                          {{ role }}
+                        </option>
+                      </select>
+                    </div>
                   </div>
 
+                  <!-- Button Sauvergarder -->
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <button
                       type="button"
@@ -128,11 +159,42 @@
                       data-mdb-ripple-init
                       class="btn btn-primary btn-lg"
                       (click)="register()"
+                      [disabled]="registerForm.invalid"
+                      [class.disabled]="registerForm.invalid"
                     >
                       S'incrire
                     </button>
                   </div>
                 </form>
+
+                <!-- Toast Container -->
+                <div
+                  class="position-fixed top-0 end-0 p-3"
+                  style="z-index: 1055"
+                >
+                  <div
+                    #liveToast
+                    class="toast align-items-center text-white border-0"
+                    [ngClass]="
+                      toastType === 'success' ? 'bg-success' : 'bg-danger'
+                    "
+                    role="alert"
+                    aria-live="assertive"
+                    aria-atomic="true"
+                  >
+                    <div class="d-flex">
+                      <div class="toast-body">
+                        {{ toastMessage }}
+                      </div>
+                      <button
+                        type="button"
+                        class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div
                 class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
