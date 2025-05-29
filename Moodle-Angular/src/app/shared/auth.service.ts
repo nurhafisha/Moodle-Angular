@@ -19,7 +19,7 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         localStorage.setItem('token', 'true'); // Set a flag
-        this.router.navigate(['/form']);
+        this.router.navigate(['/espace-admin']);
       })
       .catch((error) => {
         alert(error.message);
