@@ -30,7 +30,7 @@ This is a full-stack web application inspired by Moodle, built using:
    ```bash
    git clone [your-repo-url]
    cd Moodle-Angular
-   npm install
+   
 
 2. **Backend Setup**:
    ```bash
@@ -38,6 +38,7 @@ This is a full-stack web application inspired by Moodle, built using:
     npm install
 
 3. **Frontend Setup**:
+    ```bash
     cd Moodle-Angular 
     npm install
 
