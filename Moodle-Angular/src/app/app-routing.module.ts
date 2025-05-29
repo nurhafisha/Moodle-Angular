@@ -7,12 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { FormComponent } from './components/form/form.component'; // Import the FormComponent
 import { PageadminComponent } from './pages/pageadmin/pageadmin.component';
 
+
 // Define routes
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
-  { path: 'form', component: FormComponent },
   { path: 'espace-admin', component: PageadminComponent },
 ];
 

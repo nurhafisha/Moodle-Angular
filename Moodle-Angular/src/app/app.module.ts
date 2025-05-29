@@ -19,6 +19,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageadminComponent } from './pages/pageadmin/pageadmin.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { UETableComponent } from './components/ue-table/ue-table.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -44,6 +47,8 @@ import { UETableComponent } from './components/ue-table/ue-table.component';
     AngularFireAuthModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
