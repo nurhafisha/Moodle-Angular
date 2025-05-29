@@ -19,7 +19,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageadminComponent } from './pages/page-admin/page-admin.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { UETableComponent } from './components/ue-table/ue-table.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { SectionComponent } from './components/section/section.component';
+
 
 @NgModule({
   declarations: [
@@ -46,6 +49,8 @@ import { SectionComponent } from './components/section/section.component';
     AngularFireAuthModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

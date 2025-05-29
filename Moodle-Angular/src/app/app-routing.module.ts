@@ -8,12 +8,12 @@ import { FormComponent } from './components/form/form.component'; // Import the 
 import { PageadminComponent } from './pages/page-admin/page-admin.component';
 import { ContenuUeComponent } from './pages/contenu-ue/contenu-ue.component';
 
+
 // Define routes
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
-  { path: 'form', component: FormComponent },
   { path: 'espace-admin', component: PageadminComponent },
   { path: 'mes-cours', component: ContenuUeComponent },
 ];
