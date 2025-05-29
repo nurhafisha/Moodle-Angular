@@ -1,0 +1,2 @@
+{"_id" : 1, "id_user" : 1, "datetime_activite" : "2025-05-29T10:20:00Z", "type_activite" : "connexion", "detail" : null}
+{"_id" : 2, "id_user" : 1, "datetime_activite" : "2025-05-26T10:30:00Z", "type_activite" : "consulter_ue", "detail" : {"id_ue" : "DA51"}}

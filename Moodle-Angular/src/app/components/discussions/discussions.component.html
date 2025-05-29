@@ -1,0 +1,60 @@
+<div class="container py-4">
+    <h1 class="mb-4">Forum de discussion</h1>
+
+    <!-- Nouveau message -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Créer un nouveau message</h5>
+        <form>
+          <div class="mb-3">
+            <label for="pseudo" class="form-label">Pseudo</label>
+            <input type="text" class="form-control" id="pseudo" placeholder="Votre nom">
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" rows="4" placeholder="Votre message..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Fil de discussion -->
+    <div class="card mb-3">
+      <div class="card-header bg-primary text-white">
+        <strong>Jean</strong> • 25 mai 2025
+      </div>
+      <div class="card-body">
+        <p>Bonjour à tous ! Quel est selon vous le meilleur framework web en 2025 ?</p>
+        <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#reponse1">Répondre</button>
+
+        <!-- Réponse -->
+        <div class="collapse mt-3" id="reponse1">
+          <div class="card card-body">
+            <form>
+              <div class="mb-2">
+                <label for="pseudo-rep1" class="form-label">Pseudo</label>
+                <input type="text" class="form-control" id="pseudo-rep1">
+              </div>
+              <div class="mb-2">
+                <label for="message-rep1" class="form-label">Réponse</label>
+                <textarea class="form-control" id="message-rep1" rows="2"></textarea>
+              </div>
+              <button class="btn btn-sm btn-primary">Envoyer</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Réponse existante -->
+    <div class="card ms-4 mb-3 border-start border-3 border-secondary">
+      <div class="card-header bg-secondary text-white">
+        <strong>Marie</strong> • 25 mai 2025
+      </div>
+      <div class="card-body">
+        <p>Je pense que Next.js est toujours en tête, surtout avec les progrès récents côté performance.</p>
+      </div>
+    </div>
+
+  </div>
