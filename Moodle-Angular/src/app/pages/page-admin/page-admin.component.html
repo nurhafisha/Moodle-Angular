@@ -1,8 +1,9 @@
+<app-navbar></app-navbar>
 <main>
   <div class="header pb-3">
-    <h2>Catalogue ⚙️</h2>
+    <h2>Administrateur ⚙️</h2>
   </div>
-  <div>
+  <div class="container-fluid">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button
@@ -40,6 +41,10 @@
         role="tabpanel"
         aria-labelledby="gestionUser"
       >
+        <div class="d-flex align-items-center justify-content-between mt-3">
+          <h5 class="fw-bold">Liste des utilisateurs</h5>
+          <button class="btn btn-sm btn-success">Ajouter utilsateur</button>
+        </div>
         <!-- Composant pour la table des utilisateurs -->
         <app-user-table></app-user-table>
       </div>
@@ -49,6 +54,10 @@
         role="tabpanel"
         aria-labelledby="gestionUe"
       >
+        <div class="d-flex align-items-center justify-content-between mt-3">
+          <h5 class="fw-bold">Liste des UEs</h5>
+          <button class="btn btn-sm btn-success">Ajouter UE</button>
+        </div>
         <!-- Composant pour la table des UEs -->
         <app-ue-table></app-ue-table>
       </div>
