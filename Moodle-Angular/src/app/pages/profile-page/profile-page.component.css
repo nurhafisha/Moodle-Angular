@@ -1,0 +1,56 @@
+/* Add some top margin to the form for better separation from surrounding content */
+form {
+  margin-top: 20px;
+  max-width: 500px; /* Limit the width of the form for better readability */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  border: 1px solid #dee2e6; /* Light border similar to Bootstrap cards */
+  border-radius: 0.25rem; /* Rounded corners */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Subtle shadow */
+}
+
+/* Add margin-bottom to form controls for consistent vertical spacing */
+.col-md-12:not(:last-child) {
+  margin-bottom: 15px; /* Adjust as needed */
+}
+
+/* Style for the image preview and file input container */
+.col-md-12.text-center.mb-3 {
+  margin-bottom: 20px; /* More space below the image section */
+}
+
+/* Style for the image preview */
+.rounded-circle {
+  border: 3px solid #007bff; /* Highlight the profile image with a primary color border */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+}
+
+/* Style for the file input */
+input[type="file"] {
+  max-width: 250px; /* Limit the width of the file input */
+  margin-left: auto;
+  margin-right: auto;
+  display: block; /* Make it a block element to apply margin: auto for centering */
+}
+
+/* Style for the submit button container */
+.form-button.mt-3 {
+  text-align: center; /* Center the button */
+  margin-top: 20px; /* Add some top margin */
+}
+
+/* General improvements for form inputs */
+.form-control {
+  padding: 0.75rem 1rem; /* Slightly larger padding for better touch targets */
+  font-size: 1rem; /* Ensure consistent font size */
+}
+
+/* Disabled input field styling */
+input[formControlName="role"][disabled],
+.form-control[disabled] {
+  background-color: #e9ecef; /* Bootstrap's default light grey background */
+  color: #343a40; /* A dark, readable color (e.g., Bootstrap's $gray-800) */
+  opacity: 1; /* Ensure it's not made semi-transparent */
+  cursor: not-allowed; /* Keep the 'not-allowed' cursor */
+}
