@@ -1,5 +1,8 @@
-import { AuthService } from "./services/auth.service";
 
+
+
+//pour reusabilité de API url 
 export const apiUrls = {
-    AuthService: 'http://localhost:8800/backend/auth/'
+    AuthService: 'http://localhost:8800/backend/auth/',
+    user: 'http://localhost:8800/backend/user/',
 }

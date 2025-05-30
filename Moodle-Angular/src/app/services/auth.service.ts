@@ -9,7 +9,9 @@ import { apiUrls } from '../backend_urls';
 })
 export class AuthService {
 
+
  constructor(private http: HttpClient ){}
+
   registerService(registerObj: any){
     return this.http.post<any>(`${apiUrls.AuthService}register`, registerObj);
   }
@@ -18,7 +20,8 @@ export class AuthService {
     return this.http.post<any>(`${apiUrls.AuthService}login`, loginObj);
   }
 
-  // TODO: Logout 
+  
+
 
 }
 

@@ -22,6 +22,9 @@ import { UETableComponent } from './components/ue-table/ue-table.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SectionComponent } from './components/section/section.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 
 @NgModule({
@@ -41,6 +44,7 @@ import { SectionComponent } from './components/section/section.component';
     UserTableComponent,
     UETableComponent,
     SectionComponent,
+    ProfilePageComponent,
   ],
 
   imports: [
@@ -52,7 +56,14 @@ import { SectionComponent } from './components/section/section.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+
+  // JWT Components: 
+  providers: [ 
+  {provide: HTTP_INTERCEPTORS,
+  useClass: AuthInterceptor,
+  multi: true}],
+
   bootstrap: [AppComponent],
+
 })
 export class AppModule {}
