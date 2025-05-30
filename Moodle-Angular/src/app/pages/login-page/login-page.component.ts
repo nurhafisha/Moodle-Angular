@@ -17,7 +17,7 @@ export class LoginPageComponent implements OnInit {
   errorMessage: string = '';
 
   // Toast properties
-    // Toast properties
+
   @ViewChild('liveToast', { static: false }) liveToast!: ElementRef;
   toastMessage = '';
   toastType: 'success' | 'error' = 'success';
@@ -38,33 +38,44 @@ export class LoginPageComponent implements OnInit {
      
     
     ) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    })
+      this.loginForm = this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]]
+      })
 
    }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {    
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userId');
+  }
 
 
   login(){
     this.authService.loginService(this.loginForm.value)
     .subscribe({
       next:(res)=>{
-        //alert message
+        
+        //JWT Token : 
+        localStorage.setItem('authToken', res.token); 
+        localStorage.setItem('userRole', res.data.role);
+        localStorage.setItem('userId', res.data._id); 
+
+
         this.showToast('success', 'Login réussie !');
-        setTimeout(() => this.router.navigate(['/espace-admin']), 2000); // TODO : Tukar to contenue-Ue
+        setTimeout(() => this.router.navigate(['/profile']), 2000); 
       },
         error: (err) => {
       console.error('Login échoué', err);
-      // Show user-friendly message
+      
       this.errorMessage = err.error?.message || 'Échec de la connexion. Veuillez vérifier vos identifiants.';
       this.showToast('error', this.errorMessage);
     }
     })
   }
 
+  // fonction montrer/cacher mot de passe
   showPassword: boolean = false;
   togglePasswordVisibility() {this.showPassword = !this.showPassword;}
 
