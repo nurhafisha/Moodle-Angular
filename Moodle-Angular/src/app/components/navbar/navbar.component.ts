@@ -26,7 +26,9 @@ export class NavbarComponent implements OnInit {
   logout() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('userRole');
-    this.role = null; // Immediately clear role
+    this.role = null; 
     this.router.navigate(['/login']);
   }
-}
+ }
+
+
