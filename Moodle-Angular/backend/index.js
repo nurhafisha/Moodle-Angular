@@ -13,10 +13,7 @@ dotenv.config();
 //Middleware
 app.use(express.json()); // pour parser les requêtes JSONs
 app.use(cookieParser());
-app.use(cors({
-    origin: 'http://localhost:4200',
-    credentials: true
-}))
+app.use(cors({origin: 'http://localhost:4200',credentials: true}))
 app.use("/backend/auth", authRoute);
 app.use("/backend/user" , userRoute);
 
@@ -45,9 +42,6 @@ const connectMongoDB = async () => {
         process.exit(1); 
     }};
 
-// api endpoints
-
-app.use("/backend/auth", authRoute)
 
 // demarrer les serveur
 app.listen(8800, () => {
