@@ -3,17 +3,27 @@ import bcrypt from 'bcryptjs';
 import { CreateError, CreateSuccess } from "../utils/responseHandler.js";
 import jwt from 'jsonwebtoken';
 
-// auth-controller : #login , register controller backend
+/**
+* Enregistrer un nouvel utilisateur
+* - Valider et hacher le mot de passe
+* - Créer un nouveau document utilisateur
+* - L'enregistrer dans MongoDB
+*/
 
-// Fonction pour enregistrer un nouvel utilisateur
 export const register = async (req, res , next) => {
 
     try{
-    console.log("Incoming registration data:", req.body); // Debug (pour verifier sur le terminal)
+
+    // Verifier password
+    if (!req.body.password || req.body.password.length < 6) {
+      return next(CreateError(400, "Le mot de passe doit contenir au moins 6 caractères"));
+    }
+
     // Chiffrer le mot de passe
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
+    // Créer une nouvelle instance utilisateur
     const newUser = new User({
         nom: req.body.nom,
         prenom: req.body.prenom,
@@ -23,46 +33,52 @@ export const register = async (req, res , next) => {
         role: req.body.role 
     });
 
-    await newUser.save() //pour enregistre sur mongoDB
-    return next(CreateSuccess(201, "User registered successfully", newUser));
+    // Pour enregistre sur mongoDB
+    await newUser.save() 
+    return next(CreateSuccess(201, "Utilisateur enregistré avec succès", newUser));
     } catch (error) {
-    return next(CreateError(500, "Registration failed", error));
+    return next(CreateError(500, "L'inscription a échoué", error));
     }
 
 }
 
-// Fonction Login
+/**
+*  Connexion d'un utilisateur:
+* - Vérification de l'adresse e-mail et du mot de passe
+* - Émission d'un jeton JWT
+* - Renvoie le jeton et les informations de l'utilisateur (sans mot de passe)
+*/
 export const login = async (req, res , next) => {
 
     try {
         
+        // Rechercher un utilisateur par e-mail
         const user = await User.findOne({ email: req.body.email });
-
         if(!user) {
             return next(CreateError(404, "User not found"));
         }
 
-        // check if password correct 
+        // Comparez le mot de passe saisi avec le mot de passe haché
         const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
         if(!isPasswordValid) {
             return next(CreateError(401, "Invalid password"));
         }
-
+        // Créer un jeton JWT avec l'ID utilisateur et le rôle comme charge utile
         const token = jwt.sign(
             { id: user._id, role: user.role }, // payload
             process.env.JWT_SECRET,            // secret key from .env                 
         );
 
-        res.cookie("access_token" , token, {httpOnly: true})
-        .status(200)
-        .json({
-            status: 200,
-            message: "Login Successful",
-            data: user
-        })
+        /// Renvoie le jeton et les données utilisateur (le mot de passe n'est pas inclus)
+        res.status(200).json({
+        status: 200,
+        message: "Login Réussi",
+        token: token, 
+        data: user   
+        });
     }
     catch (error) {
-       return next(CreateError(500, "Login failed", error));
+       return next(CreateError(500, "Login échoué", error));
     }
 }
 
