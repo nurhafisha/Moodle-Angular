@@ -24,7 +24,8 @@
 
   <div class="mt-3">
     <app-section *ngIf="selectedTab === 'post'"
-    [posts]="ueData?.posts"
+    [cours]="ueData?.cours"
+    [ressources]="ueData?.ressources"
     [devoirs]="ueData?.devoirs"></app-section>
     <app-discussions *ngIf="selectedTab === 'discussions'"
     [forums]="ueData?.forums"></app-discussions>

@@ -6,7 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./section.component.css']
 })
 export class SectionComponent{
-  @Input() posts: any[] = [];
+  @Input() cours: any[] = [];
+  @Input() ressources: any[] = [];
   @Input() devoirs: any[] = [];
   @Input() forums: any[] = [];
 }

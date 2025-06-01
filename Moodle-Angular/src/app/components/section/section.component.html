@@ -8,7 +8,7 @@
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#foldedList">
       <div class="accordion-body">
-        <app-post [posts]="posts"></app-post>
+        <app-post [cours]="cours"></app-post>
       </div>
     </div>
   </div>
@@ -21,9 +21,7 @@
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#foldedList">
       <div class="accordion-body">
-        <ul>
-            <app-devoir [devoirs]="devoirs"></app-devoir>
-        </ul>
+        <app-devoir [devoirs]="devoirs"></app-devoir>
       </div>
     </div>
   </div>
@@ -36,22 +34,9 @@
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#foldedList">
       <div class="accordion-body">
-        <ul>
-          <app-post [posts]="posts"></app-post>
-        </ul>
+        <app-post [ressources]="ressources"></app-post>
       </div>
     </div>
   </div>
 
 </div>
-
-<div *ngIf="posts; else loading">
-  <h4>Posts</h4>
-  <ul>
-    <li *ngFor="let post of posts">{{ post.titre_post }}</li>
-  </ul>
-</div>
-
-<ng-template #loading>
-  <p>Loading UE content...</p>
-</ng-template>

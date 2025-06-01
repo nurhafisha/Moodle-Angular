@@ -6,5 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent{
-  @Input() posts: any[] = [];
+  @Input() cours: any[] = [];
+  @Input() ressources: any[] = [];
 }
