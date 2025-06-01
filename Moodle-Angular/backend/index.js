@@ -18,7 +18,7 @@ app.use(cors({origin: 'http://localhost:4200',credentials: true}))
 app.use("/backend/auth", authRoute);
 app.use("/backend/user" , userRoute);
 app.use("/backend/ues", ueRoute);
-
+app.use('/uploads', express.static('uploads'));
 
 //Response handling middleware
 app.use((obj, req, res, next) => {
