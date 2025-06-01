@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-contenu-ue',
@@ -6,16 +8,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contenu-ue.component.css']
 })
 export class ContenuUeComponent implements OnInit {
+  selectedTab: string = 'post';
+  ueId: string | null = null;
+  ueData: any = null;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
+    this.ueId = this.route.snapshot.paramMap.get('id');
+    if (this.ueId) {
+      this.fetchUeData();
+    }
   }
 
-  selectedTab = 'post';
-
-  selectTab(tab: string) {
+  selectTab(tab: string): void {
     this.selectedTab = tab;
   }
 
+  fetchUeData(): void {
+    this.http.get<any>(`http://localhost:8800/backend/ues/${this.ueId}`, { withCredentials: true })
+      .subscribe({
+        next: (res) => {
+          // Adjust based on actual API response
+          this.ueData = res.data ?? res; 
+        },
+        error: (err) => {
+          console.error('Failed to fetch UE data:', err);
+        }
+      });
+  }
 }

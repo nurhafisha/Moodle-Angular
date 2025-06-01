@@ -11,32 +11,39 @@
             "desc_post" : "Voici le powerpoint de CM1 le lundi dernier. Veuillez consulter cette slide avant le prochain cours",
             "datetime_publier" : "2025-05-28T10:20:00Z",
             "fichier_joint" : null,
-            "type_post" : "devoir"
+            "type_post" : "cours"
         },
         {
             "_id" : 2,
-            "titre_post" : "Support du cours CM1",
-            "desc_post" : "Voici le powerpoint de CM1 le lundi dernier. Veuillez consulter cette slide avant le prochain cours",
-            "datetime_publier" : "2025-05-28T10:20:00Z",
+            "titre_post" : "Support du cours CM2",
+            "desc_post" : "Voici le powerpoint de CM2 le lundi dernier. Veuillez consulter cette slide avant le prochain cours",
+            "datetime_publier" : "2025-06-29T10:20:00Z",
             "fichier_joint" : null,
-            "type_post" : "devoir"
+            "type_post" : "cours"
         }
     ],
     "forums" : [
         {
             "_id" : 2,
+            "id_user": {
+                "$oid": "683866005e2b55389c42e26a"
+            },
             "sujet" : "Bonjour, quand est-ce que l'examen final aura lieu?",
             "datetime_publier" : "2025-05-28T10:00:00Z",
             "reponses" : [
                 {
                     "_id" : 1,
-                    "id_user" : 2,
+                    "id_user" : {
+                        "$oid": "683c11202eb69e5ee7c8f642"
+                    },
                     "message" : "Personne ne le sait",
                     "datetime_publier" : "2025-05-28T10:20:00Z"
                 },
                 {
                     "_id" : 2,
-                    "id_user" : 1,
+                    "id_user" : {
+                        "$oid": "6838beb572dad895317807b7"
+                    },
                     "message" : "Pour information l'examen finale aura lieu le lundi 23 juin. Merci.",
                     "datetime_publier" : "2025-05-28T10:30:00Z"
                 }
@@ -47,6 +54,7 @@
         {
             "_id" : 1,
             "titre_devoir" : "Mini-projet TP1",
+            "desc_devoir" : "Veuillez rendre votre mini-projet de tp1",
             "datetime_debut" : "2025-05-28T10:20:00Z",
             "datetime_fin" : "2025-06-28T10:20:00Z",
             "depots" : [

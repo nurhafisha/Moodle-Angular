@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'espace-admin', component: PageadminComponent , canActivate: [RoleGuard], data: { expectedRoles: ['Admin']}},
   { path: 'mes-cours', component: ChoixUeComponent , canActivate: [RoleGuard], data: { expectedRoles: ['Etudiant', 'Enseignant', 'Admin']}},
   { path: 'profile' , component :ProfilePageComponent },
-  { path: 'UE', component: ContenuUeComponent },
+  { path: 'mes-cours/:id', component: ContenuUeComponent },
 
 ];
 

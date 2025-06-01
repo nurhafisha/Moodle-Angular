@@ -1,9 +1,9 @@
-<div class="container mt-4" *ngFor="let post of posts">
+<div class="container mt-4" *ngFor="let devoir of devoirs">
   <div class="note-card bg-light bg-gradient shadow-sm">
     <div class="d-flex justify-content-between mb-2">
       <div class="d-flex align-items-center mb-2 w-auto">
         <i class="bi bi-exclamation-circle-fill me-2"></i>
-        <strong class="me-2">{{ post.titre_post }}</strong>
+        <strong class="me-2">{{ devoir.titre_devoir }}</strong>
         <button type="button" class="btn btn-sm btn-primary me-2" title="Edit">
           <i class="bi bi-pencil-square"></i>
         </button>
@@ -11,10 +11,11 @@
           <i class="bi bi-trash"></i>
         </button>
       </div>
-      <div class="timestamp">{{ post.datetime_publier | date:'short' }}</div>
+      <div class="timestamp">{{ devoir.datetime_debut | date:'short' }}</div>
+      <div class="timestamp">{{ devoir.datetime_fin | date:'short' }}</div>
     </div>
     <p class="mb-0 text-muted">
-      {{ post.desc_post }}
+      {{ devoir.desc_devoir }}
     </p>
   </div>
 </div>

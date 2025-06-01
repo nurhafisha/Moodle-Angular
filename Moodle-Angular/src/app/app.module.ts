@@ -25,6 +25,7 @@ import { SectionComponent } from './components/section/section.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { DevoirComponent } from './components/section/devoir/devoir.component';
 
 
 @NgModule({
@@ -45,6 +46,8 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     UETableComponent,
     SectionComponent,
     ProfilePageComponent,
+    SectionComponent,
+    DevoirComponent,
   ],
 
   imports: [

@@ -17,7 +17,7 @@ router.put('/:id', verifyToken, upload.single('profilePictureFile'), updateUser)
 
 // (Optional) Des routes d'administration supplémentaires peuvent être réactivées ultérieurement :
 
-//router.get('/', verifyToken, verifyAdmin, getAllUsers);
+router.get('/', getAllUsers);
 //router.get('/:id', verifyToken, getById);
 //router.delete('/:id', verifyToken, verifyAdmin, deleteUser);
 
