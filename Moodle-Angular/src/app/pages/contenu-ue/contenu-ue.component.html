@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="container mt-4">
-  <h3>{{ ueId }} : {{ ueData.titre_ue }}</h3>
+  <h3>{{ ueId }} : {{ ueData?.titre_ue }}</h3>
   <ul class="nav nav-tabs">
     <li class="nav-item">
       <a
@@ -24,6 +24,7 @@
 
   <div class="mt-3">
     <app-section *ngIf="selectedTab === 'post'"
+    [id_ue]="ueData?.id_ue"
     [cours]="ueData?.cours"
     [ressources]="ueData?.ressources"
     [devoirs]="ueData?.devoirs"></app-section>

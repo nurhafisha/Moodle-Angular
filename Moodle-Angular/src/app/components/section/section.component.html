@@ -8,6 +8,7 @@
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#foldedList">
       <div class="accordion-body">
+        <app-cours-form (coursAdded)="onCoursAdded($event)"></app-cours-form>
         <app-post [cours]="cours"></app-post>
       </div>
     </div>
@@ -34,9 +35,37 @@
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#foldedList">
       <div class="accordion-body">
+        <app-ressource-form (ressourceAdded)="onRessourceAdded($event)"></app-ressource-form>
         <app-post [ressources]="ressources"></app-post>
       </div>
     </div>
   </div>
 
+</div>
+
+<!-- Toast Notification -->
+<div
+  class="toast-container position-fixed bottom-0 end-0 p-3"
+  style="z-index: 1100"
+>
+  <div
+    class="toast align-items-center text-white"
+    [ngClass]="toastClass"
+    role="alert"
+    [class.show]="showToast"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ toastMessage }}
+      </div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        (click)="showToast = false"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
 </div>
