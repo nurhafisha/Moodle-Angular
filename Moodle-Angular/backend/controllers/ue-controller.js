@@ -68,3 +68,31 @@ export const createRessource = async (req, res) => {
     res.status(500).json({ message: "Error creating Ressource", error: err.message || err });
   }
 };
+
+export const createDevoir = async (req, res) => {
+  try {
+    const { titre_devoir, desc_devoir, datetime_debut, datetime_fin, depots } = req.body;
+
+    const ue = await UE.findById(req.params.id);
+    if (!ue) {
+      return res.status(404).json({ message: "UE not found" });
+    }
+
+    ue.devoirs.push({
+      titre_devoir,
+      desc_devoir,
+      datetime_debut,
+      datetime_fin,
+      depots
+    });
+
+    await ue.save();
+
+    const addedDevoir = ue.devoirs[ue.devoirs.length - 1];
+
+    res.status(201).json(addedDevoir);
+  } catch (err) {
+    console.error('Erreur lors de la création du devoir :', err);
+    res.status(500).json({ message: "Error creating devoir", error: err.message || err });
+  }
+};

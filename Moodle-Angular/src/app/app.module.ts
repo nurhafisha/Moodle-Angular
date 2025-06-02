@@ -28,6 +28,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { DevoirComponent } from './components/section/devoir/devoir.component';
 import { CoursFormComponent } from './components/cours-form/cours-form.component';
 import { RessourceFormComponent } from './components/ressources-form/ressource-form.component';
+import { DevoirFormComponent } from './components/devoir-form/devoir-form.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { RessourceFormComponent } from './components/ressources-form/ressource-f
     DevoirComponent,
     CoursFormComponent,
     RessourceFormComponent,
+    DevoirFormComponent
   ],
 
   imports: [

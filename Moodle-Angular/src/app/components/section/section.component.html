@@ -22,6 +22,7 @@
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#foldedList">
       <div class="accordion-body">
+        <app-devoir-form (devoirAdded)="onDevoirAdded($event)"></app-devoir-form>
         <app-devoir [devoirs]="devoirs"></app-devoir>
       </div>
     </div>

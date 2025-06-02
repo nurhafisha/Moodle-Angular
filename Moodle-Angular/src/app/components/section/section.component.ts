@@ -30,6 +30,15 @@ export class SectionComponent{
     this.showNotification('Échec de l\'ajout de la ressource', 'error');
   }
 
+  onDevoirAdded(newDevoir: any) {
+    this.devoirs = [...this.devoirs, newDevoir];
+    this.showNotification('Ressource ajoutée avec succès', 'success');
+  }
+
+  onDevoirAddError() {
+    this.showNotification('Échec de l\'ajout de la ressource', 'error');
+  }
+
   toastMessage = '';
   toastClass = 'bg-success'; // or 'bg-danger'
   showToast = false;
