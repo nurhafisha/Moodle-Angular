@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-contenu-ue',
   templateUrl: './contenu-ue.component.html',
-  styleUrls: ['./contenu-ue.component.css']
+  styleUrls: ['./contenu-ue.component.css'],
 })
 export class ContenuUeComponent implements OnInit {
   selectedTab: string = 'post';
@@ -27,7 +27,7 @@ export class ContenuUeComponent implements OnInit {
   selectTab(tab: string): void {
     this.selectedTab = tab;
   }
-
+  
   fetchUeData(): void {
     this.http.get<any>(`http://localhost:8800/backend/ues/${this.ueId}`, { withCredentials: true })
       .subscribe({
