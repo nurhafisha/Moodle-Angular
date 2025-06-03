@@ -1,3 +1,90 @@
-{"_id" : 1, "email" : "enseignant.2025@utbm.fr", "role" : "enseignant", "password" : "123456", "nom" : "2025", "prenom": "Enseignant", "cours_inscrit" :["DA51"], "image" : null, "telephone" : "0123456789"}
-{"_id" : 2, "email" : "etudiant.2025@utbm.fr", "role" : "etudiant", "password" : "123456", "nom" : "2025", "prenom": "Etudiant", "cours_inscrit" :["DA51"], "image" : null, "telephone" : "0123456788"}
-{"_id" : 3, "email" : "etudiant.2026@utbm.fr", "role" : "etudiant", "password" : "123456", "nom" : "2026", "prenom": "Etudiant", "cours_inscrit" :["DA51"], "image" : null, "telephone" : "0123456787"}
+[{
+  "_id": {
+    "$oid": "68378146741f2ffb9cf79f73"
+  },
+  "nom": "enseignant",
+  "prenom": "1",
+  "email": "enseignant@utbm.fr",
+  "password": "$2b$10$XjFw46fMocoV2scsTAjMXO/RL83ZW8OWLWiQ3TQuJgx9NqzIeNEtG",
+  "profilePicture": "https://w3schools.com/howto/img_avatar.png",
+  "role": "Enseignant",
+  "createdAt": {
+    "$date": "2025-05-28T21:33:58.210Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T21:33:58.210Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683866005e2b55389c42e26a"
+  },
+  "nom": "etudiant",
+  "prenom": "1",
+  "email": "etudiant@utbm.fr",
+  "password": "$2b$10$aGpSgZFEh6P4K7KW/II5U.6FZguYycjc5t4fgnosLj6xx3vGqQnaa",
+  "profilePicture": "https://w3schools.com/howto/img_avatar.png",
+  "role": "Etudiant",
+  "createdAt": {
+    "$date": "2025-05-29T13:49:52.732Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-29T13:49:52.732Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683866555e2b55389c42e26e"
+  },
+  "nom": "Admin",
+  "prenom": "1",
+  "email": "admin@utbm.fr",
+  "password": "$2b$10$zMbQud9A7ne2HfT./OHQRuHkKTZPJzfkhpI90xCVQ.ZrLh/bZbY2W",
+  "profilePicture": "https://w3schools.com/howto/img_avatar.png",
+  "role": "Admin",
+  "createdAt": {
+    "$date": "2025-05-29T13:51:17.792Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-29T13:51:17.792Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6838beb572dad895317807b7"
+  },
+  "nom": "binti",
+  "prenom": "Nur",
+  "email": "nurhafisha@utbm.fr",
+  "password": "$2b$10$mM4ucATUfmkVyjW337oEk.dsfcHEBWYe/6H5/wzOtpskIk8qpIUaq",
+  "profilePicture": "https://w3schools.com/howto/img_avatar.png",
+  "role": "Enseignant",
+  "createdAt": {
+    "$date": "2025-05-29T20:08:21.847Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T15:42:32.003Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "683c11202eb69e5ee7c8f642"
+  },
+  "nom": "BINTI",
+  "prenom": "Fatin",
+  "email": "fatin@gmail.com",
+  "password": "$2b$10$/8v4sfxOoatG8tXuDde4PeEa8xQC/X78g5GZ7tq5H4SXVbPpKnRza",
+  "profilePicture": "https://w3schools.com/howto/img_avatar.png",
+  "role": "Etudiant",
+  "createdAt": {
+    "$date": "2025-06-01T08:36:48.296Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-01T08:41:32.818Z"
+  },
+  "__v": 0
+}]

@@ -25,6 +25,10 @@ import { SectionComponent } from './components/section/section.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { DevoirComponent } from './components/section/devoir/devoir.component';
+import { CoursFormComponent } from './components/cours-form/cours-form.component';
+import { RessourceFormComponent } from './components/ressources-form/ressource-form.component';
+import { DevoirFormComponent } from './components/devoir-form/devoir-form.component';
 
 
 @NgModule({
@@ -45,6 +49,11 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     UETableComponent,
     SectionComponent,
     ProfilePageComponent,
+    SectionComponent,
+    DevoirComponent,
+    CoursFormComponent,
+    RessourceFormComponent,
+    DevoirFormComponent
   ],
 
   imports: [

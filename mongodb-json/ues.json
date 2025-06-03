@@ -1,74 +1,86 @@
 {
-    "_id": "DA51",
-    "titre_ue": "Blockchain and Distributed Systems",
-    "enseignants": [1],
-    "etudiants": [2, 3],
-    "image_ue" : null,
-    "posts" : [
+  "_id": "DA51",
+  "titre_ue": "Blockchain and Distributed Systems",
+  "enseignants": [],
+  "etudiants": [],
+  "image_ue": null,
+  "cours": [
+    {
+      "titre_cours": "Support du cours CM1",
+      "desc_cours": "Voici le powerpoint de CM1 le lundi dernier. Veuillez consulter cette slide avant le prochain cours",
+      "datetime_publier": "2025-05-28T10:20:00Z",
+      "fichier_joint": "uploads/cm1.pdf"
+    },
+    {
+      "titre_cours": "Support du cours CM2",
+      "desc_cours": "Voici le powerpoint de CM2 le lundi dernier. Veuillez consulter cette slide avant le prochain cours",
+      "datetime_publier": "2025-06-29T10:20:00Z",
+      "fichier_joint": "uploads/cm1.pdf"
+    }
+  ],
+  "ressources": [
+    {
+      "titre_ressource": "Ressources TP1",
+      "desc_ressource": "Fichier TP1",
+      "datetime_publier": "2025-05-28T10:20:00Z",
+      "fichier_joint": "uploads/cm1.pdf"
+    },
+    {
+      "titre_ressource": "Ressources TP2",
+      "desc_ressource": "Fichier pour TP2",
+      "datetime_publier": "2025-06-29T10:20:00Z",
+      "fichier_joint": "uploads/cm1.pdf"
+    }
+  ],
+  "forums": [
+    {
+      "id_user": {
+        "$oid": "683866005e2b55389c42e26a"
+      },
+      "sujet": "Bonjour, quand est-ce que l'examen final aura lieu?",
+      "datetime_publier": "2025-05-28T10:00:00Z",
+      "reponses": [
         {
-            "_id" : 1,
-            "titre_post" : "Support du cours CM1",
-            "desc_post" : "Voici le powerpoint de CM1 le lundi dernier. Veuillez consulter cette slide avant le prochain cours",
-            "datetime_publier" : "2025-05-28T10:20:00Z",
-            "fichier_joint" : null,
-            "type_post" : "devoir"
+          "id_user": {
+            "$oid": "683c11202eb69e5ee7c8f642"
+          },
+          "message": "Personne ne le sait",
+          "datetime_publier": "2025-05-28T10:20:00Z"
         },
         {
-            "_id" : 2,
-            "titre_post" : "Support du cours CM1",
-            "desc_post" : "Voici le powerpoint de CM1 le lundi dernier. Veuillez consulter cette slide avant le prochain cours",
-            "datetime_publier" : "2025-05-28T10:20:00Z",
-            "fichier_joint" : null,
-            "type_post" : "devoir"
+          "id_user": {
+            "$oid": "6838beb572dad895317807b7"
+          },
+          "message": "Pour information l'examen finale aura lieu le lundi 23 juin. Merci.",
+          "datetime_publier": "2025-05-28T10:30:00Z"
         }
-    ],
-    "forums" : [
+      ]
+    }
+  ],
+  "devoirs": [
+    {
+      "titre_devoir": "Mini-projet TP1",
+      "desc_devoir": "Veuillez rendre votre mini-projet de tp1",
+      "datetime_debut": "2025-05-28T10:20:00Z",
+      "datetime_fin": "2025-06-28T10:20:00Z",
+      "depots": [
         {
-            "_id" : 2,
-            "sujet" : "Bonjour, quand est-ce que l'examen final aura lieu?",
-            "datetime_publier" : "2025-05-28T10:00:00Z",
-            "reponses" : [
-                {
-                    "_id" : 1,
-                    "id_user" : 2,
-                    "message" : "Personne ne le sait",
-                    "datetime_publier" : "2025-05-28T10:20:00Z"
-                },
-                {
-                    "_id" : 2,
-                    "id_user" : 1,
-                    "message" : "Pour information l'examen finale aura lieu le lundi 23 juin. Merci.",
-                    "datetime_publier" : "2025-05-28T10:30:00Z"
-                }
-            ]
-        }
-    ],
-    "devoirs" : [
+          "id_etudiant": 2,
+          "fichier": "uploads/cm1.pdf",
+          "datetime": "2025-05-29T10:20:00Z",
+          "etat": "corrigé",
+          "note": 18,
+          "commentaire": "Merci d'envoyer votre travail. Il est parfait."
+        },
         {
-            "_id" : 1,
-            "titre_devoir" : "Mini-projet TP1",
-            "datetime_debut" : "2025-05-28T10:20:00Z",
-            "datetime_fin" : "2025-06-28T10:20:00Z",
-            "depots" : [
-                {   
-                    "_id" : 1,
-                    "id_etudiant" : 2,
-                    "fichier" : null,
-                    "datetime" : "2025-05-29T10:20:00Z",
-                    "etat" : "corrigé",
-                    "note" : 18,
-                    "commentaire" : "Merci d'envoyer votre travail. Il est parfait."
-                },
-                {
-                    "_id" : 2,
-                    "id_etudiant" : 3,
-                    "fichier" : null,
-                    "datetime" : "2025-05-29T10:20:00Z",
-                    "etat" : "en attente",
-                    "note" : null,
-                    "commentaire" : null
-                }
-            ]
+          "id_etudiant": 3,
+          "fichier": "uploads/cm1.pdf",
+          "datetime": "2025-05-29T10:20:00Z",
+          "etat": "en attente",
+          "note": null,
+          "commentaire": null
         }
-    ]
+      ]
+    }
+  ]
 }

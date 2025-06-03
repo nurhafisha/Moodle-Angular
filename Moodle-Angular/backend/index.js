@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoute from "./routes/auth.js";
 import userRoute from "./routes/user.js";
+import ueRoute from "./routes/ue.js";
 import cookieParser from "cookie-parser";
 import cors from 'cors';
 
@@ -16,7 +17,8 @@ app.use(cookieParser());
 app.use(cors({origin: 'http://localhost:4200',credentials: true}))
 app.use("/backend/auth", authRoute);
 app.use("/backend/user" , userRoute);
-
+app.use("/backend/ues", ueRoute);
+app.use('/uploads', express.static('uploads'));
 
 //Response handling middleware
 app.use((obj, req, res, next) => {

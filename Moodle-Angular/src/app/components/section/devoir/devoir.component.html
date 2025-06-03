@@ -1,0 +1,22 @@
+<div class="container mt-4" *ngFor="let devoir of devoirs">
+  <div class="note-card bg-light bg-gradient shadow-sm">
+    <div class="d-flex justify-content-between mb-2">
+      <div class="d-flex align-items-center mb-2 w-auto">
+        <strong class="me-2">{{ devoir.titre_devoir }}</strong>
+        <button type="button" class="btn btn-sm btn-primary me-2" title="Edit">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+        <button type="button" class="btn btn-sm btn-danger" title="Delete">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+      <div class="d-flex">
+        <div class="timestamp"><strong>DE : </strong> {{ devoir.datetime_debut | date:'short' }}</div>
+        <div class="timestamp"><strong>À : </strong>{{ devoir.datetime_fin | date:'short' }}</div>
+      </div>
+    </div>
+    <p class="mb-0 text-muted">
+      {{ devoir.desc_devoir }}
+    </p>
+  </div>
+</div>
