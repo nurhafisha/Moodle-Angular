@@ -1,39 +1,41 @@
-<table class="styled-table">
-  <thead>
-    <tr>
-      <th scope="col">Code UE</th>
-      <th scope="col">Name UE</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let ue of ues">
-      <td>{{ ue.code }}</td>
-      <td>{{ ue.name }}</td>
-      <td>
-        <div class="d-flex align-items-center">
-          <!-- Button trigger modal -->
-          <button
-            type="button"
-            class="btn btn-sm btn-warning"
-            data-bs-toggle="modal"
-            data-bs-target="#ue-modify"
-          >
-            Modifier
-          </button>
-          <button
-            type="button"
-            class="btn btn-sm btn-danger ms-2"
-            data-bs-toggle="modal"
-            data-bs-target="#ue-delete"
-          >
-            Supprimer
-          </button>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th scope="col">Code UE</th>
+        <th scope="col">Name UE</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ue of ues">
+        <td>{{ ue._id }}</td>
+        <td>{{ ue.titre_ue }}</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <!-- Button trigger modal -->
+            <button
+              type="button"
+              class="btn btn-sm btn-warning"
+              data-bs-toggle="modal"
+              data-bs-target="#ue-modify"
+            >
+              Modifier
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-danger ms-2"
+              data-bs-toggle="modal"
+              data-bs-target="#ue-delete"
+            >
+              Supprimer
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <!-- Modal -->
 <div
