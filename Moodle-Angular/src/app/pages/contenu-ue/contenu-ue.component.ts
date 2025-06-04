@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { apiUrls } from 'src/app/backend_urls';
 
 @Component({
   selector: 'app-contenu-ue',
@@ -29,7 +30,7 @@ export class ContenuUeComponent implements OnInit {
   }
   
   fetchUeData(): void {
-    this.http.get<any>(`http://localhost:8800/backend/ues/${this.ueId}`, { withCredentials: true })
+    this.http.get<any>(apiUrls.ue+`${this.ueId}`, { withCredentials: true })
       .subscribe({
         next: (res) => {
           // Adjust based on actual API response

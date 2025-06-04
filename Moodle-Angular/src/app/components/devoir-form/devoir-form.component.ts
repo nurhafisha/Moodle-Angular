@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { apiUrls } from 'src/app/backend_urls';
 
 @Component({
   selector: 'app-devoir-form',
@@ -32,7 +33,7 @@ export class DevoirFormComponent{
     formData.append('datetime_fin', this.devoir.datetime_fin);
 
 
-    this.http.post(`http://localhost:8800/backend/ues/new-devoir/${this.id_ue}`, formData)
+    this.http.post(apiUrls.ue+`new-devoir/${this.id_ue}`, formData)
       .subscribe({
         next: (res) => {
           console.log('Devoir ajoutée avec succès !', res);

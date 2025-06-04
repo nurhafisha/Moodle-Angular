@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between mb-2">
       <div class="d-flex align-items-center mb-2 w-auto">
         <strong class="me-2">
-          <a *ngIf="c.fichier_joint" href="http://localhost:8800/{{ c.fichier_joint }}" target="_blank" rel="noopener noreferrer">
+          <a *ngIf="c.fichier_joint" href="{{ rootUrl }}{{ c.fichier_joint }}" target="_blank" rel="noopener noreferrer">
           {{ c.titre_cours }}</a>
           <strong *ngIf="!c.fichier_joint">
           {{ c.titre_cours }}</strong>
@@ -11,7 +11,7 @@
         <button type="button" class="btn btn-sm btn-primary me-2" title="Edit">
           <i class="bi bi-pencil-square"></i>
         </button>
-        <button type="button" class="btn btn-sm btn-danger" title="Delete">
+        <button type="button" class="btn btn-sm btn-danger" title="Delete" (click)="deleteCours(c.id)">
           <i class="bi bi-trash"></i>
         </button>
       </div>
@@ -28,7 +28,7 @@
     <div class="d-flex justify-content-between mb-2">
       <div class="d-flex align-items-center mb-2 w-auto">
         <strong class="me-2">
-          <a *ngIf="ressource.fichier_joint" href="http://localhost:8800/{{ ressource.fichier_joint }}" target="_blank" rel="noopener noreferrer">
+          <a *ngIf="ressource.fichier_joint" href="{{ rootUrl }}{{ ressource.fichier_joint }}" target="_blank" rel="noopener noreferrer">
           {{ ressource.titre_ressource }}</a>
           <strong *ngIf="!ressource.fichier_joint">
           {{ ressource.titre_ressource }}</strong>

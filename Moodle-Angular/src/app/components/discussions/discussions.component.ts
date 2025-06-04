@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { apiUrls } from 'src/app/backend_urls';
 
 @Component({
   selector: 'app-discussions',
@@ -13,7 +14,7 @@ export class DiscussionsComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any>('http://localhost:8800/backend/user', { withCredentials: true })
+    this.http.get<any>(apiUrls.user, { withCredentials: true })
       .subscribe({
         next: (res) => {
           for (const user of res.data) {

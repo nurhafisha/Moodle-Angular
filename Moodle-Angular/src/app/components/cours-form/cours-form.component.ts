@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
+import { apiUrls } from 'src/app/backend_urls';
 
 @Component({
   selector: 'app-cours-form',
@@ -41,7 +42,7 @@ export class CoursFormComponent{
       formData.append('fichier_joint', this.file);
     }
 
-    this.http.post(`http://localhost:8800/backend/ues/new-cours/${this.id_ue}`, formData)
+    this.http.post( apiUrls.ue+`new-cours/${this.id_ue}`, formData)
       .subscribe({
         next: (res) => {
           console.log('Cours ajouté avec succès !', res);

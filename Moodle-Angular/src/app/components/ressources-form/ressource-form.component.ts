@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
+import { apiUrls } from 'src/app/backend_urls';
 
 @Component({
   selector: 'app-ressource-form',
@@ -41,7 +42,7 @@ export class RessourceFormComponent{
       formData.append('fichier_joint', this.file);
     }
 
-    this.http.post(`http://localhost:8800/backend/ues/new-ressource/${this.id_ue}`, formData)
+    this.http.post(apiUrls.ue+`new-ressource/${this.id_ue}`, formData)
       .subscribe({
         next: (res) => {
           console.log('Ressource ajoutée avec succès !', res);
