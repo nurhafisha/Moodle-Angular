@@ -3,6 +3,7 @@ import multer from "multer";
 import {
   getAllUes,
   getUeById,
+  createUe,
   createCours,
   createRessource,
   createDevoir,
@@ -22,7 +23,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.get("/", getAllUes);
+
+router.post("/", createUe);
+
 router.get("/:id", getUeById);
+
 router.post("/new-cours/:id", upload.single("fichier_joint"), createCours);
 router.post(
   "/new-ressource/:id",

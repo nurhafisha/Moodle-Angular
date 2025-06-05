@@ -27,6 +27,21 @@ export const getUeById = async (req, res, next) => {
   }
 };
 
+export const createUe = async (req, res) => {
+  try {
+    const { _id, titre_ue } = req.body;
+    const ue = new UE({ _id, titre_ue });
+    await ue.save();
+    res.status(201).json({ success: true, data: ue });
+  } catch (err) {
+    console.error("Erreur lors de la création de l'UE :", err);
+    res.status(500).json({
+      message: "Erreur lors de la création de l'UE",
+      error: err.message || err,
+    });
+  }
+};
+
 export const createCours = async (req, res) => {
   try {
     const { titre_cours, desc_cours, datetime_publier } = req.body;

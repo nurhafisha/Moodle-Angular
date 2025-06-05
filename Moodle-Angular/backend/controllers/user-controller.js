@@ -7,6 +7,24 @@ import {
 } from "../utils/verifyToken.js";
 
 /**
+ * Creer un utilisateur
+ */
+
+export const createUser = async (req, res) => {
+  try {
+    const { nom, prenom, email, password, role } = req.body;
+    const user = new User({ nom, prenom, email, password, role });
+    await user.save();
+    res.status(201).json({ success: true, data: user });
+  } catch (err) {
+    res.status(500).json({
+      message: "Erreur lors de la création de l'utilisateur",
+      error: err.message,
+    });
+  }
+};
+
+/**
  * Obtenir tous les utilisateurs
  */
 
@@ -53,6 +71,25 @@ export const getById = async (req, res, next) => {
 };
 
 /**
+ *  Obtenir le profil de l'utilisateur actuellement connecté:
+ * - Utilise le paramètre req.user défini par le middleware verifyToken
+ */
+
+export const getUserProfile = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) return next(CreateError(404, "Utilisateur non trouvé"));
+    return next(
+      CreateSuccess(200, "Profil utilisateur récupéré avec succès", user)
+    );
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+
+/**
  *  Mettre à jour le profil utilisateur
  * - Seul l'administrateur ou l'utilisateur lui-même peut effectuer la mise à jour.
  * - Le mot de passe est re-haché s'il est présent.
@@ -87,7 +124,9 @@ export const updateUser = async (req, res, next) => {
   }
 };
 
-// Supprimer l'utilisateur
+/**
+ * Supprimer l'utilisateur
+ */
 export const deleteUser = async (req, res, next) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
@@ -99,24 +138,5 @@ export const deleteUser = async (req, res, next) => {
     return next(CreateSuccess(200, "User deleted successfully"));
   } catch (error) {
     return next(CreateError(500, "Internal server error!"));
-  }
-};
-
-/**
- *  Obtenir le profil de l'utilisateur actuellement connecté:
- * - Utilise le paramètre req.user défini par le middleware verifyToken
- */
-
-export const getUserProfile = async (req, res, next) => {
-  try {
-    const user = await User.findById(req.user.id).select("-password");
-    if (!user) return next(CreateError(404, "Utilisateur non trouvé"));
-    return next(
-      CreateSuccess(200, "Profil utilisateur récupéré avec succès", user)
-    );
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Internal server error", error: error.message });
   }
 };
