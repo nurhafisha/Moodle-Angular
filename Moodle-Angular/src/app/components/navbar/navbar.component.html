@@ -1,10 +1,9 @@
-
-<nav *ngIf="role" class="navbar navbar-expand-lg sticky-top">
+<nav *ngIf="role" class="navbar navbar-expand-lg sticky-top z-9999">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img
-        src="../assets/img/utbm.png"
-        alt="Bootstrap"
+        src="../assets/img/utbm-blanc.png"
+        alt="Logo UTBM"
         width="auto"
         height="30"
       />
@@ -18,14 +17,14 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon text-light"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a
             *ngIf="role !== 'Admin'"
-            class="nav-link"
+            class="nav-link text-light"
             routerLink="/mes-cours"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
@@ -36,7 +35,7 @@
         </li>
         <li *ngIf="role === 'Admin'" class="nav-item">
           <a
-            class="nav-link"
+            class="nav-link text-light"
             routerLink="/espace-admin"
             routerLinkActive="active"
           >
@@ -47,9 +46,9 @@
       </ul>
       <!-- Right side user info -->
       <div class="d-flex align-items-center">
-        <span class="me-2 fw-semibold">Isaac Kasyful</span>
+        <span class="me-2 text-light">Isaac Kasyful</span>
         <button class="btn btn-link p-0" title="Logout" (click)="logout()">
-          <i class="bi bi-box-arrow-right fs-5"></i>
+          <i class="bi bi-box-arrow-right fs-5 text-light"></i>
         </button>
       </div>
     </div>
