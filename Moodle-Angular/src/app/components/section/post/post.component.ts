@@ -24,13 +24,26 @@ export class PostComponent{
   deleteCours(id: string) {
     if (!confirm('Êtes-vous sûr de vouloir supprimer ce cours ?')) return;
 
-    this.http.delete(apiUrls.ue+`${this.ueId}`)
+    this.http.delete(apiUrls.ue+`${this.ueId}/cours/${id}`)
       .subscribe({
         next: () => {
-          this.cours = this.cours.filter(c => c.id !== id);
+          this.cours = this.cours.filter(c => c._id !== id);
           console.log('Cours supprimé avec succès');
         },
         error: err => console.error('Erreur lors de la suppression du cours', err)
+      });
+  }
+
+  deleteRessource(id: string) {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer ce ressource ?')) return;
+
+    this.http.delete(apiUrls.ue+`${this.ueId}/ressource/${id}`)
+      .subscribe({
+        next: () => {
+          this.ressources = this.ressources.filter(c => c._id !== id);
+          console.log('Ressource supprimé avec succès');
+        },
+        error: err => console.error('Erreur lors de la suppression de la ressource', err)
       });
   }
 }

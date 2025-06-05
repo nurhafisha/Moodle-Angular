@@ -12,9 +12,9 @@ export class SectionComponent{
   @Input() devoirs: any[] = [];
   @Input() forums: any[] = [];
 
- onCoursAdded(newCours: any) {
-  this.cours = [...this.cours, newCours];
-  this.showNotification('Cours ajouté avec succès', 'success');
+  onCoursAdded(newCours: any) {
+    this.cours = [...this.cours, newCours];
+    this.showNotification('Cours ajouté avec succès', 'success');
   }
 
   onCoursAddError() {
@@ -40,7 +40,7 @@ export class SectionComponent{
   }
 
   toastMessage = '';
-  toastClass = 'bg-success'; // or 'bg-danger'
+  toastClass = 'bg-success';
   showToast = false;
 
   showNotification(message: string, type: 'success' | 'error') {
@@ -48,7 +48,6 @@ export class SectionComponent{
     this.toastClass = type === 'success' ? 'bg-success' : 'bg-danger';
     this.showToast = true;
 
-    // Auto-hide after 3 seconds
     setTimeout(() => {
       this.showToast = false;
     }, 3000);
