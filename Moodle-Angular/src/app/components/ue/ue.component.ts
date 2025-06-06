@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-ue',
   templateUrl: './ue.component.html',
   styleUrls: ['./ue.component.css'],
 })
+
+export class UeComponent {
+  @Input() ue: any;
+
 export class UeComponent implements OnInit {
   courses = [
     {
@@ -27,4 +31,5 @@ export class UeComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
 }

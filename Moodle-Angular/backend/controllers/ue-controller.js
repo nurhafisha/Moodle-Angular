@@ -117,3 +117,14 @@ export const createDevoir = async (req, res) => {
       .json({ message: "Error creating devoir", error: err.message || err });
   }
 };
+
+
+export const getAllUe = async (req, res) => {
+  try {
+    const ues = await UE.find({}, 'titre_ue image_ue _id'); // only needed fields
+    res.status(200).json(ues);
+  } catch (err) {
+    res.status(500).json({ message: "Error retrieving UEs", error: err });
+  }
+};
+
