@@ -1,8 +1,6 @@
-
-
-
-//pour reusabilité de API url 
+//pour reusabilité de API url
 export const apiUrls = {
-    AuthService: 'http://localhost:8800/backend/auth/',
-    user: 'http://localhost:8800/backend/user/',
-}
+  AuthService: 'http://localhost:8800/backend/auth/',
+  user: 'http://localhost:8800/backend/user/',
+  ue: 'http://localhost:8800/backend/ues/',
+};

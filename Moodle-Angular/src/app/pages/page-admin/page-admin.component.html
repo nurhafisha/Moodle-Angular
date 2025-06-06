@@ -4,7 +4,11 @@
     <h2>Administrateur ⚙️</h2>
   </div>
   <div class="container-fluid">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <ul
+      class="nav nav-tabs flex-nowrap overflow-auto"
+      id="myTab"
+      role="tablist"
+    >
       <li class="nav-item" role="presentation">
         <button
           class="nav-link active"
@@ -41,12 +45,12 @@
         role="tabpanel"
         aria-labelledby="gestionUser"
       >
-        <div class="d-flex align-items-center justify-content-between mt-3">
+        <div class="d-flex align-items-center justify-content-between mt-4">
           <h5 class="fw-bold">Liste des utilisateurs</h5>
           <button class="btn btn-sm btn-success">Ajouter utilsateur</button>
         </div>
         <!-- Composant pour la table des utilisateurs -->
-        <app-user-table></app-user-table>
+        <app-user-table [users]="users"></app-user-table>
       </div>
       <div
         class="tab-pane fade"
@@ -54,12 +58,12 @@
         role="tabpanel"
         aria-labelledby="gestionUe"
       >
-        <div class="d-flex align-items-center justify-content-between mt-3">
+        <div class="d-flex align-items-center justify-content-between mt-4">
           <h5 class="fw-bold">Liste des UEs</h5>
           <button class="btn btn-sm btn-success">Ajouter UE</button>
         </div>
         <!-- Composant pour la table des UEs -->
-        <app-ue-table></app-ue-table>
+        <app-ue-table [ues]="ues"></app-ue-table>
       </div>
     </div>
   </div>

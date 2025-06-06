@@ -1,5 +1,19 @@
 import UE from "../models/Ue.js";
 
+// export const getAllUes = async (req, res, next) => {
+//   try {
+//     const ues = await Ue.find();
+//     return next(CreateSuccess(200, "UEs récupérés avec succès", ues));
+//   } catch (error) {
+//     return next(CreateError(500, "Erreur interne du serveur!"));
+//   }
+// };
+
+export const getAllUes = async (req, res) => {
+  const ues = await Ue.find(); // ou ta logique pour lire le JSON
+  res.status(200).json({ success: true, data: ues });
+};
+
 export const getUeById = async (req, res, next) => {
   try {
     const ue = await UE.findOne({ _id: req.params.id });
@@ -36,8 +50,10 @@ export const createCours = async (req, res) => {
 
     res.status(201).json(addedCours);
   } catch (err) {
-    console.error('Erreur lors de la création du cours :', err);
-    res.status(500).json({ message: "Error creating Cours", error: err.message || err });
+    console.error("Erreur lors de la création du cours :", err);
+    res
+      .status(500)
+      .json({ message: "Error creating Cours", error: err.message || err });
   }
 };
 
@@ -64,14 +80,17 @@ export const createRessource = async (req, res) => {
 
     res.status(201).json(addedRessource);
   } catch (err) {
-    console.error('Erreur lors de la création du ressource :', err);
-    res.status(500).json({ message: "Error creating Ressource", error: err.message || err });
+    console.error("Erreur lors de la création du ressource :", err);
+    res
+      .status(500)
+      .json({ message: "Error creating Ressource", error: err.message || err });
   }
 };
 
 export const createDevoir = async (req, res) => {
   try {
-    const { titre_devoir, desc_devoir, datetime_debut, datetime_fin, depots } = req.body;
+    const { titre_devoir, desc_devoir, datetime_debut, datetime_fin, depots } =
+      req.body;
 
     const ue = await UE.findById(req.params.id);
     if (!ue) {
@@ -83,7 +102,7 @@ export const createDevoir = async (req, res) => {
       desc_devoir,
       datetime_debut,
       datetime_fin,
-      depots
+      depots,
     });
 
     await ue.save();
@@ -92,10 +111,13 @@ export const createDevoir = async (req, res) => {
 
     res.status(201).json(addedDevoir);
   } catch (err) {
-    console.error('Erreur lors de la création du devoir :', err);
-    res.status(500).json({ message: "Error creating devoir", error: err.message || err });
+    console.error("Erreur lors de la création du devoir :", err);
+    res
+      .status(500)
+      .json({ message: "Error creating devoir", error: err.message || err });
   }
 };
+
 
 export const getAllUe = async (req, res) => {
   try {
@@ -105,3 +127,4 @@ export const getAllUe = async (req, res) => {
     res.status(500).json({ message: "Error retrieving UEs", error: err });
   }
 };
+

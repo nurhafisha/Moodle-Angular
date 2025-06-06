@@ -5,8 +5,7 @@ import authRoute from "./routes/auth.js";
 import userRoute from "./routes/user.js";
 import ueRoute from "./routes/ue.js";
 import cookieParser from "cookie-parser";
-import cors from 'cors';
-
+import cors from "cors";
 
 const app = express();
 dotenv.config();
@@ -14,11 +13,11 @@ dotenv.config();
 //Middleware
 app.use(express.json()); // pour parser les requêtes JSONs
 app.use(cookieParser());
-app.use(cors({origin: 'http://localhost:4200',credentials: true}))
+app.use(cors({ origin: "http://localhost:4200", credentials: true }));
 app.use("/backend/auth", authRoute);
-app.use("/backend/user" , userRoute);
+app.use("/backend/user", userRoute);
 app.use("/backend/ues", ueRoute);
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
 //Response handling middleware
 app.use((obj, req, res, next) => {
@@ -35,18 +34,17 @@ app.use((obj, req, res, next) => {
 
 //DB connection
 const connectMongoDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URL); 
-        console.log("MongoDB connected successfully");
-    }
-    catch (error) {
-        console.error("MongoDB connection error:", error);
-        process.exit(1); 
-    }};
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log("MongoDB connected successfully");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+    process.exit(1);
+  }
+};
 
-
-// demarrer les serveur
+// demarrer le serveur
 app.listen(8800, () => {
-    connectMongoDB();
-    console.log("Backend server is running on port 8800");
-    });
+  connectMongoDB();
+  console.log("Backend server is running on port 8800");
+});
