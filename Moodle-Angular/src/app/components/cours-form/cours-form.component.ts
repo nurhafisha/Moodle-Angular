@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
-import { apiUrls } from 'src/app/backend_urls';
+import { CoursService } from 'src/app/services/cours.service';
 
 @Component({
   selector: 'app-cours-form',
@@ -21,7 +20,7 @@ export class CoursFormComponent{
 
   file: File | null = null;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private coursService: CoursService) {
     this.id_ue = this.route.snapshot.paramMap.get('id');
     console.log('Loaded id_ue:', this.id_ue);
   }
@@ -32,7 +31,7 @@ export class CoursFormComponent{
     this.file = event.target.files[0];
   }
 
-  onSubmit(form: NgForm) {
+  onSubmit(form: NgForm): void {
     const formData = new FormData();
     formData.append('titre_cours', this.cours.titre_cours);
     formData.append('desc_cours', this.cours.desc_cours);
@@ -42,20 +41,18 @@ export class CoursFormComponent{
       formData.append('fichier_joint', this.file);
     }
 
-    this.http.post( apiUrls.ue+`new-cours/${this.id_ue}`, formData)
-      .subscribe({
-        next: (res) => {
-          console.log('Cours ajouté avec succès !', res);
-          this.coursAdded.emit(res);
-          form.resetForm();
-          this.file = null;
-          this.fileInput.nativeElement.value = '';
-        },
-        error: (err) => {
-          console.error('Erreur lors de l\'ajout du cours', err);
-          this.error.emit();
-        }
-      });
+    this.coursService.ajouterCours(this.id_ue, formData).subscribe({
+      next: (res) => {
+        console.log('Cours ajouté avec succès !', res);
+        this.coursAdded.emit(res);
+        form.resetForm();
+        this.file = null;
+        this.fileInput.nativeElement.value = '';
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'ajout du cours', err);
+        this.error.emit();
+      }
+    });
   }
-
 }

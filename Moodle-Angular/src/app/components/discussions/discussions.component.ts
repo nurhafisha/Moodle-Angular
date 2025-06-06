@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { apiUrls } from 'src/app/backend_urls';
+import { UeService } from 'src/app/services/ue.service'
 
 @Component({
   selector: 'app-discussions',
@@ -11,22 +10,18 @@ export class DiscussionsComponent implements OnInit {
   @Input() forums: any[] = [];
   usersMap: { [id: string]: string } = {};
 
-  constructor(private http: HttpClient) {}
+  constructor(private ueService: UeService) {}
 
   ngOnInit(): void {
-    this.http.get<any>(apiUrls.user, { withCredentials: true })
-      .subscribe({
-        next: (res) => {
-          for (const user of res.data) {
-            this.usersMap[user._id.$oid || user._id] = user.prenom +' '+ user.nom;
-          }
-        },
-        error: (err) => console.error('Erreur lors du chargement des utilisateurs :', err)
-      });
+    this.ueService.getUserData().subscribe(usersMap => {
+      this.usersMap = Object.fromEntries(usersMap);
+      console.log(this.usersMap);
+    });
   }
 
   getUserPrenom(userObj: any): string {
     const id = userObj?.$oid || userObj;
     return this.usersMap[id] || 'Utilisateur inconnu';
   }
+
 }

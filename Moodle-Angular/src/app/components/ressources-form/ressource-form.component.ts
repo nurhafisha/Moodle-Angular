@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
-import { apiUrls } from 'src/app/backend_urls';
+import { RessourceService } from 'src/app/services/ressource.service';
 
 @Component({
   selector: 'app-ressource-form',
@@ -21,7 +20,7 @@ export class RessourceFormComponent{
 
   file: File | null = null;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private ressourceService: RessourceService) {
     this.id_ue = this.route.snapshot.paramMap.get('id');
     console.log('Loaded id_ue:', this.id_ue);
   }
@@ -42,20 +41,17 @@ export class RessourceFormComponent{
       formData.append('fichier_joint', this.file);
     }
 
-    this.http.post(apiUrls.ue+`new-ressource/${this.id_ue}`, formData)
-      .subscribe({
-        next: (res) => {
-          console.log('Ressource ajoutée avec succès !', res);
-          this.ressourceAdded.emit(res);
-          form.resetForm();
-          this.file = null;
-          this.fileInput.nativeElement.value = '';
-        },
-        error: (err) => {
-          console.error('Erreur lors de l\'ajout de la ressource', err);
-          this.error.emit();
-        }
-      });
+    this.ressourceService.ajouterRessource(this.id_ue, formData).subscribe({
+      next: (res) => {
+        console.log('Ressource ajoutée avec succès !', res);
+        this.ressourceAdded.emit(res);
+        form.resetForm();
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'ajout de la ressource', err);
+        this.error.emit();
+      }
+    });
   }
 
 }

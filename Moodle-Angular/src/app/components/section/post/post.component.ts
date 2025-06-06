@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { apiUrls } from 'src/app/backend_urls';
+import { CoursService } from 'src/app/services/cours.service';
+import { RessourceService } from 'src/app/services/ressource.service';
 
 @Component({
   selector: 'app-post',
@@ -15,35 +16,40 @@ export class PostComponent{
   postId: string | null = null;
   rootUrl: string = apiUrls.root;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute,
+    private coursService: CoursService,
+    private ressourceService: RessourceService
+  ) {}
 
   ngOnInit(): void {
     this.ueId = this.route.snapshot.paramMap.get('id');
   }
 
-  deleteCours(id: string) {
+  deleteCours(id: string): void {
     if (!confirm('Êtes-vous sûr de vouloir supprimer ce cours ?')) return;
 
-    this.http.delete(apiUrls.ue+`${this.ueId}/cours/${id}`)
-      .subscribe({
-        next: () => {
-          this.cours = this.cours.filter(c => c._id !== id);
-          console.log('Cours supprimé avec succès');
-        },
-        error: err => console.error('Erreur lors de la suppression du cours', err)
-      });
+    this.coursService.deleteCours(this.ueId, id).subscribe({
+      next: () => {
+        this.cours = this.cours.filter(c => c._id !== id);
+        console.log('Cours supprimé avec succès');
+      },
+      error: err => {
+        console.error('Erreur lors de la suppression du cours', err);
+      }
+    });
   }
 
-  deleteRessource(id: string) {
-    if (!confirm('Êtes-vous sûr de vouloir supprimer ce ressource ?')) return;
+  deleteRessource(id: string): void {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer cette ressource ?')) return;
 
-    this.http.delete(apiUrls.ue+`${this.ueId}/ressource/${id}`)
-      .subscribe({
-        next: () => {
-          this.ressources = this.ressources.filter(c => c._id !== id);
-          console.log('Ressource supprimé avec succès');
-        },
-        error: err => console.error('Erreur lors de la suppression de la ressource', err)
-      });
+    this.ressourceService.deleteRessource(this.ueId, id).subscribe({
+      next: () => {
+        this.ressources = this.ressources.filter(r => r._id !== id);
+        console.log('Ressource supprimée avec succès');
+      },
+      error: err => {
+        console.error('Erreur lors de la suppression de la ressource', err);
+      }
+    });
   }
 }
