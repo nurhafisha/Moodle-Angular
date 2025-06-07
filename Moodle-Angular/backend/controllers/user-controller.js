@@ -5,6 +5,7 @@ import {
   verifyAdmin,
   verifyEnseignant,
 } from "../utils/verifyToken.js";
+import bcrypt from "bcrypt";
 
 /**
  * Creer un utilisateur
@@ -13,7 +14,17 @@ import {
 export const createUser = async (req, res) => {
   try {
     const { nom, prenom, email, password, role } = req.body;
-    const user = new User({ nom, prenom, email, password, role });
+    // mot de pass hashed avant la sauvegarde
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({
+      nom,
+      prenom,
+      email,
+      password: hashedPassword,
+      role,
+      profilePicture:
+        req.body.profilePicture || "https://w3schools.com/howto/img_avatar.png",
+    });
     await user.save();
     res.status(201).json({ success: true, data: user });
   } catch (err) {
