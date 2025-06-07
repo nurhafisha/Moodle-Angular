@@ -19,20 +19,23 @@ export class PageadminComponent implements OnInit {
     this.loadUes();
   }
 
+  // Recuperer tous les utilisateurs
   loadUsers() {
     this.adminService.getUsers().subscribe((response) => {
       console.log('Utilisateurs récupérés:', response);
-      this.users = response.data; // <-- récupère bien le tableau
+      this.users = response.data; // récupère bien le tableau
     });
   }
 
+  // Recuperer tous les UEs
   loadUes() {
     this.adminService.getUes().subscribe((response) => {
       console.log('UEs récupérés:', response);
-      this.ues = response.data; // <-- récupère bien le tableau
+      this.ues = response.data; // récupère bien le tableau
     });
   }
 
+  // Creer une UE
   onAddUe() {
     this.adminService.addUe(this.newUe).subscribe(() => {
       this.loadUes();
@@ -45,6 +48,7 @@ export class PageadminComponent implements OnInit {
     console.log(this.newUe);
   }
 
+  // Creer un utilisateur
   onAddUser() {
     this.adminService.addUser(this.newUser).subscribe(() => {
       this.loadUsers();
@@ -59,6 +63,14 @@ export class PageadminComponent implements OnInit {
       (window as any).bootstrap.Modal.getOrCreateInstance(
         document.getElementById('addUserModal')
       ).hide();
+    });
+  }
+
+  // Supprimer un utilisateur
+  deleteUser(userId: string) {
+    this.adminService.deleteUser(userId).subscribe(() => {
+      console.log('Utilisateur supprimé!');
+      this.loadUsers();
     });
   }
 }

@@ -1,7 +1,7 @@
 import express from "express";
 import {
   getAllUsers,
-  getById,
+  getUserById,
   updateUser,
   deleteUser,
   createUser,
@@ -20,11 +20,14 @@ const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-//creation d'un utilisateur
+// creation d'un utilisateur
 router.post("/", createUser);
 
-//Recuperer tous les utilisateurs disponibles
+// Recuperer tous les utilisateurs disponibles
 router.get("/", getAllUsers);
+
+// Supprimer l'utilisateur par ID
+router.delete("/:id", deleteUser);
 
 // Recuperer le profil de l'utilisateur authentifié
 router.get("/profile", verifyToken, getUserProfile);

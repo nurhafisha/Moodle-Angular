@@ -57,7 +57,7 @@ export const getAllUsers = async (req, res, next) => {
  * - Enseignant
  * - Lui-même
  */
-export const getById = async (req, res, next) => {
+export const getUserById = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id)
       .select("-password")

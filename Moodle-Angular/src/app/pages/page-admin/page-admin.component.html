@@ -56,7 +56,10 @@
           </button>
         </div>
         <!-- Composant pour la table des utilisateurs -->
-        <app-user-table [users]="users"></app-user-table>
+        <app-user-table
+          [users]="users"
+          (deleteUser)="deleteUser($event)"
+        ></app-user-table>
       </div>
       <div
         class="tab-pane fade"

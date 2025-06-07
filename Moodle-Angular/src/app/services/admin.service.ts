@@ -28,4 +28,8 @@ export class AdminService {
   addUser(user: any): Observable<any> {
     return this.http.post<any>(this.urlUser, user);
   }
+
+  deleteUser(userId: string): Observable<any> {
+    return this.http.delete<any>(`${this.urlUser}/${userId}`);
+  }
 }
