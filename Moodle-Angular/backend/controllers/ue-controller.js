@@ -171,3 +171,30 @@ export const deleteDevoir = async (req, res) => {
     res.status(500).json({ message: "Error deleting Devoir", error: err.message || err });
   }
 };
+
+export const createForumMessage = async (req, res) => {
+  try {
+    const { sujet, userId, datetime_publier } = req.body;
+
+    const ue = await UE.findById(req.params.id);
+    if (!ue) {
+      return res.status(404).json({ message: "UE not found" });
+    }
+
+    const newMessage = {
+      _id: new mongoose.Types.ObjectId(),
+      sujet,
+      id_user: userId,
+      datetime_publier: datetime_publier || new Date().toISOString(),
+      reponses: []
+    };
+
+    ue.forums.push(newMessage);
+    await ue.save();
+
+    res.status(201).json(newMessage);
+  } catch (err) {
+    console.error('Erreur lors de la création du message forum :', err);
+    res.status(500).json({ message: "Error creating forum message", error: err.message || err });
+  }
+};

@@ -13,7 +13,7 @@ export class SectionComponent{
   @Input() forums: any[] = [];
 
   onCoursAdded(newCours: any) {
-    this.cours = [...this.cours, newCours];
+    this.cours = [newCours, ...this.cours];
     this.showNotification('Cours ajouté avec succès', 'success');
   }
 
@@ -22,7 +22,7 @@ export class SectionComponent{
   }
 
   onRessourceAdded(newRessource: any) {
-    this.ressources = [...this.ressources, newRessource];
+    this.ressources = [newRessource, ...this.ressources];
     this.showNotification('Ressource ajoutée avec succès', 'success');
   }
 
@@ -31,7 +31,7 @@ export class SectionComponent{
   }
 
   onDevoirAdded(newDevoir: any) {
-    this.devoirs = [...this.devoirs, newDevoir];
+    this.devoirs = [newDevoir, ...this.devoirs];
     this.showNotification('Ressource ajoutée avec succès', 'success');
   }
 
