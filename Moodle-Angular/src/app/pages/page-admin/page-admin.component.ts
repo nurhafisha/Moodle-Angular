@@ -73,4 +73,12 @@ export class PageadminComponent implements OnInit {
       this.loadUsers();
     });
   }
+
+  // Supprimer une Ue
+  deleteUe(codeUe: string) {
+    this.adminService.deleteUe(codeUe).subscribe(() => {
+      console.log('UE supprimé!');
+      this.loadUes();
+    });
+  }
 }
