@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-user-table',
@@ -7,7 +7,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class UserTableComponent implements OnInit {
   @Input() users: any[] = [];
+  @Output() deleteUser = new EventEmitter<string>();
+
+  selectedUserId: string | null = null;
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  openDeleteModal(userId: string) {
+    this.selectedUserId = userId;
+  }
 }
