@@ -3,7 +3,7 @@ import UE from "../models/Ue.js"; // Importe le modèle UE (Mongoose)
 
 // Récupérer toutes les UEs
 export const getAllUes = async (req, res) => {
-  const ues = await Ue.find(); // Récupère toutes les UEs depuis la base
+  const ues = await UE.find(); // Récupère toutes les UEs depuis la base
   res.status(200).json({ success: true, data: ues }); // Renvoie la liste
 };
 
@@ -149,13 +149,11 @@ export const createDevoir = async (req, res) => {
   }
 };
 
-
 export const getAllUe = async (req, res) => {
   try {
-    const ues = await UE.find({}, 'titre_ue image_ue _id'); // only needed fields
+    const ues = await UE.find({}, "titre_ue image_ue _id"); // only needed fields
     res.status(200).json(ues);
   } catch (err) {
     res.status(500).json({ message: "Error retrieving UEs", error: err });
   }
 };
-
