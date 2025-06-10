@@ -27,6 +27,7 @@
               class="btn btn-sm btn-danger ms-2"
               data-bs-toggle="modal"
               data-bs-target="#ue-delete"
+              (click)="openDeleteModal(ue._id)"
             >
               Supprimer
             </button>
@@ -79,17 +80,50 @@
             aria-describedby="basic-addon1"
           />
         </div>
-
-        <div class="input-group">
-          <span class="input-group-text">With textarea</span>
-          <textarea class="form-control" aria-label="With textarea"></textarea>
-        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Annuler
         </button>
         <button type="button" class="btn btn-success">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="ue-delete"
+  tabindex="-1"
+  aria-labelledby="ueDelete"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ueDelete">Confirmer la suppression</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Voulez-vous vraiment supprimer cet utilisateur ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Annuler
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          (click)="deleteUe.emit(selectedCodeUe ?? undefined)"
+        >
+          Supprimer
+        </button>
       </div>
     </div>
   </div>
