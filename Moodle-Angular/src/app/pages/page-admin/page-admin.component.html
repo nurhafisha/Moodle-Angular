@@ -4,11 +4,7 @@
     <h2>Administrateur ⚙️</h2>
   </div>
   <div class="container-fluid">
-    <ul
-      class="nav nav-tabs flex-nowrap overflow-auto"
-      id="myTab"
-      role="tablist"
-    >
+    <ul class="nav nav-tabs flex-nowrap" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button
           class="nav-link active"
@@ -78,7 +74,7 @@
           </button>
         </div>
         <!-- Composant pour la table des UEs -->
-        <app-ue-table [ues]="ues"></app-ue-table>
+        <app-ue-table [ues]="ues" (deleteUe)="deleteUe($event)"></app-ue-table>
       </div>
     </div>
   </div>
