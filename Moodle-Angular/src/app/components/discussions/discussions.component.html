@@ -50,7 +50,7 @@
 
         <!-- Bloc réponses visibles -->
         <div [ngClass]="{'reponse-transition': true, 'show': afficherReponses[i]}" class="mt-3" (click)="$event.stopPropagation()">
-          <div class="card card-body bg-light" *ngFor="let rep of getSortedReponses(forum.reponses)">
+          <div class="card card-body bg-light" *ngFor="let rep of forum.reponses">
             {{ rep.message }}
             <small class="text-muted d-block mt-1">
               {{ getUserPrenom(rep.id_user) }} • {{ rep.datetime_publier | date:'short' }}
@@ -60,10 +60,12 @@
 
         <!-- Formulaire réponse -->
         <div class="card card-body mt-2" *ngIf="afficherFormulaires[i]" (click)="$event.stopPropagation()">
-          <form (ngSubmit)="onReplySubmit(forum._id, replyText[i])">
+          <form (ngSubmit)="onReplySubmit(forum._id, replyText[i], i)">
             <div class="mb-2">
               <label for="message-rep" class="form-label">Réponse</label>
-              <textarea class="form-control"
+              <textarea 
+                        #replyTextarea
+                        class="form-control"
                         [(ngModel)]="replyText[i]"
                         name="replyText{{i}}"
                         rows="2"></textarea>

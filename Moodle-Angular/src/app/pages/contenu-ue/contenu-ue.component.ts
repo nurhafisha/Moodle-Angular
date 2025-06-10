@@ -32,13 +32,8 @@ export class ContenuUeComponent implements OnInit {
   
   fetchUeData(): void {
     this.ueService.getUeData(this.ueId).subscribe(data => {
-      data.cours?.sort((a: any, b: any) => new Date(b.datetime_publier).getTime() - new Date(a.datetime_publier).getTime());
-      data.ressources?.sort((a: any, b: any) => new Date(b.datetime_publier).getTime() - new Date(a.datetime_publier).getTime());
-      data.devoirs?.sort((a: any, b: any) => new Date(b.datetime_debut).getTime() - new Date(a.datetime_debut).getTime());
-      data.forums?.sort((a: any, b: any) => new Date(b.datetime_publier).getTime() - new Date(a.datetime_publier).getTime());
-
       this.ueData = data;
-      console.log('UE data (sorted):', this.ueData);
+      console.log('UE data (original order):', this.ueData);
     });
   }
 }

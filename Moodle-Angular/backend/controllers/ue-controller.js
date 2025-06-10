@@ -198,3 +198,35 @@ export const createForumMessage = async (req, res) => {
     res.status(500).json({ message: "Error creating forum message", error: err.message || err });
   }
 };
+
+export const createForumReply = async (req, res) => {
+  try {
+    const { reply, userId, datetime_publier } = req.body;
+    const ueId = req.params.id
+    const forumId = req.params.forumId;
+
+    const ue = await UE.findById(ueId);
+    if (!ue) {
+      return res.status(404).json({ message: "UE not found" });
+    }
+
+    const forum = ue.forums.id(forumId);
+    if (!forum) {
+      return res.status(404).json({ message: "Forum message not found" });
+    }
+
+    const newReply = {
+      id_user: userId,
+      message: reply,
+      datetime_publier: datetime_publier || new Date().toISOString(),
+    };
+
+    forum.reponses.push(newReply);
+    await ue.save();
+
+    res.status(201).json(newReply);
+  } catch (err) {
+    console.error("Erreur lors de la création de la réponse :", err);
+    res.status(500).json({ message: "Error creating reply", error: err.message || err });
+  }
+};

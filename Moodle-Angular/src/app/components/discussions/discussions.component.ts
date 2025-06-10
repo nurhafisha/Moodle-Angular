@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DiscussionService } from 'src/app/services/discussion.service';
@@ -11,11 +11,12 @@ import { UeService } from 'src/app/services/ue.service';
 })
 export class DiscussionsComponent implements OnInit {
   @Input() forums: any[] = [];
+  @ViewChildren('replyTextarea') replyTextareas!: QueryList<ElementRef>;
   id_ue: string | null = null;
   usersMap: { [id: string]: string } = {};
   userId = localStorage.getItem('userId');
   forumForm!: FormGroup;
-  replyText: { [key: number]: string } = {};
+  replyText: { [forumId: string]: string } = {};
   afficherReponses: boolean[] = [];
   afficherFormulaires: boolean[] = [];
 
@@ -45,6 +46,15 @@ export class DiscussionsComponent implements OnInit {
   toggleFormulaire(index: number, event: Event): void {
     event.stopPropagation();
     this.afficherFormulaires[index] = !this.afficherFormulaires[index];
+
+    if (this.afficherFormulaires[index]) {
+      setTimeout(() => {
+        const textarea = this.replyTextareas.toArray()[index];
+        if (textarea) {
+          textarea.nativeElement.focus();
+        }
+      }, 0);
+    }
   }
 
   getUserPrenom(userObj: any): string {
@@ -73,17 +83,29 @@ export class DiscussionsComponent implements OnInit {
     });
   }
 
-  getSortedReponses(reponses: any[]): any[] {
-    return [...(reponses || [])].sort((a, b) =>
-      new Date(b.datetime_publier).getTime() - new Date(a.datetime_publier).getTime()
-    );
-  }
-
-  onReplySubmit(forumId: string, reply: string): void {
+  onReplySubmit(forumId: string, reply: string, index: number): void {
     if (!reply?.trim()) return;
 
-    console.log('Replying to forum ID:', forumId, 'with message:', reply);
+    const newForumReply = {
+      userId: this.userId,
+      forumId: forumId,
+      reply: reply,
+      datetime_publier: new Date().toISOString()
+    };
 
-    this.replyText = { ...this.replyText, [forumId]: '' };
+    console.log('Replying to forum ID:', forumId, 'with message:', reply);
+    this.discussionService.ajouterForumReponse(this.id_ue, newForumReply).subscribe({
+      next: (res) => {
+        let f = this.forums.find((forum) => forum._id === forumId);
+        if (f) {
+          f.reponses = f.reponses || [];
+          f.reponses.push(res);
+          this.replyText[index] = '';
+        }
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'ajout de reponse', err);
+      }
+    });
   }
 }

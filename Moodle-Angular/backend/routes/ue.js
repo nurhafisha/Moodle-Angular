@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { getUeById, createCours, createRessource, createDevoir, deleteCours, deleteRessource, deleteDevoir, createForumMessage } from "../controllers/ue-controller.js";
+import { getUeById, createCours, createRessource, createDevoir, deleteCours, deleteRessource, deleteDevoir, createForumMessage, createForumReply } from "../controllers/ue-controller.js";
 
 const router = express.Router();
 const storage = multer.diskStorage({
@@ -23,5 +23,6 @@ router.delete("/:id/cours/:coursId", deleteCours);
 router.delete("/:id/ressource/:ressourceId", deleteRessource);
 router.delete("/:id/devoir/:devoirId", deleteDevoir);
 router.post("/new-forum/:id", createForumMessage);
+router.post("/new-reply/:id/:forumId", createForumReply);
 
 export default router;

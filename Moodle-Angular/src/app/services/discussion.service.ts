@@ -13,4 +13,8 @@ export class DiscussionService {
   ajouterForumMessage(idUe: string | null, message: any): Observable<any> {
     return this.http.post(apiUrls.ue + `new-forum/${idUe}`, message);
   }
+
+  ajouterForumReponse(idUe: string | null, reply: any): Observable<any> {
+    return this.http.post(apiUrls.ue + `new-reply/${idUe}/${reply.forumId}`, reply);
+  }
 }
