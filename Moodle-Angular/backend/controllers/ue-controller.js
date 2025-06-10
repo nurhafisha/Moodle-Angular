@@ -37,15 +37,15 @@ export const createUe = async (req, res) => {
 };
 
 // Supprimer une UE existante
-export const deleteUe = async (req, res, next) => {
+export const deleteUe = async (req, res) => {
   try {
     const ue = await UE.findByIdAndDelete(req.params.id);
 
     if (!ue) {
-      return next(CreateError(404, "UE non trouvée"));
+      return res.status(404).json({ message: "UE non trouvée" });
     }
 
-    return next(CreateSuccess(200, "UE suprimée!"));
+    return res.status(200).json({ message: "UE supprimée !" });
   } catch (err) {
     console.error("Erreur lors de la suppression de l'UE :", err);
     res.status(500).json({
