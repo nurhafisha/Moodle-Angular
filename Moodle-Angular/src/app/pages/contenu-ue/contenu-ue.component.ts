@@ -33,7 +33,6 @@ export class ContenuUeComponent implements OnInit {
   fetchUeData(): void {
     this.ueService.getUeData(this.ueId).subscribe(data => {
       this.ueData = data;
-      console.log('UE data (original order):', this.ueData);
     });
   }
 }

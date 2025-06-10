@@ -22,7 +22,6 @@ export class CoursFormComponent{
 
   constructor(private route: ActivatedRoute, private coursService: CoursService) {
     this.id_ue = this.route.snapshot.paramMap.get('id');
-    console.log('Loaded id_ue:', this.id_ue);
   }
 
   ngOnInit() {}

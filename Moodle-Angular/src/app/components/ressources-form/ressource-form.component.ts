@@ -22,7 +22,6 @@ export class RessourceFormComponent{
 
   constructor(private route: ActivatedRoute, private ressourceService: RessourceService) {
     this.id_ue = this.route.snapshot.paramMap.get('id');
-    console.log('Loaded id_ue:', this.id_ue);
   }
 
   ngOnInit() {}

@@ -281,6 +281,8 @@ export const createForumReply = async (req, res) => {
   } catch (err) {
     console.error("Erreur lors de la création de la réponse :", err);
     res.status(500).json({ message: "Error creating reply", error: err.message || err });
+  }
+}
 
 export const getAllUe = async (req, res) => {
   try {
