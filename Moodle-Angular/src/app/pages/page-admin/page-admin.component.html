@@ -4,7 +4,11 @@
     <h2>Administrateur ⚙️</h2>
   </div>
   <div class="container-fluid">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <ul
+      class="nav nav-tabs flex-nowrap overflow-auto"
+      id="myTab"
+      role="tablist"
+    >
       <li class="nav-item" role="presentation">
         <button
           class="nav-link active"
@@ -41,12 +45,21 @@
         role="tabpanel"
         aria-labelledby="gestionUser"
       >
-        <div class="d-flex align-items-center justify-content-between mt-3">
+        <div class="d-flex align-items-center justify-content-between mt-4">
           <h5 class="fw-bold">Liste des utilisateurs</h5>
-          <button class="btn btn-sm btn-success">Ajouter utilsateur</button>
+          <button
+            class="btn btn-sm btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#addUserModal"
+          >
+            Ajouter utilisateur
+          </button>
         </div>
         <!-- Composant pour la table des utilisateurs -->
-        <app-user-table></app-user-table>
+        <app-user-table
+          [users]="users"
+          (deleteUser)="deleteUser($event)"
+        ></app-user-table>
       </div>
       <div
         class="tab-pane fade"
@@ -54,13 +67,162 @@
         role="tabpanel"
         aria-labelledby="gestionUe"
       >
-        <div class="d-flex align-items-center justify-content-between mt-3">
+        <div class="d-flex align-items-center justify-content-between mt-4">
           <h5 class="fw-bold">Liste des UEs</h5>
-          <button class="btn btn-sm btn-success">Ajouter UE</button>
+          <button
+            class="btn btn-sm btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#addUeModal"
+          >
+            Ajouter UE
+          </button>
         </div>
         <!-- Composant pour la table des UEs -->
-        <app-ue-table></app-ue-table>
+        <app-ue-table [ues]="ues"></app-ue-table>
       </div>
     </div>
   </div>
 </main>
+
+<!-- Modal d'ajout UE -->
+<div
+  class="modal fade"
+  id="addUeModal"
+  tabindex="-1"
+  aria-labelledby="addUeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content" (ngSubmit)="onAddUe()" #addUeForm="ngForm">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addUeModalLabel">Ajouter une UE</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Fermer"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Code UE</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="newUe._id"
+            name="titre_ue"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Nom UE</label>
+          <input
+            class="form-control"
+            [(ngModel)]="newUe.titre_ue"
+            name="titre_ue"
+            required
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="addUeForm.invalid"
+        >
+          Ajouter
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal d'ajout utilisateur -->
+<div
+  class="modal fade"
+  id="addUserModal"
+  tabindex="-1"
+  aria-labelledby="addUserModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content" (ngSubmit)="onAddUser()" #addUserForm="ngForm">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addUserModalLabel">
+          Ajouter un utilisateur
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Fermer"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Nom</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="newUser.nom"
+            name="nom"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Prénom</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="newUser.prenom"
+            name="prenom"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            [(ngModel)]="newUser.email"
+            name="email"
+            placeholder="prenom-nom@utbm.fr"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Mot de passe</label>
+          <input
+            type="password"
+            class="form-control"
+            [(ngModel)]="newUser.password"
+            name="password"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Rôle</label>
+          <select
+            class="form-select"
+            [(ngModel)]="newUser.role"
+            name="role"
+            required
+          >
+            <option value="Etudiant">Etudiant</option>
+            <option value="Enseignant">Enseignant</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="addUserForm.invalid"
+        >
+          Ajouter
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+.card {
+  height: 170px;
+}
+.card-title {
+  font-size: 1.05rem; 
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

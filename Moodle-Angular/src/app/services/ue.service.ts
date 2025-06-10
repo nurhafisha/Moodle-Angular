@@ -38,4 +38,7 @@ export class UeService {
     );
   }
 
+  getAllUes() {
+    return this.http.get<any[]>('http://localhost:8800/backend/ues');
+  }
 }
