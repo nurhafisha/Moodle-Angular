@@ -1,0 +1,26 @@
+.forum-card {
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.forum-card:hover {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  transform: scale(1.01);
+}
+
+.forum-card.reponses-ouvertes {
+  border-left: 4px solid #0d6efd;
+  background-color: #f9f9f9;
+}
+
+.reponse-transition {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.4s ease;
+}
+
+.reponse-transition.show {
+  max-height: 1000px; /* valeur suffisamment grande */
+  opacity: 1;
+}

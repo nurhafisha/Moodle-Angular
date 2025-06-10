@@ -1,15 +1,44 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { apiUrls } from '../backend_urls';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UeService {
-  private apiUrl = 'http://localhost:8800/backend/ues'; 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+  getUeData(ueId: string | null): Observable<any> {
+    return this.http.get<any>(apiUrls.ue + `${ueId}`, { withCredentials: true }).pipe(
+      map(res => res.data),
+      catchError(err => {
+        console.error('Failed to fetch UE data:', err);
+        return of(null);
+      })
+    );
+  }
+
+  getUserData(): Observable<Map<string, string>> {
+    return this.http.get<any>(apiUrls.user, { withCredentials: true }).pipe(
+      map(res => {
+        const usersMap = new Map<string, string>();
+        for (const user of res.data) {
+          const id = user._id?.$oid || user._id;
+          usersMap.set(id, `${user.prenom} ${user.nom}`);
+        }
+        return usersMap;
+      }),
+      catchError(err => {
+        console.error('Erreur lors du chargement des utilisateurs :', err);
+        throw err;
+      })
+    );
+  }
 
   getAllUes() {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>('http://localhost:8800/backend/ues');
   }
 }

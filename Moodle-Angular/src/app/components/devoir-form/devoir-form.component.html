@@ -3,33 +3,29 @@
 </button>
 
 <div [class.show]="showForm" class="form-container">
-  <form (ngSubmit)="onSubmit(devoirForm)" #devoirForm="ngForm" class="p-4 border rounded shadow-sm bg-light">
-    
+  <form [formGroup]="devoirForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light">
+
     <div class="mb-3">
       <label for="titreDevoir" class="form-label">Titre du Devoir <span class="text-danger">*</span></label>
       <input
         type="text"
         id="titreDevoir"
         class="form-control"
-        [(ngModel)]="devoir.titre_devoir"
-        name="titre_devoir"
-        required
-        #titreDevoir="ngModel"
+        formControlName="titre_devoir"
       />
-      <div *ngIf="titreDevoir.invalid && titreDevoir.touched" class="text-danger small">
+      <div *ngIf="devoirForm.get('titre_devoir')?.invalid && devoirForm.get('titre_devoir')?.touched" class="text-danger small">
         Ce champ est obligatoire.
       </div>
     </div>
 
     <div class="mb-3">
       <label for="descDevoir" class="form-label">Description</label>
-      <input
-        type="text"
+      <textarea
         id="descDevoir"
         class="form-control"
-        [(ngModel)]="devoir.desc_devoir"
-        name="desc_devoir"
-      />
+        formControlName="desc_devoir"
+        rows="4"
+      ></textarea>
     </div>
 
     <div class="mb-3">
@@ -38,15 +34,12 @@
         type="datetime-local"
         id="datetimeFin"
         class="form-control"
-        [(ngModel)]="devoir.datetime_fin"
-        name="datetime_fin"
-        required
-        #datetimeFinDevoir="ngModel"
+        formControlName="datetime_fin"
       />
-      <div *ngIf="datetimeFinDevoir.invalid && datetimeFinDevoir.touched" class="text-danger small">
+      <div *ngIf="devoirForm.get('datetime_fin')?.invalid && devoirForm.get('datetime_fin')?.touched" class="text-danger small">
         Ce champ est obligatoire.
       </div>
-      <div *ngIf="!datetimeFinDevoir.invalid && isDateTimeFinInvalid()" class="text-danger small">
+      <div *ngIf="!devoirForm.get('datetime_fin')?.invalid && isDateTimeFinInvalid()" class="text-danger small">
         La date limite doit être ultérieure à maintenant.
       </div>
     </div>

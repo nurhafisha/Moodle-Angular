@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { UeService } from 'src/app/services/ue.service'
 
 @Component({
   selector: 'app-contenu-ue',
@@ -14,14 +14,16 @@ export class ContenuUeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
-  ) {}
-
-  ngOnInit(): void {
+    private ueService: UeService
+  ) {
     this.ueId = this.route.snapshot.paramMap.get('id');
     if (this.ueId) {
       this.fetchUeData();
     }
+  }
+
+  ngOnInit(): void {
+    
   }
 
   selectTab(tab: string): void {
@@ -29,15 +31,9 @@ export class ContenuUeComponent implements OnInit {
   }
   
   fetchUeData(): void {
-    this.http.get<any>(`http://localhost:8800/backend/ues/${this.ueId}`, { withCredentials: true })
-      .subscribe({
-        next: (res) => {
-          // Adjust based on actual API response
-          this.ueData = res.data ?? res; 
-        },
-        error: (err) => {
-          console.error('Failed to fetch UE data:', err);
-        }
-      });
+    this.ueService.getUeData(this.ueId).subscribe(data => {
+      this.ueData = data;
+      console.log('UE data (original order):', this.ueData);
+    });
   }
 }

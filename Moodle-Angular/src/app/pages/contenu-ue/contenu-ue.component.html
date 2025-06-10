@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="container mt-4">
-  <h3>{{ ueId }} : {{ ueData?.titre_ue }}</h3>
+  <h1>{{ ueId }} : {{ ueData?.titre_ue }}</h1>
   <ul class="nav nav-tabs">
     <li class="nav-item">
       <a
@@ -17,7 +17,7 @@
         [class.active]="selectedTab === 'discussions'"
         (click)="selectTab('discussions')"
       >
-        <i class="bi bi-people-fill"></i> Discussions
+        <i class="bi bi-chat-dots-fill"></i> Discussions
       </a>
     </li>
   </ul>

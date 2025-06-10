@@ -6,7 +6,7 @@
         <button type="button" class="btn btn-sm btn-primary me-2" title="Edit">
           <i class="bi bi-pencil-square"></i>
         </button>
-        <button type="button" class="btn btn-sm btn-danger" title="Delete">
+        <button type="button" class="btn btn-sm btn-danger" title="Delete" (click)="deleteDevoir(devoir._id)">
           <i class="bi bi-trash"></i>
         </button>
       </div>
@@ -15,8 +15,8 @@
         <div class="timestamp"><strong>À : </strong>{{ devoir.datetime_fin | date:'short' }}</div>
       </div>
     </div>
-    <p class="mb-0 text-muted">
+    <div style="white-space: pre-line;">
       {{ devoir.desc_devoir }}
-    </p>
+    </div>
   </div>
 </div>
