@@ -55,7 +55,7 @@ export class LoginPageComponent implements OnInit {
         localStorage.setItem('userId', res.data._id);
 
         this.showToast('success', 'Login réussie !');
-        setTimeout(() => this.router.navigate(['/profile']), 2000);
+        setTimeout(() => this.router.navigate(['/mes-cours']), 2000);
       },
       error: (err) => {
         console.error('Login échoué', err);
