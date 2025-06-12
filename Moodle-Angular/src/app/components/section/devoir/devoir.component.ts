@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DevoirService } from 'src/app/services/devoir.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-devoir',
@@ -10,11 +11,12 @@ import { DevoirService } from 'src/app/services/devoir.service';
 export class DevoirComponent{
   @Input() devoirs: any[] = [];
   ueId: string | null = null;
-
-  constructor(private route: ActivatedRoute, private devoirService: DevoirService) {}
+  userRole: string | null = null;
+  constructor(private route: ActivatedRoute, private devoirService: DevoirService , private router: Router) {}
 
   ngOnInit(): void {
     this.ueId = this.route.snapshot.paramMap.get('id');
+    this.userRole = localStorage.getItem('userRole');
   }
 
   deleteDevoir(id: string): void {
@@ -30,4 +32,8 @@ export class DevoirComponent{
       }
     });
   }
+
+  goToDevoir(devoirId: string) {
+  this.router.navigate(['/mes-cours', this.ueId, 'devoirs', devoirId]);
+}
 }
