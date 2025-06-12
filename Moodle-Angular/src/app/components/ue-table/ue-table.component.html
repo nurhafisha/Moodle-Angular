@@ -19,6 +19,7 @@
               class="btn btn-sm btn-warning"
               data-bs-toggle="modal"
               data-bs-target="#ue-modify"
+              (click)="openEditModal(ue)"
             >
               Modifier
             </button>
@@ -38,7 +39,7 @@
   </table>
 </div>
 
-<!-- Modal -->
+<!-- Modal pour modification UE-->
 <div
   class="modal fade"
   id="ue-modify"
@@ -46,7 +47,7 @@
   aria-labelledby="ue-modifyLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="ue-modifyLabel">Modifier l'UE</h5>
@@ -58,34 +59,50 @@
         ></button>
       </div>
       <div class="modal-body">
-        <!-- Champ pour modifier les donnees sur l'utilisateur -->
         <div class="mb-3">
-          <label for="basic-url" class="form-label fw-bold">Code UE</label>
+          <label class="form-label fw-bold">Code UE</label>
           <input
             type="text"
             class="form-control"
-            placeholder="Code UE"
+            [(ngModel)]="editedUe._id"
+            name="edit_code_ue"
             aria-label="code-ue"
             aria-describedby="basic-addon1"
+            readonly
           />
         </div>
-
         <div class="mb-3">
-          <label for="basic-url" class="form-label fw-bold">Nom UE</label>
+          <label class="form-label fw-bold">Nom UE</label>
           <input
             type="text"
             class="form-control"
-            placeholder="Nom UE"
+            [(ngModel)]="editedUe.titre_ue"
+            name="edit_titre_ue"
             aria-label="nom-ue"
             aria-describedby="basic-addon1"
+            required
           />
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-bold">Image UE</label>
+          <input
+            type="file"
+            class="form-control"
+            (change)="onEditUeImageSelected($event)"
+            accept="image/*"
+          />
+          <div *ngIf="editedUe.image_ue">
+            <small>Image actuelle : {{ editedUe.image_ue }}</small>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Annuler
         </button>
-        <button type="button" class="btn btn-success">Enregistrer</button>
+        <button type="button" class="btn btn-success" (click)="emitUpdateUe()">
+          Enregistrer
+        </button>
       </div>
     </div>
   </div>

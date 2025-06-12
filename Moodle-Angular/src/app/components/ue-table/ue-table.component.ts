@@ -8,11 +8,33 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class UETableComponent {
   @Input() ues: any[] = [];
   @Output() deleteUe = new EventEmitter<string>();
+  @Output() updateUe = new EventEmitter<any>();
 
   selectedCodeUe: string | null = null;
+  selectedEditUeImage: File | null = null;
+
+  editedUe: any = {};
 
   constructor() {}
   openDeleteModal(codeUe: string) {
     this.selectedCodeUe = codeUe;
+  }
+  openEditModal(ue: any) {
+    this.editedUe = { ...ue };
+    this.selectedEditUeImage = null;
+  }
+
+  onEditUeImageSelected(event: any) {
+    const file = event.target.files[0];
+    this.selectedEditUeImage = file ? file : null;
+  }
+
+  emitUpdateUe() {
+    // Crée l'objet à émettre
+    const ueToUpdate = {
+      ...this.editedUe,
+      imageFile: this.selectedEditUeImage,
+    };
+    this.updateUe.emit(ueToUpdate);
   }
 }

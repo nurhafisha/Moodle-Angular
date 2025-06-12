@@ -29,6 +29,10 @@ export class AdminService {
     return this.http.post<any>(this.urlUser, user);
   }
 
+  updateUe(codeUe: string, ue: any = {}): Observable<any> {
+    return this.http.patch<any>(`${this.urlUe}/${codeUe}`, ue);
+  }
+
   deleteUser(userId: string): Observable<any> {
     return this.http.delete<any>(`${this.urlUser}/${userId}`);
   }

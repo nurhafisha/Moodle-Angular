@@ -74,12 +74,17 @@
           </button>
         </div>
         <!-- Composant pour la table des UEs -->
-        <app-ue-table [ues]="ues" (deleteUe)="deleteUe($event)"></app-ue-table>
+        <app-ue-table
+          [ues]="ues"
+          (deleteUe)="deleteUe($event)"
+          (updateUe)="updateUe($event)"
+        ></app-ue-table>
       </div>
     </div>
   </div>
 </main>
 
+<!-- Modal d'ajout UE -->
 <!-- Modal d'ajout UE -->
 <div
   class="modal fade"
@@ -106,21 +111,52 @@
             type="text"
             class="form-control"
             [(ngModel)]="newUe._id"
-            name="titre_ue"
+            name="_id"
             required
+            pattern="^[A-Z]{2}[0-9]{1}([0-1]{1}||[A-Z]{1})"
+            #codeUe="ngModel"
           />
+          <div
+            *ngIf="codeUe.invalid && codeUe.touched"
+            class="text-danger mt-1"
+          >
+            <span *ngIf="codeUe.errors?.['required']">Code UE obligatoire</span>
+            <span *ngIf="codeUe.errors?.['pattern']">
+              Format code UE n'est pas correct
+            </span>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Nom UE</label>
           <input
+            type="text"
             class="form-control"
             [(ngModel)]="newUe.titre_ue"
             name="titre_ue"
             required
+            #titreUe="ngModel"
+          />
+          <div
+            *ngIf="titreUe.invalid && titreUe.touched"
+            class="text-danger mt-1"
+          >
+            Nom UE obligatoire
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Image UE</label>
+          <input
+            type="file"
+            class="form-control"
+            (change)="onUeImageSelected($event)"
+            accept="image/*"
           />
         </div>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Annuler
+        </button>
         <button
           type="submit"
           class="btn btn-success"

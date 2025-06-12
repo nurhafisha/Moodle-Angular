@@ -4,7 +4,9 @@ import UE from "../models/Ue.js"; // Importe le modèle UE (Mongoose)
 // Récupérer toutes les UEs
 export const getAllUes = async (req, res) => {
   const ues = await UE.find(); // Récupère toutes les UEs depuis la base
-  res.status(200).json({ success: true, data: ues }); // Renvoie la liste
+  res
+    .status(200)
+    .json({ success: true, message: "UEs récupérés avec succès", data: ues }); // Renvoie la liste
 };
 
 // Récupérer une UE par son ID
@@ -23,29 +25,56 @@ export const getUeById = async (req, res, next) => {
 // Créer une nouvelle UE
 export const createUe = async (req, res) => {
   try {
-    const { _id, titre_ue } = req.body; // Récupère les champs du body
-    const ue = new UE({ _id, titre_ue }); // Crée une nouvelle instance UE
-    await ue.save(); // Sauvegarde dans la base
-    res.status(201).json({ success: true, data: ue }); // Renvoie l'UE créée
+    const { _id, titre_ue } = req.body;
+    const image_ue = req.file ? req.file.path : null;
+    const ue = new UE({ _id, titre_ue, image_ue });
+    await ue.save();
+    res.status(201).json({ success: true, data: ue });
   } catch (err) {
-    console.error("Erreur lors de la création de l'UE :", err); // Log erreur
     res.status(500).json({
       message: "Erreur lors de la création de l'UE",
+      error: err.message,
+    });
+  }
+};
+
+// Modifier les champs des UE
+export const updateUe = async (req, res) => {
+  try {
+    const { titre_ue } = req.body;
+    let updateFields = { titre_ue };
+
+    // Si une nouvelle image est uploadée, ajoute-la
+    if (req.file) {
+      updateFields.image_ue = req.file.path;
+    }
+
+    const ue = await UE.findByIdAndUpdate(req.params.id, updateFields, {
+      new: true,
+      runValidators: true,
+    });
+    if (!ue) {
+      return res.status(404).json({ message: "UE non trouvée" });
+    }
+    res.status(200).json({ success: true, data: ue });
+  } catch (err) {
+    res.status(500).json({
+      message: "Erreur lors de modification de l'UE",
       error: err.message || err,
     });
   }
 };
 
 // Supprimer une UE existante
-export const deleteUe = async (req, res) => {
+export const deleteUe = async (req, res, next) => {
   try {
     const ue = await UE.findByIdAndDelete(req.params.id);
 
     if (!ue) {
-      return res.status(404).json({ message: "UE non trouvée" });
+      return next(CreateError(404, "UE non trouvée"));
     }
 
-    return res.status(200).json({ message: "UE supprimée !" });
+    return next(CreateSuccess(200, "UE suprimée!"));
   } catch (err) {
     console.error("Erreur lors de la suppression de l'UE :", err);
     res.status(500).json({

@@ -1,11 +1,19 @@
+main {
+  margin: 3em 5vw;
+  padding: 3em;
+  background-color: white;
+  border: 0.5px solid lightgray;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .nav-link.active {
-    font-weight: bold;
-    border-bottom: 3px solid #007bff;
+  font-weight: bold;
+  border-bottom: 3px solid #007bff;
 }
 .nav-link {
-    color: #007bff !important;
-    cursor: pointer;
+  color: #007bff !important;
+  cursor: pointer;
 }
 .nav-tabs {
-    border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
