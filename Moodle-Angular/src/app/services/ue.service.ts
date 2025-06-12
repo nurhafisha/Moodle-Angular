@@ -37,8 +37,18 @@ export class UeService {
       })
     );
   }
+  
+  getAllUes(): Observable<any[]> {
+  return this.http.get<any>(apiUrls.ue, { withCredentials: true }).pipe(
+    map(res => res.data),
+    catchError(err => {
+      console.error('Failed to fetch UEs:', err);
+      return of([]);
+    })
+  );
+}
 
-  getAllUes() {
-    return this.http.get<any[]>('http://localhost:8800/backend/ues');
-  }
+
+
+
 }
