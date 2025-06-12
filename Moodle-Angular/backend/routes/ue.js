@@ -7,7 +7,8 @@ import {
   createCours, // Contrôleur pour créer un nouveau cours
   createRessource, // Contrôleur pour créer une nouvelle ressource
   createDevoir,
-  deleteUe, // Contrôleur pour créer un nouveau devoir
+  deleteUe,
+  updateUe, // Contrôleur pour créer un nouveau devoir
 } from "../controllers/ue-controller.js"; // Importe les fonctions du contrôleur
 
 // Crée un nouveau routeur express
@@ -25,13 +26,15 @@ const storage = multer.diskStorage({
 });
 
 // Initialise multer avec la configuration de stockage
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage, dest: "uploads/" });
 
 router.get("/", getAllUes); // Route pour récupérer toutes les UEs
 
-router.post("/", createUe); // Route pour créer une nouvelle UE
+router.post("/", upload.single("image_ue"), createUe); // Route pour créer une nouvelle UE
 
 router.get("/:id", getUeById); // Route pour récupérer une UE par son id
+
+router.patch("/:id", upload.single("image_ue"), updateUe); // Route pour modifier les champs d'une UE
 
 router.delete("/:id", deleteUe); // Route pour supprimer une UE par son id(code UE)
 
