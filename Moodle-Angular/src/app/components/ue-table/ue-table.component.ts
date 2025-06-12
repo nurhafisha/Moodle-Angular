@@ -30,7 +30,7 @@ export class UETableComponent {
   }
 
   removeEditUeImage() {
-    this.editedUe.image_ue = null; // ou '' selon ton backend
+    this.editedUe.image_ue = null;
     this.selectedEditUeImage = null;
   }
 

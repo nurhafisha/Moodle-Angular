@@ -44,15 +44,9 @@ export const updateUe = async (req, res) => {
     const { titre_ue } = req.body;
     let updateFields = { titre_ue };
 
-    // Si une nouvelle image est uploadée, ajoute-la
-    if (req.file) {
-      updateFields.image_ue = req.file.path;
-    }
-
-    // Suppression d'une image existante
+    // Si une nouvelle image est uploadée
     if (req.body.image_ue === null || req.body.image_ue === "") {
       updateFields.image_ue = null;
-      // Optionnel : supprimer le fichier physique si tu veux
     }
 
     const ue = await UE.findByIdAndUpdate(req.params.id, updateFields, {

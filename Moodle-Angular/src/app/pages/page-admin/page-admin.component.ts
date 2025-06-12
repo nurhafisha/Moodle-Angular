@@ -84,6 +84,9 @@ export class PageadminComponent implements OnInit {
     if (ue.imageFile) {
       formData.append('image_ue', ue.imageFile);
     }
+    if (ue.image_ue === null) {
+      formData.append('image_ue', '');
+    }
     this.adminService.updateUe(ue._id, formData).subscribe(() => {
       this.loadUes();
       (window as any).bootstrap.Modal.getOrCreateInstance(
