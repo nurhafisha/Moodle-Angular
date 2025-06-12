@@ -3,7 +3,7 @@
 This is a full-stack web application inspired by Moodle, built using:
 - Angular (frontend)
 - Node.js + Express (backend)
-- MongoDB Atlas (database)
+- MongoDB (database)
 
 ## 📦 Project Structure
 
