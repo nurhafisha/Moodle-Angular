@@ -51,3 +51,9 @@ This is a full-stack web application inspired by Moodle, built using:
       ```bash
         cd Moodle-Angular
         ng serve
+
+## Functionnalities
+For this part of our UE WE4B, we are moving on into a new full-satck development of our Moodle educational web application. This time it offers some new features
+1. **Discussion and Forum**:
+   - Any users can create a discussion on different topics, other users could join the discussion and send messages to answer any question that has been raised. The discussions could be regrouped by courses with the authorisation of specific role like "Teacher" or "Student"
+   
