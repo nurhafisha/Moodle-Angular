@@ -11,6 +11,18 @@ export class SectionComponent{
   @Input() ressources: any[] = [];
   @Input() devoirs: any[] = [];
   @Input() forums: any[] = [];
+  // Ajouter Autres Sections
+  newSectionName: string = '';
+  customSections: string[] = [];
+  @Input() customPosts: any[] = [];
+
+  addCustomSection(): void {
+    const trimmedName = this.newSectionName.trim();
+    if (trimmedName) {
+      this.customSections.push(trimmedName);
+      this.newSectionName = '';
+    }
+  }
 
   onCoursAdded(newCours: any) {
     this.cours = [...this.cours, newCours];
