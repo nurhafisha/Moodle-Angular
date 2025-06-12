@@ -28,12 +28,23 @@ const ressourceSchema = new mongoose.Schema({
 });
 
 const depotSchema = new mongoose.Schema({
-  id_etudiant: Number,
-  fichier: { type: String, default: null },
-  datetime: Date,
+  id_etudiant: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'User',
+  required: true,
+},
+  originalname: String,      // "report.pdf"
+  filename: String,          // "file-1718xxxxxx.pdf"
+  path: String,              // e.g., "uploads/file-1718xxxxxx.pdf"
+  taille: Number,            // file size in bytes
+  type: String,              // MIME type
+  datetime: {
+    type: Date,
+    default: Date.now
+  },
   etat: {
     type: String,
-    enum: ["corrigé", "en attente", "refusé"],
+    enum: ["corrigé", "refusé" , "en attente" ],
     default: "en attente",
   },
   note: { type: Number, default: null },
