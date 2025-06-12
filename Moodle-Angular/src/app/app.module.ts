@@ -12,7 +12,6 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AppRoutingModule } from './app-routing.module'; // Import AngularFireAuthModule for authentication
 import { FormsModule } from '@angular/forms';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
-import { ActualiteComponent } from './components/actualite/actualite.component';
 import { UeComponent } from './components/ue/ue.component';
 import { ChoixUeComponent } from './pages/choix-ue/choix-ue.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -40,7 +39,6 @@ import { DevoirFormComponent } from './components/devoir-form/devoir-form.compon
     LoginPageComponent,
     FormComponent,
     RegisterPageComponent,
-    ActualiteComponent,
     UeComponent,
     ChoixUeComponent,
     NavbarComponent,
