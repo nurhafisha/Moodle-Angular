@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <main>
   <div class="header pb-3">
-    <h2>Administrateur ⚙️</h2>
+    <h2>Espace d'administration ⚙️</h2>
   </div>
   <div class="container-fluid">
     <ul class="nav nav-tabs flex-nowrap" id="myTab" role="tablist">
@@ -199,7 +199,11 @@
             [(ngModel)]="newUser.nom"
             name="nom"
             required
+            #nom="ngModel"
           />
+          <div class="text-danger mt-1" *ngIf="nom.touched">
+            Nom est obligatoire
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Prénom</label>
@@ -209,7 +213,11 @@
             [(ngModel)]="newUser.prenom"
             name="prenom"
             required
+            #prenom="ngModel"
           />
+          <div class="text-danger mt-1" *ngIf="prenom.touched">
+            Prenom est obligatoire
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Email</label>
@@ -220,7 +228,18 @@
             name="email"
             placeholder="prenom-nom@utbm.fr"
             required
+            #email="ngModel"
           />
+          <div class="text-danger mt-1" *ngIf="email.touched">
+            <ul class="mb-0" style="list-style: none; padding-left: 0">
+              <li>
+                <span [ngClass]="isEmailValid ? 'text-success' : 'text-danger'">
+                  {{ isEmailValid ? "✅" : "❌" }}
+                </span>
+                Format email
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Mot de passe</label>
@@ -230,7 +249,48 @@
             [(ngModel)]="newUser.password"
             name="password"
             required
+            #password="ngModel"
           />
+          <div class="text-danger mt-1" *ngIf="password.touched">
+            <ul class="mb-0" style="list-style: none; padding-left: 0">
+              <li>
+                <span
+                  [ngClass]="
+                    isPasswordLongEnough ? 'text-success' : 'text-danger'
+                  "
+                >
+                  {{ isPasswordLongEnough ? "✅" : "❌" }}
+                </span>
+                10 caractères minimum
+              </li>
+              <li>
+                <span [ngClass]="hasUppercase ? 'text-success' : 'text-danger'">
+                  {{ hasUppercase ? "✅" : "❌" }}
+                </span>
+                Au moins une majuscule
+              </li>
+              <li>
+                <span [ngClass]="hasLowercase ? 'text-success' : 'text-danger'">
+                  {{ hasLowercase ? "✅" : "❌" }}
+                </span>
+                Au moins une minuscule
+              </li>
+              <li>
+                <span [ngClass]="hasNumber ? 'text-success' : 'text-danger'">
+                  {{ hasNumber ? "✅" : "❌" }}
+                </span>
+                Au moins un chiffre
+              </li>
+              <li>
+                <span
+                  [ngClass]="hasSpecialChar ? 'text-success' : 'text-danger'"
+                >
+                  {{ hasSpecialChar ? "✅" : "❌" }}
+                </span>
+                Au moins un caractère spécial
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Rôle</label>

@@ -110,4 +110,35 @@ export class PageadminComponent implements OnInit {
       this.loadUes();
     });
   }
+
+  // Email domaine validation : prenom-nom@utbm.fr
+  get email() {
+    return this.newUser?.email || '';
+  }
+
+  get isEmailValid() {
+    // Vérifie le format prenom-nom@utbm.fr
+    const regex = /^[a-zA-Z]+-[a-zA-Z]+@utbm\.fr$/;
+    return regex.test(this.email);
+  }
+
+  // Mot de passe validation
+  get password() {
+    return this.newUser?.password || '';
+  }
+  get isPasswordLongEnough() {
+    return this.password.length >= 10;
+  }
+  get hasUppercase() {
+    return /[A-Z]/.test(this.password);
+  }
+  get hasLowercase() {
+    return /[a-z]/.test(this.password);
+  }
+  get hasNumber() {
+    return /\d/.test(this.password);
+  }
+  get hasSpecialChar() {
+    return /[^\w\s]/.test(this.password);
+  }
 }
