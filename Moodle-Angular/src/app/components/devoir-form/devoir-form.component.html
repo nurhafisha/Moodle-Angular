@@ -1,4 +1,4 @@
-<button class="btn btn-secondary mb-3" (click)="showForm = !showForm">
+<button class="btn btn-secondary mb-3" (click)="showForm = !showForm" *ngIf="userRole === 'Enseignant'">
   {{ showForm ? 'Cacher le formulaire' : 'Ajouter Un Devoir' }}
 </button>
 
