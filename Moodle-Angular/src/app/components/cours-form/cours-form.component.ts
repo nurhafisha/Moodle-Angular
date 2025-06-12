@@ -18,13 +18,16 @@ export class CoursFormComponent{
   showForm = false;
   cours = { titre_cours: '', desc_cours: '', datetime_publier: ''};
 
+  // role de l'utilisateur
+  userRole: string | null = null;
+
   file: File | null = null;
 
   constructor(private route: ActivatedRoute, private coursService: CoursService) {
     this.id_ue = this.route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit() {}
+  ngOnInit() {this.userRole = localStorage.getItem('userRole');}
 
   onFileChange(event: any) {
     this.file = event.target.files[0];

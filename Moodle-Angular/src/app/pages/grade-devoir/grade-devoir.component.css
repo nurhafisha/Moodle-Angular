@@ -1,0 +1,9 @@
+.truncate-comment:hover {
+  white-space: normal;
+  word-wrap: break-word;
+  background-color: #f8f9fa;
+  padding: 4px;
+  border-radius: 4px;
+  z-index: 2;
+  position: relative;
+}

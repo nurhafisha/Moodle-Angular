@@ -292,3 +292,171 @@ export const getAllUe = async (req, res) => {
     res.status(500).json({ message: "Error retrieving UEs", error: err });
   }
 };
+
+// ----------------------------------------- Section Devoirs : Fisha -----------------------------------------
+
+// Recuperer les devoir d'une UE
+export const getDevoirsByUeId = async (req,res,next) => {
+  try {
+    const ue = await UE.findById(req.params.id);
+    if (!ue) {
+      return next({ statusCode: 404, message: "UE not found" });
+    }
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Devoirs retrieved",
+      data: ue.devoirs,
+    });
+  } catch (error) {
+    return next({ statusCode: 500, message: "Error fetching devoirs", data: error });
+  }
+} ;
+
+// Submission d'un devoir par Etudiant :
+export const submitDepot = async (req,res,next) => {
+
+  try{
+
+    const {ueId, devoirId} = req.params; // Récupère l'ID de l'UE et du devoir
+    const studentId = new mongoose.Types.ObjectId(req.user.id);
+    const file = req.file; // Récupère le fichier uploadé
+
+    if (!file) {
+        console.log("⚠️ No file was uploaded.");
+      } else {
+        console.log("✅ File saved:", file.path);
+      }
+
+    const ue = await UE.findById(ueId); // Cherche l'UE par ID
+    if (!ue) {
+      return next({ statusCode: 404, message: "UE not found" }); // Si l'UE n'existe pas
+    }
+    const devoir = ue.devoirs.id(devoirId); // Cherche le devoir par ID
+    if (!devoir) {
+      return next({ statusCode: 404, message: "Devoir not found" }); // Si le devoir n'existe pas
+    }
+
+    const isLate = new Date() > new Date(devoir.datetime_fin); // Vérifie si
+
+    const newDepot = {
+      id_etudiant: studentId,
+      originalname: file.originalname,
+      filename: file.filename,
+      path: file.path,
+      taille: file.size,
+      type: file.mimetype,
+      datetime: new Date(),
+      etat: "en attente", 
+      note: null,
+      commentaire: req.body.commentaire || null,
+  };
+  
+  devoir.depots.push(newDepot); // Ajoute le dépôt au devoir
+
+await ue.save(); // Sauvegarde l'UE modifiée
+
+res.status(201).json({ message: "Depot submitted", depot: newDepot });
+}
+  catch (error) {
+    return next({ statusCode: 500, message: "Error lors du dépôt", data: error });
+  }
+};
+
+// ----------------------------------------- Section notez devoirs : Fisha -----------------------------------------
+
+export const getDepotForGrading = async (req, res, next) => {
+  try {
+    const { ueId, devoirId } = req.params;
+    const ue = await UE.findById(ueId).populate('devoirs.depots.id_etudiant'); 
+    // Populate aider de remplir les informations de l'étudiant dans les dépôts (pas id seulement)
+
+    if (!ue) {
+      return next({ statusCode: 404, message: "UE not found" });
+    }
+
+    const devoir = ue.devoirs.id(devoirId);
+    if (!devoir) {
+      return next({ statusCode: 404, message: "Devoir not found" });
+    }
+
+    const depots = devoir.depots || [];
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Depots retrieved for grading",
+      data: depots,
+    });
+
+  } catch (error) {
+    return next({
+      statusCode: 500,
+      message: "Erreur lors de la récupération du dépôt pour notation",
+      data: error,
+    });
+  }
+};
+
+export const updateDepotForGrading = async (req, res, next) => {
+  try{
+    const { ueId , devoirId, depotId } = req.params;
+    const { note, commentaire, etat } = req.body; // Récupère les champs du body
+
+    const ue = await UE.findById(ueId);
+    if (!ue) return next({ statusCode: 404, message: "UE not found" }); // Si l'UE n'existe pas
+
+    const devoir = ue.devoirs.id(devoirId);
+    if (!devoir) return next({ statusCode: 404, message: "Devoir not found" }); // Si le devoir n'existe pas
+
+    const depot = devoir.depots.id(depotId);
+    if (!depot) return next({ statusCode: 404, message: "Depot not found" }); // Si le dépôt n'existe pas
+    // Met à jour les champs du dépôt
+    depot.note = note ; // Met à jour la note si fournie
+    depot.commentaire = commentaire ; // Met à jour le commentaire si fourni
+    depot.etat = etat ; // Met à jour l'état si fourni
+
+    await ue.save(); // Sauvegarde l'UE modifiée
+
+    // Renvoie une réponse de succès
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Depot updated successfully",
+      data: {
+          titre_devoir: devoir.titre_devoir,
+          depots: devoir.depots || []
+          }
+    });
+  } catch (error) {
+    return next({
+      statusCode: 500,
+      message: "Erreur lors de la mise à jour du dépôt pour notation",
+      data: error,
+    });
+  }
+}
+
+// Pour recuperer les details d'un devoir spécifique
+export const getDevoirDetails = async (req, res, next) => {
+  try {
+    const { ueId, devoirId } = req.params;
+    const ue = await UE.findById(ueId);
+
+    if (!ue) return next({ statusCode: 404, message: "UE not found" });
+
+    const devoir = ue.devoirs.id(devoirId);
+    if (!devoir) return next({ statusCode: 404, message: "Devoir not found" });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        titre_devoir: devoir.titre_devoir,
+        desc_devoir: devoir.desc_devoir,
+        datetime_fin: devoir.datetime_fin,
+        depots: devoir.depots
+      }
+    });
+  } catch (error) {
+    return next({ statusCode: 500, message: "Erreur serveur", data: error });
+  }
+};

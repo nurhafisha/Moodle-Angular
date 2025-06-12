@@ -20,15 +20,15 @@ app.use("/backend/ues", ueRoute);
 app.use("/uploads", express.static("uploads"));
 
 //Response handling middleware
-app.use((obj, req, res, next) => {
-  const statusCode = obj.statusCode || 500;
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
   const isSuccess = [200, 201, 204].includes(statusCode);
 
   return res.status(statusCode).json({
     success: isSuccess,
     status: statusCode,
-    message: obj.message || (isSuccess ? "Success" : "Internal Server Error"),
-    data: obj.data || null,
+    message: err.message || (isSuccess ? "Success" : "Internal Server Error"),
+    data: err.data || null,
   });
 });
 

@@ -17,14 +17,14 @@ export class RessourceFormComponent{
 
   showForm = false;
   ressource = { titre_ressource: '', desc_ressource: '', datetime_publier: ''};
-
+  userRole: string | null = null;
   file: File | null = null;
 
   constructor(private route: ActivatedRoute, private ressourceService: RessourceService) {
     this.id_ue = this.route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit() {}
+  ngOnInit() {this.userRole = localStorage.getItem('userRole');}
 
   onFileChange(event: any) {
     this.file = event.target.files[0];

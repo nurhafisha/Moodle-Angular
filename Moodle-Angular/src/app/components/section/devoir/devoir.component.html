@@ -1,14 +1,23 @@
 <div class="container mt-4" *ngFor="let devoir of devoirs">
-  <div class="note-card bg-light bg-gradient shadow-sm">
+  <div class="note-card bg-light bg-gradient shadow-sm"
+      style="cursor: pointer;"
+      (click)="goToDevoir(devoir._id)">
     <div class="d-flex justify-content-between mb-2">
       <div class="d-flex align-items-center mb-2 w-auto">
         <strong class="me-2">{{ devoir.titre_devoir }}</strong>
-        <button type="button" class="btn btn-sm btn-primary me-2" title="Edit">
+
+        <button type="button" class="btn btn-sm btn-primary me-2" title="Edit" 
+        (click)="$event.stopPropagation()"
+        *ngIf="userRole === 'Enseignant'">
           <i class="bi bi-pencil-square"></i>
         </button>
-        <button type="button" class="btn btn-sm btn-danger" title="Delete" (click)="deleteDevoir(devoir._id)">
+
+        <button type="button" class="btn btn-sm btn-danger" title="Delete" 
+        (click)="deleteDevoir(devoir._id); $event.stopPropagation()"
+        *ngIf="userRole === 'Enseignant'">
           <i class="bi bi-trash"></i>
         </button>
+
       </div>
       <div class="d-flex">
         <div class="timestamp"><strong>DE : </strong> {{ devoir.datetime_debut | date:'short' }}</div>
@@ -20,3 +29,6 @@
     </div>
   </div>
 </div>
+
+<!-- Notes : (click)="$event.stopPropagation()" to prevents the event from “bubbling up” to parent elements. 
+ for exp: click icon pencil dia takkan pergi submission devoir   -->

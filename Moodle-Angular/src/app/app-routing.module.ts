@@ -10,6 +10,8 @@ import { ContenuUeComponent } from './pages/contenu-ue/contenu-ue.component';
 import { RoleGuard } from './guards/role.guard';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { ChoixUeComponent } from './pages/choix-ue/choix-ue.component';
+import { DevoirSubmissionComponent } from './pages/devoir-submission/devoir-submission.component';
+import { GradeDevoirComponent } from './pages/grade-devoir/grade-devoir.component';
 
 
 // Definition des routes
@@ -24,7 +26,10 @@ const routes: Routes = [
   { path: 'mes-cours', component: ChoixUeComponent , canActivate: [RoleGuard], data: { expectedRoles: ['Etudiant', 'Enseignant', 'Admin']}},
   { path: 'profile' , component :ProfilePageComponent },
   { path: 'mes-cours/:id', component: ContenuUeComponent },
-
+  // Route pour submission de devoirs
+  {path: 'mes-cours/:id/devoirs/:devoirId', component: DevoirSubmissionComponent , canActivate: [RoleGuard], data: { expectedRoles: ['Etudiant', 'Enseignant']}},
+    // Route pour noter le devoirs
+  {path: 'mes-cours/:id/devoirs/:devoirId/grade-devoir', component: GradeDevoirComponent , canActivate: [RoleGuard], data: { expectedRoles: ['Enseignant']}},
 ];
 
 @NgModule({

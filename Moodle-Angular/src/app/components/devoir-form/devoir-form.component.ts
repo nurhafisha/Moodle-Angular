@@ -15,7 +15,7 @@ export class DevoirFormComponent {
 
   showForm = false;
   devoirForm!: FormGroup;
-
+  userRole: string | null = null;
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -30,6 +30,7 @@ export class DevoirFormComponent {
       desc_devoir: [''],
       datetime_fin: ['', Validators.required]
     });
+    this.userRole = localStorage.getItem('userRole');
   }
 
   onSubmit(): void {
