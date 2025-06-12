@@ -1,3 +1,13 @@
 .navbar {
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #337ab7;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3) !important;
+}
+
+#main-nav {
+  position: sticky;
+  top: 0;
+  overflow: hidden;
 }

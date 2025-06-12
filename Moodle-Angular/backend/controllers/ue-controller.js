@@ -1,27 +1,70 @@
-import UE from "../models/Ue.js";
 import mongoose from 'mongoose';
+import { error } from "console";
+import UE from "../models/Ue.js"; // Importe le modèle UE (Mongoose)
 
+// Récupérer toutes les UEs
+export const getAllUes = async (req, res) => {
+  const ues = await UE.find(); // Récupère toutes les UEs depuis la base
+  res.status(200).json({ success: true, data: ues }); // Renvoie la liste
+};
+
+// Récupérer une UE par son ID
 export const getUeById = async (req, res, next) => {
   try {
-    const ue = await UE.findOne({ _id: req.params.id });
+    const ue = await UE.findOne({ _id: req.params.id }); // Cherche l'UE par ID
     if (!ue) {
-      return next({ statusCode: 404, message: "UE not found" });
+      return next({ statusCode: 404, message: "UE not found" }); // Si non trouvée
     }
-
-    next({ statusCode: 200, data: ue });
+    next({ statusCode: 200, data: ue }); // Passe l'UE trouvée au middleware suivant
   } catch (error) {
-    next({ statusCode: 500, message: "Error fetching UE", data: error });
+    next({ statusCode: 500, message: "Error fetching UE", data: error }); // Gestion erreur
   }
 };
 
+// Créer une nouvelle UE
+export const createUe = async (req, res) => {
+  try {
+    const { _id, titre_ue } = req.body; // Récupère les champs du body
+    const ue = new UE({ _id, titre_ue }); // Crée une nouvelle instance UE
+    await ue.save(); // Sauvegarde dans la base
+    res.status(201).json({ success: true, data: ue }); // Renvoie l'UE créée
+  } catch (err) {
+    console.error("Erreur lors de la création de l'UE :", err); // Log erreur
+    res.status(500).json({
+      message: "Erreur lors de la création de l'UE",
+      error: err.message || err,
+    });
+  }
+};
+
+// Supprimer une UE existante
+export const deleteUe = async (req, res, next) => {
+  try {
+    const ue = await UE.findByIdAndDelete(req.params.id);
+
+    if (!ue) {
+      return next(CreateError(404, "UE non trouvée"));
+    }
+
+    return next(CreateSuccess(200, "UE suprimée!"));
+  } catch (err) {
+    console.error("Erreur lors de la suppression de l'UE :", err);
+    res.status(500).json({
+      message: "Erreur lors de la suppression de l'UE",
+      error: err.message || err,
+    });
+  }
+};
+
+// Ajouter un cours à une UE existante
 export const createCours = async (req, res) => {
   try {
-    const { titre_cours, desc_cours, datetime_publier } = req.body;
-    const fichier_joint = req.file ? `uploads/${req.file.filename}` : null;
+    const { titre_cours, desc_cours, datetime_publier } = req.body; // Champs du cours
+    const fichier_joint = req.file ? `uploads/${req.file.filename}` : null; // Fichier joint si uploadé
 
-    const ue = await UE.findById(req.params.id);
+    const ue = await UE.findById(req.params.id); // Cherche l'UE par ID
     if (!ue) {
-      return res.status(404).json({ message: "UE not found" });
+      return res.status(404).json({ message: "UE not found" }); // Si non trouvée
     }
 
     const newCours = {
@@ -32,13 +75,16 @@ export const createCours = async (req, res) => {
       fichier_joint,
     };
 
-    ue.cours.push(newCours);
-    await ue.save();
+    ue.cours.push(newCours); // Ajoute le cours à l'UE
+    await ue.save(); // Sauvegarde l'UE modifiée
 
-    res.status(201).json(newCours); 
+    res.status(201).json(newCours);  // Renvoie notification de succes
+
   } catch (err) {
-    console.error('Erreur lors de la création du cours :', err);
-    res.status(500).json({ message: "Error creating Cours", error: err.message || err });
+    console.error("Erreur lors de la création du cours :", err);
+    res
+      .status(500)
+      .json({ message: "Error creating Cours", error: err.message || err });
   }
 };
 
@@ -67,14 +113,15 @@ export const deleteCours = async (req, res) => {
   }
 };
 
+// Ajouter une ressource à une UE existante
 export const createRessource = async (req, res) => {
   try {
-    const { titre_ressource, desc_ressource, datetime_publier } = req.body;
-    const fichier_joint = req.file ? `uploads/${req.file.filename}` : null;
+    const { titre_ressource, desc_ressource, datetime_publier } = req.body; // Champs de la ressource
+    const fichier_joint = req.file ? `uploads/${req.file.filename}` : null; // Fichier joint si uploadé
 
-    const ue = await UE.findById(req.params.id);
+    const ue = await UE.findById(req.params.id); // Cherche l'UE par ID
     if (!ue) {
-      return res.status(404).json({ message: "UE not found" });
+      return res.status(404).json({ message: "UE not found" }); // Si non trouvée
     }
 
     const newRessource = ({
@@ -83,15 +130,17 @@ export const createRessource = async (req, res) => {
       desc_ressource,
       datetime_publier,
       fichier_joint,
-    });
+    }); // Ajoute la ressource à l'UE
 
-    ue.ressources.push(newRessource);
-    await ue.save();
+    ue.ressources.push(newRessource); 
+    await ue.save(); // Sauvegarde l'UE modifiée
 
-    res.status(201).json(newRessource);
+    res.status(201).json(newRessource); // Renvoie notification de succes
   } catch (err) {
-    console.error('Erreur lors de la création du ressource :', err);
-    res.status(500).json({ message: "Error creating Ressource", error: err.message || err });
+    console.error("Erreur lors de la création du ressource :", err);
+    res
+      .status(500)
+      .json({ message: "Error creating Ressource", error: err.message || err });
   }
 };
 
@@ -120,13 +169,15 @@ export const deleteRessource = async (req, res) => {
   }
 };
 
+// Ajouter un devoir à une UE existante
 export const createDevoir = async (req, res) => {
   try {
-    const { titre_devoir, desc_devoir, datetime_debut, datetime_fin, depots } = req.body;
+    const { titre_devoir, desc_devoir, datetime_debut, datetime_fin, depots } =
+      req.body; // Champs du devoir
 
-    const ue = await UE.findById(req.params.id);
+    const ue = await UE.findById(req.params.id); // Cherche l'UE par ID
     if (!ue) {
-      return res.status(404).json({ message: "UE not found" });
+      return res.status(404).json({ message: "UE not found" }); // Si non trouvée
     }
 
     const newDevoir = ({
@@ -136,14 +187,16 @@ export const createDevoir = async (req, res) => {
       datetime_debut,
       datetime_fin,
       depots
-    });
+    }); // Ajoute le devoir à l'UE
     ue.devoirs.push(newDevoir);
-    await ue.save();
+    await ue.save(); // Sauvegarde l'UE modifiée
 
-    res.status(201).json(newDevoir);
+    res.status(201).json(newDevoir); // Renvoie notification de succes
   } catch (err) {
-    console.error('Erreur lors de la création du devoir :', err);
-    res.status(500).json({ message: "Error creating devoir", error: err.message || err });
+    console.error("Erreur lors de la création du devoir :", err);
+    res
+      .status(500)
+      .json({ message: "Error creating devoir", error: err.message || err });
   }
 };
 
@@ -228,5 +281,12 @@ export const createForumReply = async (req, res) => {
   } catch (err) {
     console.error("Erreur lors de la création de la réponse :", err);
     res.status(500).json({ message: "Error creating reply", error: err.message || err });
+
+export const getAllUe = async (req, res) => {
+  try {
+    const ues = await UE.find({}, "titre_ue image_ue _id"); // only needed fields
+    res.status(200).json(ues);
+  } catch (err) {
+    res.status(500).json({ message: "Error retrieving UEs", error: err });
   }
 };

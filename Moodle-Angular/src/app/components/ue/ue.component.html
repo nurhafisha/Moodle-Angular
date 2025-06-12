@@ -1,30 +1,14 @@
-<div class="container mt-4">
-
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="mb-0">Mes cours</h3>
-
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-        Afficher
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" href="#">Tous</a></li>
-        <li><a class="dropdown-item" href="#">4</a></li>
-        <li><a class="dropdown-item" href="#">6</a></li>
-      </ul>
+<a [routerLink]="['/mes-cours', ue?._id]" class="text-decoration-none text-dark w-100">
+  <div class="card shadow-sm">
+    <div
+      class="card-img-top"
+      style="height: 150px; background-size: cover; background-position: center;"
+      [ngStyle]="ue?.image_ue ? 
+    {'background-image': 'url(' + ue.image_ue + ')'} : 
+    {'background-color': '#FFD36E'}"
+    ></div>
+    <div class="card-body">
+      <h5 class="card-title">{{ ue?._id }}: {{ ue?.titre_ue }}</h5>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-md-4 mb-4 d-flex" *ngFor="let course of courses">
-      <a [href]="course.link" class="text-decoration-none text-dark w-100">
-        <div class="card shadow-sm h-100">
-          <div [style.backgroundColor]="course.color" style="height: 100px;"></div>
-          <div class="card-body">
-            <h5 class="card-title">{{ course.title }}</h5>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
+</a>

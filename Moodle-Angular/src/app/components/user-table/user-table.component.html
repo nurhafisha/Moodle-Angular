@@ -1,43 +1,46 @@
 <div class="table-responsive">
   <table class="styled-table">
     <thead>
-    <tr>
-      <th scope="col">Nom</th>
-      <th scope="col">Prenom</th>
-      <th scope="col">Email</th>
-      <!--<th scope="col">Role</th>-->
-      <th scope="col">Action</th>
-    </tr>
+      <tr>
+        <th scope="col">Nom</th>
+        <th scope="col">Prenom</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">Action</th>
+      </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.nom }}</td>
-      <td>{{ user.prenom }}</td>
-      <td>{{ user.email }}</td>
-      <!--      <td>{{ user.role }}</td>-->
-      <td>
-        <div class="d-flex align-items-center">
-          <!-- Button trigger modal -->
-          <button
-            type="button"
-            class="btn btn-sm btn-warning"
-            data-bs-toggle="modal"
-            data-bs-target="#user-modify"
-          >
-            Modifier
-          </button>
-          <button type="button" class="btn btn-sm btn-danger ms-2">
-            Supprimer
-          </button>
-        </div>
-      </td>
-    </tr>
+      <tr *ngFor="let user of users">
+        <td>{{ user.nom }}</td>
+        <td>{{ user.prenom }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <!-- Button trigger modal -->
+            <button
+              type="button"
+              class="btn btn-sm btn-warning"
+              data-bs-toggle="modal"
+              data-bs-target="#user-modify"
+            >
+              Modifier
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-danger ms-2"
+              data-bs-toggle="modal"
+              data-bs-target="#user-delete"
+              (click)="openDeleteModal(user._id)"
+            >
+              Supprimer
+            </button>
+          </div>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
-
-
-
 
 <!-- Modal -->
 <div
@@ -47,7 +50,7 @@
   aria-labelledby="user-modifyLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="user-modifyLabel">
@@ -95,17 +98,50 @@
             aria-describedby="basic-addon1"
           />
         </div>
-
-        <div class="input-group">
-          <span class="input-group-text">With textarea</span>
-          <textarea class="form-control" aria-label="With textarea"></textarea>
-        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Annuler
         </button>
         <button type="button" class="btn btn-success">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="user-delete"
+  tabindex="-1"
+  aria-labelledby="userDelete"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userDelete">Confirmer la suppression</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Voulez-vous vraiment supprimer cet utilisateur ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Annuler
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          (click)="deleteUser.emit(selectedUserId ?? undefined)"
+        >
+          Supprimer
+        </button>
       </div>
     </div>
   </div>
