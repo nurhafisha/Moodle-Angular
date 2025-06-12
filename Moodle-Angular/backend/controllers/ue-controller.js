@@ -49,6 +49,12 @@ export const updateUe = async (req, res) => {
       updateFields.image_ue = req.file.path;
     }
 
+    // Suppression d'une image existante
+    if (req.body.image_ue === null || req.body.image_ue === "") {
+      updateFields.image_ue = null;
+      // Optionnel : supprimer le fichier physique si tu veux
+    }
+
     const ue = await UE.findByIdAndUpdate(req.params.id, updateFields, {
       new: true,
       runValidators: true,

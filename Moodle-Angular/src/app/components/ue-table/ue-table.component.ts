@@ -29,6 +29,11 @@ export class UETableComponent {
     this.selectedEditUeImage = file ? file : null;
   }
 
+  removeEditUeImage() {
+    this.editedUe.image_ue = null; // ou '' selon ton backend
+    this.selectedEditUeImage = null;
+  }
+
   emitUpdateUe() {
     // Crée l'objet à émettre
     const ueToUpdate = {
