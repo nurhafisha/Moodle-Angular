@@ -13,7 +13,10 @@ import {
   deleteRessource, // Contrôleur pour supprimer une ressource
   deleteDevoir, // Contrôleur pour supprimer un devoir
   createForumMessage, // Contrôleur créer un nouveau message au forum
-  createForumReply // // Contrôleur créer un nouveau réponse de message au forum
+  createForumReply, // // Contrôleur créer un nouveau réponse de message au forum
+  assignEtudiantsToUe, // Contrôleur pour assigner des étudiants à une UE
+  getUeWithEtudiants, // Contrôleur pour récupérer une UE avec ses étudiants
+  
 } from "../controllers/ue-controller.js"; // Importe les fonctions du contrôleur
 
 // Crée un nouveau routeur express
@@ -58,5 +61,9 @@ router.delete("/:id/ressource/:ressourceId", deleteRessource);
 router.delete("/:id/devoir/:devoirId", deleteDevoir);
 router.post("/new-forum/:id", createForumMessage);
 router.post("/new-reply/:id/:forumId", createForumReply);
+
+// Route pour récupérer une UE avec ses étudiants
+router.get("/with-etudiants/:id", getUeWithEtudiants);
+router.post("/assign-etudiants", assignEtudiantsToUe);
 
 export default router; // Exporte le routeur pour l'utiliser dans l'application principale

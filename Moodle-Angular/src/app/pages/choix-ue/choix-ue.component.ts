@@ -11,11 +11,13 @@ declare var bootstrap: any;
 })
 export class ChoixUeComponent implements OnInit {
   ues: any[] = [];
+  userRole: string | null = null;
 
 
   constructor(private ueService: UeService) {}
 
   ngOnInit(): void {
+    this.userRole = localStorage.getItem('userRole');
     this.ueService.getAllUes().subscribe({
       next: (data) => {
         console.log("UEs loaded:", data); 
@@ -25,6 +27,8 @@ export class ChoixUeComponent implements OnInit {
         console.error("Failed to load UEs:", err);
       }
     });
+
+    
     
   }
 

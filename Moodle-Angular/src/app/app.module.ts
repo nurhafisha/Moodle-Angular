@@ -28,6 +28,7 @@ import { DevoirComponent } from './components/section/devoir/devoir.component';
 import { CoursFormComponent } from './components/cours-form/cours-form.component';
 import { RessourceFormComponent } from './components/ressources-form/ressource-form.component';
 import { DevoirFormComponent } from './components/devoir-form/devoir-form.component';
+import { ParticipantsComponent } from './components/participants/participants.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { DevoirFormComponent } from './components/devoir-form/devoir-form.compon
     DevoirComponent,
     CoursFormComponent,
     RessourceFormComponent,
-    DevoirFormComponent
+    DevoirFormComponent,
+    ParticipantsComponent
   ],
 
   imports: [
