@@ -59,6 +59,14 @@ const devoirSchema = new mongoose.Schema({
   depots: [depotSchema],
 });
 
+const customPostSchema = new mongoose.Schema({
+  section: { type: String, required: true },
+  titre: { type: String, required: true },
+  description: { type: String },
+  datetime_publier: { type: Date, default: Date.now },
+  fichier_joint: { type: String }
+});
+
 const ueSchema = new mongoose.Schema({
   _id: { type: String, required: true },
   titre_ue: { type: String, required: true },
@@ -69,6 +77,8 @@ const ueSchema = new mongoose.Schema({
   ressources: [ressourceSchema],
   forums: [forumSchema],
   devoirs: [devoirSchema],
+  customSections: [String],   // noms de section personnalisées
+  customPosts: [customPostSchema]   // les publications des sections personnalisées
 });
 
 export default mongoose.model("UE", ueSchema);

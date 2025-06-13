@@ -88,6 +88,7 @@ export const createCours = async (req, res) => {
   }
 };
 
+// supprimer un post de tyype Cours
 export const deleteCours = async (req, res) => {
   try {
     const { id: ueId, coursId } = req.params;
@@ -97,6 +98,7 @@ export const deleteCours = async (req, res) => {
       return res.status(404).json({ message: "UE not found" });
     }
 
+    // verifier si Cours existe
     const initialLength = ue.cours.length;
     ue.cours = ue.cours.filter(c => c._id.toString() !== coursId);
 
@@ -152,7 +154,7 @@ export const deleteRessource = async (req, res) => {
     if (!ue) {
       return res.status(404).json({ message: "UE not found" });
     }
-
+    // verifier si Ressource existe
     const initialLength = ue.ressources.length;
     ue.ressources = ue.ressources.filter(c => c._id.toString() !== ressourceId);
 
@@ -162,7 +164,7 @@ export const deleteRessource = async (req, res) => {
 
     await ue.save();
 
-    res.status(200).json({ message: "Ressource deleted successfully", ressourceId });
+    res.status(200).json({ message: "Ressource deleted successfully", ressourceId });    // Renvoie notification de succes
   } catch (err) {
     console.error('Erreur lors de la suppression du ressource :', err);
     res.status(500).json({ message: "Error deleting Ressource", error: err.message || err });
@@ -209,6 +211,7 @@ export const deleteDevoir = async (req, res) => {
       return res.status(404).json({ message: "UE not found" });
     }
 
+    // verifier si Devoir existe
     const initialLength = ue.devoirs.length;
     ue.devoirs = ue.devoirs.filter(c => c._id.toString() !== devoirId);
 
@@ -218,13 +221,14 @@ export const deleteDevoir = async (req, res) => {
 
     await ue.save();
 
-    res.status(200).json({ message: "Devoir deleted successfully", devoirId });
+    res.status(200).json({ message: "Devoir deleted successfully", devoirId }); // Renvoie notification de succes
   } catch (err) {
     console.error('Erreur lors de la suppression du devoir :', err);
     res.status(500).json({ message: "Error deleting Devoir", error: err.message || err });
   }
 };
 
+// Créer un forum
 export const createForumMessage = async (req, res) => {
   try {
     const { sujet, userId, datetime_publier } = req.body;
@@ -252,6 +256,7 @@ export const createForumMessage = async (req, res) => {
   }
 };
 
+// Créer une réponse de forum
 export const createForumReply = async (req, res) => {
   try {
     const { reply, userId, datetime_publier } = req.body;
@@ -290,6 +295,56 @@ export const getAllUe = async (req, res) => {
     res.status(200).json(ues);
   } catch (err) {
     res.status(500).json({ message: "Error retrieving UEs", error: err });
+  }
+};
+
+// Ajouter une section personnalisée
+export const addCustomSection = async (req, res) => {
+  const { ueId } = req.params;
+  const { sectionName } = req.body;
+
+  try {
+    const ue = await UE.findById(ueId);
+    if (!ue) return res.status(404).send('UE not found');
+
+    if (!ue.customSections.includes(sectionName)) {
+      ue.customSections.push(sectionName);
+      await ue.save();
+    }
+
+    res.status(200).json(ue.customSections);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Ajouter un Post dans section personnalisée
+export const addCustomPost = async (req, res) => {
+  const { ueId } = req.params;
+  const { section, titre, description, fichier_joint } = req.body;
+
+  try {
+    const ue = await UE.findById(ueId);
+    if (!ue) return res.status(404).send('UE not found');
+
+    if (!ue.customSections.includes(section)) {
+      return res.status(400).json({ message: 'Section not registered.' });
+    }
+
+    const newPost = {
+      section,
+      titre,
+      description,
+      fichier_joint,
+      datetime_publier: new Date()
+    };
+
+    ue.customPosts.push(newPost);
+    await ue.save();
+
+    res.status(201).json(newPost);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 

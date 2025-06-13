@@ -1,0 +1,55 @@
+<button class="btn btn-secondary mb-3" (click)="showForm = !showForm" *ngIf="userRole === 'Enseignant'">
+  {{ showForm ? 'Cacher le formulaire' : 'Ajouter un(e) ' + sectionName }}
+</button>
+
+<div [class.show]="showForm" class="form-container">
+  <form (ngSubmit)="onSubmit(ressourceForm)" #ressourceForm="ngForm" class="p-4 border rounded shadow-sm bg-light">
+    
+    <div class="mb-3">
+      <label for="titre" class="form-label">Titre de {{ sectionName }} <span class="text-danger">*</span></label>
+      <input
+        type="text"
+        id="titre"
+        class="form-control"
+        [(ngModel)]="ressource.titre_ressource"
+        name="titre_ressource"
+        required
+        #titreRessource="ngModel"
+      />
+      <div *ngIf="titreRessource.invalid && titreRessource.touched" class="text-danger small">
+        Ce champ est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="desc" class="form-label">Description</label>
+      <input
+        type="text"
+        id="desc"
+        class="form-control"
+        [(ngModel)]="ressource.desc_ressource"
+        name="desc_ressource"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="fichierJoint" class="form-label">Fichier joint</label>
+      <input
+        type="file"
+        id="fichierJoint"
+        class="form-control"
+        #fileInput
+        (change)="onFileChange($event)"
+        accept=".pdf,.doc,.docx,.png,.jpg,.zip"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="ressourceForm.invalid"
+    >
+      Ajouter
+    </button>
+  </form>
+</div>

@@ -30,7 +30,8 @@ import { RessourceFormComponent } from './components/ressources-form/ressource-f
 import { DevoirFormComponent } from './components/devoir-form/devoir-form.component';
 import { DevoirSubmissionComponent } from './pages/devoir-submission/devoir-submission.component';
 import { GradeDevoirComponent } from './pages/grade-devoir/grade-devoir.component';
-
+import { CustomPostComponent } from './components/section/post/custom-post/custom-post.component';
+import { CustomPostFormComponent } from './components/section/post/custom-post-form/custom-post-form.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,9 @@ import { GradeDevoirComponent } from './pages/grade-devoir/grade-devoir.componen
     RessourceFormComponent,
     DevoirFormComponent,
     DevoirSubmissionComponent,
-    GradeDevoirComponent
+    GradeDevoirComponent,
+    CustomPostComponent,
+    CustomPostFormComponent
   ],
 
   imports: [

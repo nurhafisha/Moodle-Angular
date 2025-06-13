@@ -1,3 +1,26 @@
+<!-- Ajouter Nouvelle Section -->
+<div class="card mt-4 mb-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title mb-3">Ajouter une nouvelle section</h5>
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Nom de la section (ex: Révision, Examens...)"
+        [(ngModel)]="newSectionName"
+      />
+      <button
+        class="btn btn-success"
+        type="button"
+        (click)="onSectionAdded()"
+        [disabled]="!newSectionName.trim()"
+      ><i class="bi bi-plus-lg me-1"></i>
+        Ajouter
+      </button>
+    </div>
+  </div>
+</div>
+
 <div class="accordion" id="foldedList">
 
   <div class="accordion-item">
@@ -31,13 +54,28 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingThree">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        Autres Ressources
+        Ressources
       </button>
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#foldedList">
       <div class="accordion-body">
         <app-ressource-form (ressourceAdded)="onRessourceAdded($event)"></app-ressource-form>
         <app-post [ressources]="ressources"></app-post>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sections Personnalisées -->
+  <div *ngFor="let section of customSections; let i = index" class="accordion-item">
+    <h2 class="accordion-header" [id]="'headingCustom' + i">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseCustom' + i" aria-expanded="false" [attr.aria-controls]="'collapseCustom' + i">
+        {{ section }}
+      </button>
+    </h2>
+    <div [id]="'collapseCustom' + i" class="accordion-collapse collapse" data-bs-parent="#foldedList">
+      <div class="accordion-body">
+        <app-custom-post-form [sectionName]="section"></app-custom-post-form>
+        <app-custom-post></app-custom-post>
       </div>
     </div>
   </div>

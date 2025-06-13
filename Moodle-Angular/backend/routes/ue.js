@@ -18,7 +18,9 @@ import {
   getDepotForGrading, // Contrôleur pour récupérer un dépôt pour la notation
   submitDepot,
   updateDepotForGrading,
-  getDevoirDetails
+  getDevoirDetails,
+  addCustomSection,
+  addCustomPost
 } from "../controllers/ue-controller.js"; // Importe les fonctions du contrôleur
 
 // Crée un nouveau routeur express
@@ -73,5 +75,10 @@ router.get('/:ueId/devoirs/:devoirId/grade-devoir' , verifyToken , verifyEnseign
 router.put('/:ueId/devoirs/:devoirId/depots/:depotId', verifyToken, verifyEnseignant, updateDepotForGrading);
 // Route: GET /ues/:ueId/devoirs/:devoirId
 router.get('/:ueId/devoirs/:devoirId', verifyToken, getDevoirDetails);
+
+// Ajouter une section personnalisée
+router.post('/:ueId/custom-section', addCustomSection);
+// Ajouter un Post dans section personnalisée
+router.post('/:ueId/custom-post', addCustomPost);
 
 export default router; // Exporte le routeur pour l'utiliser dans l'application principale

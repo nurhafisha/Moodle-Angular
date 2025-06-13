@@ -24,11 +24,12 @@
 
   <div class="mt-3">
     <app-section *ngIf="selectedTab === 'post'"
-    [id_ue]="ueData?.id_ue"
     [cours]="ueData?.cours"
     [ressources]="ueData?.ressources"
-    [devoirs]="ueData?.devoirs"></app-section>
+    [devoirs]="ueData?.devoirs"
+    [customSections]="ueData?.customSections"></app-section>
     <app-discussions *ngIf="selectedTab === 'discussions'"
-    [forums]="ueData?.forums"></app-discussions>
+    [forums]="ueData?.forums"
+    class="mb-10"></app-discussions>
   </div>
 </div>
