@@ -29,6 +29,9 @@ import { CoursFormComponent } from './components/cours-form/cours-form.component
 import { RessourceFormComponent } from './components/ressources-form/ressource-form.component';
 import { DevoirFormComponent } from './components/devoir-form/devoir-form.component';
 import { ParticipantsComponent } from './components/participants/participants.component';
+import { DevoirSubmissionComponent } from './pages/devoir-submission/devoir-submission.component';
+import { GradeDevoirComponent } from './pages/grade-devoir/grade-devoir.component';
+
 
 
 @NgModule({
@@ -54,6 +57,9 @@ import { ParticipantsComponent } from './components/participants/participants.co
     RessourceFormComponent,
     DevoirFormComponent,
     ParticipantsComponent
+    DevoirSubmissionComponent,
+    GradeDevoirComponent
+
   ],
 
   imports: [
