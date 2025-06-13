@@ -56,7 +56,7 @@ import { GradeDevoirComponent } from './pages/grade-devoir/grade-devoir.componen
     CoursFormComponent,
     RessourceFormComponent,
     DevoirFormComponent,
-    ParticipantsComponent
+    ParticipantsComponent,
     DevoirSubmissionComponent,
     GradeDevoirComponent
 
