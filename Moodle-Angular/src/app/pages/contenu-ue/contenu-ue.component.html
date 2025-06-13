@@ -20,6 +20,15 @@
         <i class="bi bi-chat-dots-fill"></i> Discussions
       </a>
     </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [class.active]="selectedTab === 'participants'"
+        (click)="selectTab('participants')"
+      >
+        <i class="bi bi-people-fill"></i> Participants
+      </a>
+    </li>    
   </ul>
 
   <div class="mt-3">
@@ -30,5 +39,7 @@
     [devoirs]="ueData?.devoirs"></app-section>
     <app-discussions *ngIf="selectedTab === 'discussions'"
     [forums]="ueData?.forums"></app-discussions>
+    <app-participants *ngIf="selectedTab === 'participants'">
+    </app-participants>
   </div>
 </div>

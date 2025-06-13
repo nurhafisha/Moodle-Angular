@@ -37,7 +37,7 @@ export class UeService {
       })
     );
   }
-  
+
   getAllUes(): Observable<any[]> {
   return this.http.get<any>(apiUrls.ue, { withCredentials: true }).pipe(
     map(res => res.data),
@@ -46,8 +46,27 @@ export class UeService {
       return of([]);
     })
   );
-}
+  }
 
+  createUe(ue: any): Observable<any> {
+  return this.http.post(apiUrls.ue, ue, { withCredentials: true }).pipe(
+    map((res: any) => res.data),
+    catchError(err => {
+      console.error('Failed to create UE:', err);
+      return of(null);
+    })
+  );
+  }  
+  getUeWithEtudiants(ueId: string): Observable<any> {
+  return this.http.get<any>(apiUrls.ue + `with-etudiants/${ueId}`, { withCredentials: true })
+    .pipe(
+      map(res => res.data),
+      catchError(err => {
+        console.error('Failed to fetch UE with etudiants:', err);
+        return of(null);
+      })
+    );
+}
 
 
 

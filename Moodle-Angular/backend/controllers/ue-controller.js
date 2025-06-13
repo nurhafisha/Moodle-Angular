@@ -293,6 +293,48 @@ export const getAllUe = async (req, res) => {
   }
 };
 
+
+export const assignEtudiantsToUe = async (req, res) => {
+  try {
+    const { ueId, etudiantIds } = req.body;
+    const objectIds = etudiantIds.map(id => {
+      try {
+        return new mongoose.Types.ObjectId(id);
+      } catch (err) {
+        throw new Error("Invalid ObjectId format");
+      }
+    });
+
+
+    const result = await UE.updateOne(
+      { _id: ueId },
+      { $set: { etudiants: objectIds } }
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: "UE not found" });
+    }
+
+    res.status(200).json({ message: "Étudiants mis à jour avec succès" });
+  } catch (err) {
+    res.status(500).json({ message: "Erreur serveur", error: err.message });
+  }
+};
+
+
+export const getUeWithEtudiants = async (req, res, next) => {
+  try {
+    const ue = await UE.findOne({ _id: req.params.id }).populate('etudiants');
+    if (!ue) {
+      return next({ statusCode: 404, message: "UE not found" });
+    }
+    next({ statusCode: 200, data: ue });
+  } catch (error) {
+    next({ statusCode: 500, message: "Error fetching UE", data: error });
+  }
+};
+
+
 // ----------------------------------------- Section Devoirs : Fisha -----------------------------------------
 
 // Recuperer les devoir d'une UE
@@ -460,3 +502,4 @@ export const getDevoirDetails = async (req, res, next) => {
     return next({ statusCode: 500, message: "Erreur serveur", data: error });
   }
 };
+
