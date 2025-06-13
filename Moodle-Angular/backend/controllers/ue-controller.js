@@ -320,11 +320,11 @@ export const addCustomSection = async (req, res) => {
 
 // Ajouter un Post dans section personnalisée
 export const addCustomPost = async (req, res) => {
-  const { ueId } = req.params;
-  const { section, titre, description, fichier_joint } = req.body;
+  const { titre, desc, datetime_publier, section } = req.body;
+  const fichier_joint = req.file ? `uploads/${req.file.filename}` : null; // Fichier joint si uploadé
 
   try {
-    const ue = await UE.findById(ueId);
+    const ue = await UE.findById(req.params.ueId);
     if (!ue) return res.status(404).send('UE not found');
 
     if (!ue.customSections.includes(section)) {
@@ -332,17 +332,18 @@ export const addCustomPost = async (req, res) => {
     }
 
     const newPost = {
+      _id: new mongoose.Types.ObjectId(),
       section,
       titre,
-      description,
+      desc,
       fichier_joint,
-      datetime_publier: new Date()
-    };
+      datetime_publier
+    };   // Ajoute le custom post à l'UE
 
     ue.customPosts.push(newPost);
-    await ue.save();
+    await ue.save();   // Sauvegarde l'UE modifiée
 
-    res.status(201).json(newPost);
+    res.status(201).json(newPost);   // Renvoie notification de succes
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

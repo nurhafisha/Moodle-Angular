@@ -17,7 +17,7 @@ export class CustomPostFormComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   showForm = false;
-  ressource = { titre_ressource: '', desc_ressource: '', datetime_publier: ''};
+  post = { titre: '', desc: '', datetime_publier: ''};
   userRole: string | null = null;
   file: File | null = null;
 
@@ -32,26 +32,30 @@ export class CustomPostFormComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-      // const formData = new FormData();
-      // formData.append('titre_ressource', this.ressource.titre_ressource);
-      // formData.append('desc_ressource', this.ressource.desc_ressource);
-      // const now = new Date();
-      // formData.append('datetime_publier', now.toISOString());
-      // if (this.file) {
-      //   formData.append('fichier_joint', this.file);
-      // }
-  
-      // this.ressourceService.ajouterRessource(this.id_ue, formData).subscribe({
-      //   next: (res) => {
-      //     console.log('Ressource ajoutée avec succès !', res);
-      //     this.ressourceAdded.emit(res);
-      //     form.resetForm();
-      //   },
-      //   error: (err) => {
-      //     console.error('Erreur lors de l\'ajout de la ressource', err);
-      //     this.error.emit();
-      //   }
-      // });
+    console.log(form);
+    const formData = new FormData();
+    formData.append('titre', this.post.titre);
+    formData.append('desc', this.post.desc);
+    const now = new Date();
+    formData.append('datetime_publier', now.toISOString());
+    formData.append('section', this.sectionName);
+    if (this.file) {
+      formData.append('fichier_joint', this.file);
     }
+
+    this.customPostService.addCustomPost(this.id_ue, formData).subscribe({
+      next: (res) => {
+        console.log(this.sectionName, ' ajoutée avec succès !', res);
+        this.ressourceAdded.emit(res);
+        form.resetForm();
+        this.file = null;
+        this.fileInput.nativeElement.value = '';
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'ajout de ', this.sectionName , err);
+        this.error.emit();
+      }
+    });
+  }
 
 }

@@ -79,6 +79,6 @@ router.get('/:ueId/devoirs/:devoirId', verifyToken, getDevoirDetails);
 // Ajouter une section personnalisée
 router.post('/:ueId/custom-section', addCustomSection);
 // Ajouter un Post dans section personnalisée
-router.post('/:ueId/custom-post', addCustomPost);
+router.post('/:ueId/custom-post',upload.single("fichier_joint"), addCustomPost);
 
 export default router; // Exporte le routeur pour l'utiliser dans l'application principale

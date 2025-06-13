@@ -13,7 +13,7 @@ export class SectionComponent{
   @Input() ressources: any[] = [];
   @Input() devoirs: any[] = [];
   @Input() forums: any[] = [];
-  // Ajouter Autres SectionsAdd commentMore actions
+  // Ajouter Autres Sections
   newSectionName: string = '';
   @Input() customSections: string[] = [];
   @Input() customPosts: any[] = [];

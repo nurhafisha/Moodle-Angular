@@ -3,7 +3,7 @@
 </button>
 
 <div [class.show]="showForm" class="form-container">
-  <form (ngSubmit)="onSubmit(ressourceForm)" #ressourceForm="ngForm" class="p-4 border rounded shadow-sm bg-light">
+  <form (ngSubmit)="onSubmit(customPostForm)" #customPostForm="ngForm" class="p-4 border rounded shadow-sm bg-light">
     
     <div class="mb-3">
       <label for="titre" class="form-label">Titre de {{ sectionName }} <span class="text-danger">*</span></label>
@@ -11,12 +11,12 @@
         type="text"
         id="titre"
         class="form-control"
-        [(ngModel)]="ressource.titre_ressource"
-        name="titre_ressource"
+        [(ngModel)]="post.titre"
+        name="titre"
         required
-        #titreRessource="ngModel"
+        #titre="ngModel"
       />
-      <div *ngIf="titreRessource.invalid && titreRessource.touched" class="text-danger small">
+      <div *ngIf="titre.invalid && titre.touched" class="text-danger small">
         Ce champ est obligatoire.
       </div>
     </div>
@@ -27,8 +27,8 @@
         type="text"
         id="desc"
         class="form-control"
-        [(ngModel)]="ressource.desc_ressource"
-        name="desc_ressource"
+        [(ngModel)]="post.desc"
+        name="desc"
       />
     </div>
 
@@ -47,7 +47,7 @@
     <button
       type="submit"
       class="btn btn-primary"
-      [disabled]="ressourceForm.invalid"
+      [disabled]="customPostForm.invalid"
     >
       Ajouter
     </button>

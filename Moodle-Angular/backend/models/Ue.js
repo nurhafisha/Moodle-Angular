@@ -62,7 +62,7 @@ const devoirSchema = new mongoose.Schema({
 const customPostSchema = new mongoose.Schema({
   section: { type: String, required: true },
   titre: { type: String, required: true },
-  description: { type: String },
+  desc: { type: String },
   datetime_publier: { type: Date, default: Date.now },
   fichier_joint: { type: String }
 });
