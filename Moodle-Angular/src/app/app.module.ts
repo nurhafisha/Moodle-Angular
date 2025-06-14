@@ -61,7 +61,7 @@ import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauth
     DevoirSubmissionComponent,
     GradeDevoirComponent,
     CustomPostComponent,
-    CustomPostFormComponent
+    CustomPostFormComponent,
     PageUnauthorizedComponent
   ],
 
