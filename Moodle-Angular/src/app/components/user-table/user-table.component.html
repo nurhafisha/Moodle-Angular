@@ -23,6 +23,7 @@
               class="btn btn-sm btn-warning"
               data-bs-toggle="modal"
               data-bs-target="#user-modify"
+              (click)="openUpdateModal(user._id)"
             >
               Modifier
             </button>
@@ -42,7 +43,7 @@
   </table>
 </div>
 
-<!-- Modal -->
+<!-- Modal pour update  -->
 <div
   class="modal fade"
   id="user-modify"
@@ -64,51 +65,77 @@
         ></button>
       </div>
       <div class="modal-body">
-        <!-- Champ pour modifier les donnees sur l'utilisateur -->
         <div class="mb-3">
-          <label for="basic-url" class="form-label fw-bold">Nom</label>
+          <label class="form-label">Nom</label>
           <input
             type="text"
             class="form-control"
-            placeholder="Nom"
-            aria-label="Nom"
-            aria-describedby="basic-addon1"
+            [(ngModel)]="editedUser.nom"
+            name="edit_nom"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Prénom</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editedUser.prenom"
+            name="edit_prenom"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            [(ngModel)]="editedUser.email"
+            name="edit_email"
           />
         </div>
 
         <div class="mb-3">
-          <label for="basic-url" class="form-label fw-bold">Prenom</label>
+          <label class="form-label">Mot de passe</label>
           <input
             type="text"
             class="form-control"
-            placeholder="Prenom"
-            aria-label="Prenom"
-            aria-describedby="basic-addon1"
+            [(ngModel)]="editedUser.password"
+            name="edit_password"
           />
+          <div class="mb-3">
+            <label class="form-label">Rôle</label>
+            <select
+              class="form-select"
+              [(ngModel)]="editedUser.role"
+              name="edit_role"
+            >
+              <option value="admin">Admin</option>
+              <option value="enseignant">Enseignant</option>
+              <option value="etudiant">Étudiant</option>
+            </select>
+          </div>
         </div>
-
-        <div class="mb-3">
-          <label for="basic-url" class="form-label fw-bold">
-            Nouvel mot de passe
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            aria-label="password"
-            aria-describedby="basic-addon1"
-          />
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Annuler
+          </button>
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="emitUpdateUser()"
+          >
+            Enregistrer
+          </button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Annuler
-        </button>
-        <button type="button" class="btn btn-success">Enregistrer</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Modal pour delete  -->
 <div
   class="modal fade"
   id="user-delete"

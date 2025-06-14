@@ -62,8 +62,6 @@ const devoirSchema = new mongoose.Schema({
 const ueSchema = new mongoose.Schema({
   _id: { type: String, required: true },
   titre_ue: { type: String, required: true },
-  enseignants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  etudiants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   image_ue: { type: String, default: null },
   cours: [coursSchema],
   ressources: [ressourceSchema],

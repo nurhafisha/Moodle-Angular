@@ -42,6 +42,8 @@ router.delete("/:id", deleteUser);
 // Recuperer le profil de l'utilisateur authentifié
 router.get("/profile", verifyToken, getUserProfile);
 
+router.patch("/:id", updateUser);
+
 // Mettre à jour le profil d'un utilisateur
 router.put(
   "/:id",
