@@ -88,7 +88,7 @@ export const createCours = async (req, res) => {
   }
 };
 
-// supprimer un post de tyype Cours
+// supprimer un post de type Cours
 export const deleteCours = async (req, res) => {
   try {
     const { id: ueId, coursId } = req.params;
@@ -346,6 +346,32 @@ export const addCustomPost = async (req, res) => {
     res.status(201).json(newPost);   // Renvoie notification de succes
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+// Supprimer un Post dans section personnalisée
+export const deleteCustom = async (req, res) => {
+  try {
+    const { id: ueId, customId } = req.params;
+
+    const ue = await UE.findById(ueId);
+    if (!ue) {
+      return res.status(404).json({ message: "UE not found" });
+    }
+
+    const initialLength = ue.customPosts.length;
+    ue.customPosts = ue.customPosts.filter(c => c._id.toString() !== customId);
+
+    if (ue.customPosts.length === initialLength) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    await ue.save();
+
+    res.status(200).json({ message: "Post deleted successfully", customId });
+  } catch (err) {
+    console.error('Erreur lors de la suppression du Post :', err);
+    res.status(500).json({ message: "Error deleting Post", error: err.message || err });
   }
 };
 

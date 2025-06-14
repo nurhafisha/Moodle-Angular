@@ -17,4 +17,8 @@ export class CustomPostService {
   addCustomPost(idUe: string | null, formData: FormData): Observable<any> {
     return this.http.post(apiUrls.ue + `${idUe}/custom-post`, formData);
   }
+
+  deleteCustom(ueId: string | null, customId: string): Observable<any> {
+    return this.http.delete(apiUrls.ue + `${ueId}/custom/${customId}`);
+  }
 }

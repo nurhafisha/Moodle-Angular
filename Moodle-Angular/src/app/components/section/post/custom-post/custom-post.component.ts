@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { apiUrls } from 'src/app/backend_urls';
 import { CustomPostService } from 'src/app/services/custom-post.service';
 
@@ -9,21 +10,27 @@ import { CustomPostService } from 'src/app/services/custom-post.service';
 })
 export class CustomPostComponent {
   @Input() customs: any[] = [];
+  @Output() customDeleted = new EventEmitter<string>();
+  ueId: string | null = null;
   rootUrl: string = apiUrls.root;
-  constructor(private customPostService: CustomPostService) { }
+  constructor(private route: ActivatedRoute, private customPostService: CustomPostService) { }
+
+  ngOnInit(): void {
+    this.ueId = this.route.snapshot.paramMap.get('id');
+  }
 
   deleteCustom(id: string): void {
-    if (!confirm('Êtes-vous sûr de vouloir supprimer ce cours ?')) return;
+    if (!confirm('Êtes-vous sûr de vouloir supprimer ce Post ?')) return;
 
-    // this.customPostService.delete(this.ueId, id).subscribe({
-    //   next: () => {
-    //     this.cours = this.cours.filter(c => c._id !== id);
-    //     console.log('Cours supprimé avec succès');
-    //   },
-    //   error: err => {
-    //     console.error('Erreur lors de la suppression du cours', err);
-    //   }
-    // });
+    this.customPostService.deleteCustom(this.ueId, id).subscribe({
+      next: () => {
+        this.customDeleted.emit(id);
+        console.log('Post supprimé avec succès');
+      },
+      error: err => {
+        console.error('Erreur lors de la suppression du Post', err);
+      }
+    });
   }
 
 }

@@ -36,8 +36,8 @@ export class SectionComponent{
     // Verifier si le nom de section existe deja
     const reservedNames = ['Cours', 'Ressources', 'Devoirs'];
     if (reservedNames.includes(formattedName)) {
-      console.warn('Nom de section réservé:', formattedName);
-      this.showNotification('Ce nom de section est réservé', 'error');
+      console.warn('Nom de section réservé : ', formattedName);
+      this.showNotification('Le nom de section '+formattedName+' est réservé', 'error');
       return;
     }
 
@@ -47,7 +47,7 @@ export class SectionComponent{
 
     if (alreadyExists) {
       console.warn('Section éxiste déjà:', formattedName);
-      this.showNotification('Section éxiste déjà', 'error');
+      this.showNotification('Section '+formattedName+' éxiste déjà', 'error');
       return;   // terminer la fonction
     }
 
@@ -55,7 +55,7 @@ export class SectionComponent{
       next: (updatedSections) => {
         this.customSections = updatedSections;
         this.newSectionName = '';
-        this.showNotification('Section créé avec succès', 'success');
+        this.showNotification('Section créé avec succès : '+formattedName, 'success');
       },
       error: (err) => {
         console.error('Echec de l\'ajout de section:', err);
@@ -97,6 +97,11 @@ export class SectionComponent{
 
   onCustomAddError() {
     this.showNotification('Échec de l\'ajout du Post', 'error');
+  }
+
+  onCustomDeleted(deletedId: string) {
+    this.customPosts = this.customPosts.filter(post => post._id !== deletedId);
+    this.showNotification('Post supprimé avec succès', 'success');
   }
 
   toastMessage = '';
