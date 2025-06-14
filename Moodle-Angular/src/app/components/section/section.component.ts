@@ -22,6 +22,10 @@ export class SectionComponent{
     this.id_ue = this.route.snapshot.paramMap.get('id');
   }
 
+  getPostsBySection(sectionName: string): any[] {
+    return this.customPosts.filter(post => post.section === sectionName);
+  }
+
   onSectionAdded() {
     const trimmedName = this.newSectionName.trim();
     if (!trimmedName) return;
@@ -84,6 +88,15 @@ export class SectionComponent{
 
   onDevoirAddError() {
     this.showNotification('Échec de l\'ajout de la ressource', 'error');
+  }
+
+  onCustomAdded(newCustom: any) {
+    this.customPosts = [...this.customPosts, newCustom];
+    this.showNotification('Post ajouté avec succès', 'success');
+  }
+
+  onCustomAddError() {
+    this.showNotification('Échec de l\'ajout du Post', 'error');
   }
 
   toastMessage = '';

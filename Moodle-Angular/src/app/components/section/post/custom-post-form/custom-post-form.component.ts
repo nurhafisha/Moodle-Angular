@@ -12,7 +12,7 @@ export class CustomPostFormComponent implements OnInit {
 
   id_ue: string | null = null;
   @Input() sectionName!: string;
-  @Output() ressourceAdded = new EventEmitter<any>();
+  @Output() customAdded = new EventEmitter<any>();
   @Output() error = new EventEmitter<void>();
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
@@ -45,8 +45,7 @@ export class CustomPostFormComponent implements OnInit {
 
     this.customPostService.addCustomPost(this.id_ue, formData).subscribe({
       next: (res) => {
-        console.log(this.sectionName, ' ajoutée avec succès !', res);
-        this.ressourceAdded.emit(res);
+        this.customAdded.emit(res);
         form.resetForm();
         this.file = null;
         this.fileInput.nativeElement.value = '';

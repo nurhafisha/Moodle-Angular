@@ -27,7 +27,9 @@
     [cours]="ueData?.cours"
     [ressources]="ueData?.ressources"
     [devoirs]="ueData?.devoirs"
-    [customSections]="ueData?.customSections"></app-section>
+    [customSections]="ueData?.customSections"
+    [customPosts]="ueData?.customPosts"
+    ></app-section>
     <app-discussions *ngIf="selectedTab === 'discussions'"
     [forums]="ueData?.forums"
     class="mb-10"></app-discussions>

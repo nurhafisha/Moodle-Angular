@@ -74,8 +74,8 @@
     </h2>
     <div [id]="'collapseCustom' + i" class="accordion-collapse collapse" data-bs-parent="#foldedList">
       <div class="accordion-body">
-        <app-custom-post-form [sectionName]="section"></app-custom-post-form>
-        <app-custom-post></app-custom-post>
+        <app-custom-post-form [sectionName]="section" (customAdded)="onCustomAdded($event)"></app-custom-post-form>
+        <app-custom-post [customs]="getPostsBySection(section)"></app-custom-post>
       </div>
     </div>
   </div>
