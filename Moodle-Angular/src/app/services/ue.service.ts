@@ -5,25 +5,26 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UeService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getUeData(ueId: string | null): Observable<any> {
-    return this.http.get<any>(apiUrls.ue + `${ueId}`, { withCredentials: true }).pipe(
-      map(res => res.data),
-      catchError(err => {
-        console.error('Failed to fetch UE data:', err);
-        return of(null);
-      })
-    );
+    return this.http
+      .get<any>(apiUrls.ue + `${ueId}`, { withCredentials: true })
+      .pipe(
+        map((res) => res.data),
+        catchError((err) => {
+          console.error('Failed to fetch UE data:', err);
+          return of(null);
+        })
+      );
   }
 
   getUserData(): Observable<Map<string, string>> {
     return this.http.get<any>(apiUrls.user, { withCredentials: true }).pipe(
-      map(res => {
+      map((res) => {
         const usersMap = new Map<string, string>();
         for (const user of res.data) {
           const id = user._id?.$oid || user._id;
@@ -31,7 +32,7 @@ export class UeService {
         }
         return usersMap;
       }),
-      catchError(err => {
+      catchError((err) => {
         console.error('Erreur lors du chargement des utilisateurs :', err);
         throw err;
       })
@@ -39,35 +40,35 @@ export class UeService {
   }
 
   getAllUes(): Observable<any[]> {
-  return this.http.get<any>(apiUrls.ue, { withCredentials: true }).pipe(
-    map(res => res.data),
-    catchError(err => {
-      console.error('Failed to fetch UEs:', err);
-      return of([]);
-    })
-  );
+    return this.http.get<any>(apiUrls.ue, { withCredentials: true }).pipe(
+      map((res) => res.data),
+      catchError((err) => {
+        console.error('Failed to fetch UEs:', err);
+        return of([]);
+      })
+    );
   }
 
   createUe(ue: any): Observable<any> {
-  return this.http.post(apiUrls.ue, ue, { withCredentials: true }).pipe(
-    map((res: any) => res.data),
-    catchError(err => {
-      console.error('Failed to create UE:', err);
-      return of(null);
-    })
-  );
-  }  
-  getUeWithEtudiants(ueId: string): Observable<any> {
-  return this.http.get<any>(apiUrls.ue + `with-etudiants/${ueId}`, { withCredentials: true })
-    .pipe(
-      map(res => res.data),
-      catchError(err => {
-        console.error('Failed to fetch UE with etudiants:', err);
+    return this.http.post(apiUrls.ue, ue, { withCredentials: true }).pipe(
+      map((res: any) => res.data),
+      catchError((err) => {
+        console.error('Failed to create UE:', err);
         return of(null);
       })
     );
-}
-
-
-
+  }
+  getUeWithEtudiants(ueId: string): Observable<any> {
+    return this.http
+      .get<any>(apiUrls.ue + `with-etudiants/${ueId}`, {
+        withCredentials: true,
+      })
+      .pipe(
+        map((res) => res.data),
+        catchError((err) => {
+          console.error('Failed to fetch UE with etudiants:', err);
+          return of(null);
+        })
+      );
+  }
 }

@@ -114,7 +114,7 @@
             [(ngModel)]="newUe._id"
             name="_id"
             required
-            pattern="^[A-Z]{2}[0-9]{1}([0-1]{1}||[A-Z]{1})"
+            pattern="^[A-Z]{2}([0-9]{2}|[0-9]{1}[A-Z]{1})"
             #codeUe="ngModel"
           />
           <div
