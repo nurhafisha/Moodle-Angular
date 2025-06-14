@@ -31,6 +31,7 @@ import { DevoirFormComponent } from './components/devoir-form/devoir-form.compon
 import { ParticipantsComponent } from './components/participants/participants.component';
 import { DevoirSubmissionComponent } from './pages/devoir-submission/devoir-submission.component';
 import { GradeDevoirComponent } from './pages/grade-devoir/grade-devoir.component';
+import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauthorized.component';
 
 
 
@@ -58,7 +59,8 @@ import { GradeDevoirComponent } from './pages/grade-devoir/grade-devoir.componen
     DevoirFormComponent,
     ParticipantsComponent,
     DevoirSubmissionComponent,
-    GradeDevoirComponent
+    GradeDevoirComponent,
+    PageUnauthorizedComponent
 
   ],
 
