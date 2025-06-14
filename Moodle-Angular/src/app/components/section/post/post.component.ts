@@ -13,6 +13,7 @@ export class PostComponent{
   @Input() cours: any[] = [];
   @Input() ressources: any[] = [];
   ueId: string | null = null;
+  userRole: string | null = null;
   rootUrl: string = apiUrls.root;
 
   constructor(private route: ActivatedRoute,
@@ -22,6 +23,7 @@ export class PostComponent{
 
   ngOnInit(): void {
     this.ueId = this.route.snapshot.paramMap.get('id');
+    this.userRole = localStorage.getItem('userRole');
   }
 
   deleteCours(id: string): void {

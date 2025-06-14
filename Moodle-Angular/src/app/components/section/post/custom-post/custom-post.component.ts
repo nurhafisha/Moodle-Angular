@@ -12,11 +12,13 @@ export class CustomPostComponent {
   @Input() customs: any[] = [];
   @Output() customDeleted = new EventEmitter<string>();
   ueId: string | null = null;
+  userRole: string | null = null;
   rootUrl: string = apiUrls.root;
   constructor(private route: ActivatedRoute, private customPostService: CustomPostService) { }
 
   ngOnInit(): void {
     this.ueId = this.route.snapshot.paramMap.get('id');
+    this.userRole = localStorage.getItem('userRole');
   }
 
   deleteCustom(id: string): void {

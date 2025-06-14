@@ -8,10 +8,9 @@
           <strong *ngIf="!c.fichier_joint">
           {{ c.titre_cours }}</strong>
         </strong>
-        <button type="button" class="btn btn-sm btn-primary me-2" title="Edit">
-          <i class="bi bi-pencil-square"></i>
-        </button>
-        <button type="button" class="btn btn-sm btn-danger" title="Delete" (click)="deleteCours(c._id)">
+        <button type="button" class="btn btn-sm btn-danger" title="Delete"
+        (click)="deleteCours(c._id)"
+        *ngIf="userRole === 'Enseignant'">
           <i class="bi bi-trash"></i>
         </button>
       </div>
@@ -33,10 +32,9 @@
           <strong *ngIf="!ressource.fichier_joint">
           {{ ressource.titre_ressource }}</strong>
         </strong>
-        <button type="button" class="btn btn-sm btn-primary me-2" title="Edit">
-          <i class="bi bi-pencil-square"></i>
-        </button>
-        <button type="button" class="btn btn-sm btn-danger" title="Delete"  (click)="deleteRessource(ressource._id)">
+        <button type="button" class="btn btn-sm btn-danger" title="Delete"
+        (click)="deleteRessource(ressource._id)"
+        *ngIf="userRole === 'Enseignant'">
           <i class="bi bi-trash"></i>
         </button>
       </div>

@@ -6,12 +6,6 @@
       <div class="d-flex align-items-center mb-2 w-auto">
         <strong class="me-2">{{ devoir.titre_devoir }}</strong>
 
-        <button type="button" class="btn btn-sm btn-primary me-2" title="Edit" 
-        (click)="$event.stopPropagation()"
-        *ngIf="userRole === 'Enseignant'">
-          <i class="bi bi-pencil-square"></i>
-        </button>
-
         <button type="button" class="btn btn-sm btn-danger" title="Delete" 
         (click)="deleteDevoir(devoir._id); $event.stopPropagation()"
         *ngIf="userRole === 'Enseignant'">

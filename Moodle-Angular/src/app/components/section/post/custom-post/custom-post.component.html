@@ -8,10 +8,9 @@
           <strong *ngIf="!c.fichier_joint">
           {{ c.titre }}</strong>
         </strong>
-        <button type="button" class="btn btn-sm btn-primary me-2" title="Edit">
-          <i class="bi bi-pencil-square"></i>
-        </button>
-        <button type="button" class="btn btn-sm btn-danger" title="Delete" (click)="deleteCustom(c._id)">
+        <button type="button" class="btn btn-sm btn-danger" title="Delete"
+        (click)="deleteCustom(c._id)"
+        *ngIf="userRole === 'Enseignant'">
           <i class="bi bi-trash"></i>
         </button>
       </div>
