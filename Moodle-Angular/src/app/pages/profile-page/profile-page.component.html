@@ -8,13 +8,18 @@
       enctype="multipart/form-data"
     >
       <div class="col-md-12 text-center mb-3">
-        <img
-          [src]="imagePreview || 'https://w3schools.com/howto/img_avatar.png'"
-          alt="Profile Preview"
-          class="rounded-circle"
-          width="120"
-          height="120"
-        />
+      <img
+        [src]="
+          selectedFile? imagePreview
+            : profileForm.value.profilePicture?.startsWith('http')
+              ? profileForm.value.profilePicture
+              : 'http://localhost:8800/uploads/profiles/' + profileForm.value.profilePicture
+        "
+        alt="Profile Preview"
+        class="rounded-circle"
+        width="120"
+        height="120"
+      />
         <input
           type="file"
           (change)="onImageSelected($event)"

@@ -157,8 +157,7 @@ if (timeDiff < 0) {
       this.submissionComment,
     ).subscribe({  
       next: (res) => {
-        console.log('Soumission réussie :', res);
-        alert('Soumission réussie :');
+        alert('Soumission réussie !');
 
         this.selectedFile = null;
         this.submissionComment = '';

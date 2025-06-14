@@ -31,6 +31,18 @@ export class ProfilePageComponent implements OnInit {
       toastBootstrap.show();
     }
 
+    // Méthode pour gérer la sélection de fichier
+  OnFileSelected(event: any) : void {
+      this.selectedFile = event.target.files[0];
+
+      // revoir l'aperçu de l'image
+      const reader = new FileReader();
+      reader.onload = () => this.imagePreview = reader.result as string;
+      if (this.selectedFile) {
+        reader.readAsDataURL(this.selectedFile);
+      }
+    }
+
   constructor(private fb: FormBuilder, private http: HttpClient) {}
   
   ngOnInit(): void {
@@ -61,9 +73,9 @@ export class ProfilePageComponent implements OnInit {
         email: user.email,
         password: '', 
         role: user.role, 
-        profilePicture: user.profilePicture
+        profilePicture: user.profilePicture?.replace(/^uploads\/profile[s]?\/?/, '')
       });
-      this.imagePreview = user.profilePicture;
+      this.imagePreview = `http://localhost:8800/uploads/profiles/${user.profilePicture}`;
     },
       error: (err) => console.error('Échec de la récupération du profil', err)
     });
@@ -101,6 +113,7 @@ export class ProfilePageComponent implements OnInit {
   // Ajouter le fichier si sélectionné
   if (this.selectedFile) {
     formData.append('profilePictureFile', this.selectedFile);
+    console.log('Fichier sélectionné:', this.selectedFile);
   }
 
   // Envoyer une requête PUT pour mettre à jour le profil

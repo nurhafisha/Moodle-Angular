@@ -1,14 +1,10 @@
 <app-navbar></app-navbar>
 <main>
   <div class="header pb-3">
-    <h2>Administrateur ⚙️</h2>
+    <h2>Espace d'administration ⚙️</h2>
   </div>
   <div class="container-fluid">
-    <ul
-      class="nav nav-tabs flex-nowrap overflow-auto"
-      id="myTab"
-      role="tablist"
-    >
+    <ul class="nav nav-tabs flex-nowrap" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button
           class="nav-link active"
@@ -59,6 +55,7 @@
         <app-user-table
           [users]="users"
           (deleteUser)="deleteUser($event)"
+          (updateUser)="updateUser($event)"
         ></app-user-table>
       </div>
       <div
@@ -78,12 +75,17 @@
           </button>
         </div>
         <!-- Composant pour la table des UEs -->
-        <app-ue-table [ues]="ues"></app-ue-table>
+        <app-ue-table
+          [ues]="ues"
+          (deleteUe)="deleteUe($event)"
+          (updateUe)="updateUe($event)"
+        ></app-ue-table>
       </div>
     </div>
   </div>
 </main>
 
+<!-- Modal d'ajout UE -->
 <!-- Modal d'ajout UE -->
 <div
   class="modal fade"
@@ -110,21 +112,52 @@
             type="text"
             class="form-control"
             [(ngModel)]="newUe._id"
-            name="titre_ue"
+            name="_id"
             required
+            pattern="^[A-Z]{2}([0-9]{2}|[0-9]{1}[A-Z]{1})"
+            #codeUe="ngModel"
           />
+          <div
+            *ngIf="codeUe.invalid && codeUe.touched"
+            class="text-danger mt-1"
+          >
+            <span *ngIf="codeUe.errors?.['required']">Code UE obligatoire</span>
+            <span *ngIf="codeUe.errors?.['pattern']">
+              Format code UE n'est pas correct
+            </span>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Nom UE</label>
           <input
+            type="text"
             class="form-control"
             [(ngModel)]="newUe.titre_ue"
             name="titre_ue"
             required
+            #titreUe="ngModel"
+          />
+          <div
+            *ngIf="titreUe.invalid && titreUe.touched"
+            class="text-danger mt-1"
+          >
+            Nom UE obligatoire
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Image UE</label>
+          <input
+            type="file"
+            class="form-control"
+            (change)="onUeImageSelected($event)"
+            accept="image/*"
           />
         </div>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Annuler
+        </button>
         <button
           type="submit"
           class="btn btn-success"
@@ -167,7 +200,11 @@
             [(ngModel)]="newUser.nom"
             name="nom"
             required
+            #nom="ngModel"
           />
+          <div class="text-danger mt-1" *ngIf="nom.touched">
+            Nom est obligatoire
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Prénom</label>
@@ -177,7 +214,11 @@
             [(ngModel)]="newUser.prenom"
             name="prenom"
             required
+            #prenom="ngModel"
           />
+          <div class="text-danger mt-1" *ngIf="prenom.touched">
+            Prenom est obligatoire
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Email</label>
@@ -188,7 +229,18 @@
             name="email"
             placeholder="prenom-nom@utbm.fr"
             required
+            #email="ngModel"
           />
+          <div class="text-danger mt-1" *ngIf="email.touched">
+            <ul class="mb-0" style="list-style: none; padding-left: 0">
+              <li>
+                <span [ngClass]="isEmailValid ? 'text-success' : 'text-danger'">
+                  {{ isEmailValid ? "✅" : "❌" }}
+                </span>
+                Format email
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Mot de passe</label>
@@ -198,7 +250,48 @@
             [(ngModel)]="newUser.password"
             name="password"
             required
+            #password="ngModel"
           />
+          <div class="text-danger mt-1" *ngIf="password.touched">
+            <ul class="mb-0" style="list-style: none; padding-left: 0">
+              <li>
+                <span
+                  [ngClass]="
+                    isPasswordLongEnough ? 'text-success' : 'text-danger'
+                  "
+                >
+                  {{ isPasswordLongEnough ? "✅" : "❌" }}
+                </span>
+                10 caractères minimum
+              </li>
+              <li>
+                <span [ngClass]="hasUppercase ? 'text-success' : 'text-danger'">
+                  {{ hasUppercase ? "✅" : "❌" }}
+                </span>
+                Au moins une majuscule
+              </li>
+              <li>
+                <span [ngClass]="hasLowercase ? 'text-success' : 'text-danger'">
+                  {{ hasLowercase ? "✅" : "❌" }}
+                </span>
+                Au moins une minuscule
+              </li>
+              <li>
+                <span [ngClass]="hasNumber ? 'text-success' : 'text-danger'">
+                  {{ hasNumber ? "✅" : "❌" }}
+                </span>
+                Au moins un chiffre
+              </li>
+              <li>
+                <span
+                  [ngClass]="hasSpecialChar ? 'text-success' : 'text-danger'"
+                >
+                  {{ hasSpecialChar ? "✅" : "❌" }}
+                </span>
+                Au moins un caractère spécial
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Rôle</label>

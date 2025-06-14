@@ -123,6 +123,10 @@ export const updateUser = async (req, res, next) => {
       return next(CreateError(403, "Unauthorized access"));
     }
 
+    if (req.file){
+      req.body.profilePicture = req.file.filename;
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },

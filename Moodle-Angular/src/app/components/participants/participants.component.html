@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="mb-0">Liste des Participants</h3>
+  <button  *ngIf="userRole ==='Enseignant'" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#ajouterParticipantModal">
+    Ajouter un participant
+  </button>
+</div>
+
+<table class="table table-bordered table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let etudiant of etudiantsInscrits">
+      <td>{{ etudiant.nom }}</td>
+      <td>{{ etudiant.prenom }}</td>
+      <td>{{ etudiant.email }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal to Add Students -->
+<div class="modal fade" id="ajouterParticipantModal" tabindex="-1" aria-labelledby="ajouterParticipantModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ajouterParticipantModalLabel">Ajouter des étudiants</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Email</th>
+              <th>Choisir</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.nom }}</td>
+              <td>{{ user.prenom }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <input type="checkbox" [value]="user._id" (change)="toggleUser($event)">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button class="btn btn-primary" (click)="assignEtudiants()">Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>

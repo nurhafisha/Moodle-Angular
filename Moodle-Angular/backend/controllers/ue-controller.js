@@ -1,11 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 import { error } from "console";
 import UE from "../models/Ue.js"; // Importe le modèle UE (Mongoose)
 
 // Récupérer toutes les UEs
 export const getAllUes = async (req, res) => {
   const ues = await UE.find(); // Récupère toutes les UEs depuis la base
-  res.status(200).json({ success: true, data: ues }); // Renvoie la liste
+  res
+    .status(200)
+    .json({ success: true, message: "UEs récupérés avec succès", data: ues }); // Renvoie la liste
 };
 
 // Récupérer une UE par son ID
@@ -24,14 +26,41 @@ export const getUeById = async (req, res, next) => {
 // Créer une nouvelle UE
 export const createUe = async (req, res) => {
   try {
-    const { _id, titre_ue } = req.body; // Récupère les champs du body
-    const ue = new UE({ _id, titre_ue }); // Crée une nouvelle instance UE
-    await ue.save(); // Sauvegarde dans la base
-    res.status(201).json({ success: true, data: ue }); // Renvoie l'UE créée
+    const { _id, titre_ue } = req.body;
+    const image_ue = req.file ? req.file.path : null;
+    const ue = new UE({ _id, titre_ue, image_ue });
+    await ue.save();
+    res.status(201).json({ success: true, data: ue });
   } catch (err) {
-    console.error("Erreur lors de la création de l'UE :", err); // Log erreur
     res.status(500).json({
       message: "Erreur lors de la création de l'UE",
+      error: err.message,
+    });
+  }
+};
+
+// Modifier les champs des UE
+export const updateUe = async (req, res) => {
+  try {
+    const { titre_ue } = req.body;
+    let updateFields = { titre_ue };
+
+    // Si une nouvelle image est uploadée
+    if (req.body.image_ue === null || req.body.image_ue === "") {
+      updateFields.image_ue = null;
+    }
+
+    const ue = await UE.findByIdAndUpdate(req.params.id, updateFields, {
+      new: true,
+      runValidators: true,
+    });
+    if (!ue) {
+      return res.status(404).json({ message: "UE non trouvée" });
+    }
+    res.status(200).json({ success: true, data: ue });
+  } catch (err) {
+    res.status(500).json({
+      message: "Erreur lors de modification de l'UE",
       error: err.message || err,
     });
   }
@@ -78,8 +107,7 @@ export const createCours = async (req, res) => {
     ue.cours.push(newCours); // Ajoute le cours à l'UE
     await ue.save(); // Sauvegarde l'UE modifiée
 
-    res.status(201).json(newCours);  // Renvoie notification de succes
-
+    res.status(201).json(newCours); // Renvoie notification de succes
   } catch (err) {
     console.error("Erreur lors de la création du cours :", err);
     res
@@ -100,7 +128,7 @@ export const deleteCours = async (req, res) => {
 
     // verifier si Cours existe
     const initialLength = ue.cours.length;
-    ue.cours = ue.cours.filter(c => c._id.toString() !== coursId);
+    ue.cours = ue.cours.filter((c) => c._id.toString() !== coursId);
 
     if (ue.cours.length === initialLength) {
       return res.status(404).json({ message: "Cours not found" });
@@ -110,8 +138,10 @@ export const deleteCours = async (req, res) => {
 
     res.status(200).json({ message: "Cours deleted successfully", coursId });
   } catch (err) {
-    console.error('Erreur lors de la suppression du cours :', err);
-    res.status(500).json({ message: "Error deleting Cours", error: err.message || err });
+    console.error("Erreur lors de la suppression du cours :", err);
+    res
+      .status(500)
+      .json({ message: "Error deleting Cours", error: err.message || err });
   }
 };
 
@@ -126,15 +156,15 @@ export const createRessource = async (req, res) => {
       return res.status(404).json({ message: "UE not found" }); // Si non trouvée
     }
 
-    const newRessource = ({
+    const newRessource = {
       _id: new mongoose.Types.ObjectId(),
       titre_ressource,
       desc_ressource,
       datetime_publier,
       fichier_joint,
-    }); // Ajoute la ressource à l'UE
+    }; // Ajoute la ressource à l'UE
 
-    ue.ressources.push(newRessource); 
+    ue.ressources.push(newRessource);
     await ue.save(); // Sauvegarde l'UE modifiée
 
     res.status(201).json(newRessource); // Renvoie notification de succes
@@ -156,7 +186,9 @@ export const deleteRessource = async (req, res) => {
     }
     // verifier si Ressource existe
     const initialLength = ue.ressources.length;
-    ue.ressources = ue.ressources.filter(c => c._id.toString() !== ressourceId);
+    ue.ressources = ue.ressources.filter(
+      (c) => c._id.toString() !== ressourceId
+    );
 
     if (ue.ressources.length === initialLength) {
       return res.status(404).json({ message: "Ressource not found" });
@@ -164,10 +196,14 @@ export const deleteRessource = async (req, res) => {
 
     await ue.save();
 
-    res.status(200).json({ message: "Ressource deleted successfully", ressourceId });    // Renvoie notification de succes
+    res
+      .status(200)
+      .json({ message: "Ressource deleted successfully", ressourceId }); // Renvoie notification de succes
   } catch (err) {
-    console.error('Erreur lors de la suppression du ressource :', err);
-    res.status(500).json({ message: "Error deleting Ressource", error: err.message || err });
+    console.error("Erreur lors de la suppression du ressource :", err);
+    res
+      .status(500)
+      .json({ message: "Error deleting Ressource", error: err.message || err });
   }
 };
 
@@ -182,14 +218,14 @@ export const createDevoir = async (req, res) => {
       return res.status(404).json({ message: "UE not found" }); // Si non trouvée
     }
 
-    const newDevoir = ({
+    const newDevoir = {
       _id: new mongoose.Types.ObjectId(),
       titre_devoir,
       desc_devoir,
       datetime_debut,
       datetime_fin,
-      depots
-    }); // Ajoute le devoir à l'UE
+      depots,
+    }; // Ajoute le devoir à l'UE
     ue.devoirs.push(newDevoir);
     await ue.save(); // Sauvegarde l'UE modifiée
 
@@ -213,7 +249,7 @@ export const deleteDevoir = async (req, res) => {
 
     // verifier si Devoir existe
     const initialLength = ue.devoirs.length;
-    ue.devoirs = ue.devoirs.filter(c => c._id.toString() !== devoirId);
+    ue.devoirs = ue.devoirs.filter((c) => c._id.toString() !== devoirId);
 
     if (ue.devoirs.length === initialLength) {
       return res.status(404).json({ message: "Devoir not found" });
@@ -223,8 +259,10 @@ export const deleteDevoir = async (req, res) => {
 
     res.status(200).json({ message: "Devoir deleted successfully", devoirId }); // Renvoie notification de succes
   } catch (err) {
-    console.error('Erreur lors de la suppression du devoir :', err);
-    res.status(500).json({ message: "Error deleting Devoir", error: err.message || err });
+    console.error("Erreur lors de la suppression du devoir :", err);
+    res
+      .status(500)
+      .json({ message: "Error deleting Devoir", error: err.message || err });
   }
 };
 
@@ -243,7 +281,7 @@ export const createForumMessage = async (req, res) => {
       sujet,
       id_user: userId,
       datetime_publier: datetime_publier || new Date().toISOString(),
-      reponses: []
+      reponses: [],
     };
 
     ue.forums.push(newMessage);
@@ -251,8 +289,11 @@ export const createForumMessage = async (req, res) => {
 
     res.status(201).json(newMessage);
   } catch (err) {
-    console.error('Erreur lors de la création du message forum :', err);
-    res.status(500).json({ message: "Error creating forum message", error: err.message || err });
+    console.error("Erreur lors de la création du message forum :", err);
+    res.status(500).json({
+      message: "Error creating forum message",
+      error: err.message || err,
+    });
   }
 };
 
@@ -260,7 +301,7 @@ export const createForumMessage = async (req, res) => {
 export const createForumReply = async (req, res) => {
   try {
     const { reply, userId, datetime_publier } = req.body;
-    const ueId = req.params.id
+    const ueId = req.params.id;
     const forumId = req.params.forumId;
 
     const ue = await UE.findById(ueId);
@@ -285,16 +326,56 @@ export const createForumReply = async (req, res) => {
     res.status(201).json(newReply);
   } catch (err) {
     console.error("Erreur lors de la création de la réponse :", err);
-    res.status(500).json({ message: "Error creating reply", error: err.message || err });
+    res
+      .status(500)
+      .json({ message: "Error creating reply", error: err.message || err });
   }
-}
+};
 
-export const getAllUe = async (req, res) => {
+// export const getAllUe = async (req, res) => {
+//   try {
+//     const ues = await UE.find({}, "titre_ue image_ue _id"); // only needed fields
+//     res.status(200).json(ues);
+//   } catch (err) {
+//     res.status(500).json({ message: "Error retrieving UEs", error: err });
+//   }
+// };
+
+export const assignEtudiantsToUe = async (req, res) => {
   try {
-    const ues = await UE.find({}, "titre_ue image_ue _id"); // only needed fields
-    res.status(200).json(ues);
+    const { ueId, etudiantIds } = req.body;
+    const objectIds = etudiantIds.map((id) => {
+      try {
+        return new mongoose.Types.ObjectId(id);
+      } catch (err) {
+        throw new Error("Invalid ObjectId format");
+      }
+    });
+
+    const result = await UE.updateOne(
+      { _id: ueId },
+      { $set: { etudiants: objectIds } }
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: "UE not found" });
+    }
+
+    res.status(200).json({ message: "Étudiants mis à jour avec succès" });
   } catch (err) {
-    res.status(500).json({ message: "Error retrieving UEs", error: err });
+    res.status(500).json({ message: "Erreur serveur", error: err.message });
+  }
+};
+
+export const getUeWithEtudiants = async (req, res, next) => {
+  try {
+    const ue = await UE.findOne({ _id: req.params.id }).populate("etudiants");
+    if (!ue) {
+      return next({ statusCode: 404, message: "UE not found" });
+    }
+    next({ statusCode: 200, data: ue });
+  } catch (error) {
+    next({ statusCode: 500, message: "Error fetching UE", data: error });
   }
 };
 
@@ -378,7 +459,7 @@ export const deleteCustom = async (req, res) => {
 // ----------------------------------------- Section Devoirs : Fisha -----------------------------------------
 
 // Recuperer les devoir d'une UE
-export const getDevoirsByUeId = async (req,res,next) => {
+export const getDevoirsByUeId = async (req, res, next) => {
   try {
     const ue = await UE.findById(req.params.id);
     if (!ue) {
@@ -391,24 +472,26 @@ export const getDevoirsByUeId = async (req,res,next) => {
       data: ue.devoirs,
     });
   } catch (error) {
-    return next({ statusCode: 500, message: "Error fetching devoirs", data: error });
+    return next({
+      statusCode: 500,
+      message: "Error fetching devoirs",
+      data: error,
+    });
   }
-} ;
+};
 
 // Submission d'un devoir par Etudiant :
-export const submitDepot = async (req,res,next) => {
-
-  try{
-
-    const {ueId, devoirId} = req.params; // Récupère l'ID de l'UE et du devoir
+export const submitDepot = async (req, res, next) => {
+  try {
+    const { ueId, devoirId } = req.params; // Récupère l'ID de l'UE et du devoir
     const studentId = new mongoose.Types.ObjectId(req.user.id);
     const file = req.file; // Récupère le fichier uploadé
 
     if (!file) {
-        console.log("⚠️ No file was uploaded.");
-      } else {
-        console.log("✅ File saved:", file.path);
-      }
+      console.log("⚠️ No file was uploaded.");
+    } else {
+      console.log("✅ File saved:", file.path);
+    }
 
     const ue = await UE.findById(ueId); // Cherche l'UE par ID
     if (!ue) {
@@ -429,19 +512,22 @@ export const submitDepot = async (req,res,next) => {
       taille: file.size,
       type: file.mimetype,
       datetime: new Date(),
-      etat: "en attente", 
+      etat: "en attente",
       note: null,
       commentaire: req.body.commentaire || null,
-  };
-  
-  devoir.depots.push(newDepot); // Ajoute le dépôt au devoir
+    };
 
-await ue.save(); // Sauvegarde l'UE modifiée
+    devoir.depots.push(newDepot); // Ajoute le dépôt au devoir
 
-res.status(201).json({ message: "Depot submitted", depot: newDepot });
-}
-  catch (error) {
-    return next({ statusCode: 500, message: "Error lors du dépôt", data: error });
+    await ue.save(); // Sauvegarde l'UE modifiée
+
+    res.status(201).json({ message: "Depot submitted", depot: newDepot });
+  } catch (error) {
+    return next({
+      statusCode: 500,
+      message: "Error lors du dépôt",
+      data: error,
+    });
   }
 };
 
@@ -450,7 +536,7 @@ res.status(201).json({ message: "Depot submitted", depot: newDepot });
 export const getDepotForGrading = async (req, res, next) => {
   try {
     const { ueId, devoirId } = req.params;
-    const ue = await UE.findById(ueId).populate('devoirs.depots.id_etudiant'); 
+    const ue = await UE.findById(ueId).populate("devoirs.depots.id_etudiant");
     // Populate aider de remplir les informations de l'étudiant dans les dépôts (pas id seulement)
 
     if (!ue) {
@@ -469,7 +555,6 @@ export const getDepotForGrading = async (req, res, next) => {
       message: "Depots retrieved for grading",
       data: depots,
     });
-
   } catch (error) {
     return next({
       statusCode: 500,
@@ -480,8 +565,8 @@ export const getDepotForGrading = async (req, res, next) => {
 };
 
 export const updateDepotForGrading = async (req, res, next) => {
-  try{
-    const { ueId , devoirId, depotId } = req.params;
+  try {
+    const { ueId, devoirId, depotId } = req.params;
     const { note, commentaire, etat } = req.body; // Récupère les champs du body
 
     const ue = await UE.findById(ueId);
@@ -493,9 +578,9 @@ export const updateDepotForGrading = async (req, res, next) => {
     const depot = devoir.depots.id(depotId);
     if (!depot) return next({ statusCode: 404, message: "Depot not found" }); // Si le dépôt n'existe pas
     // Met à jour les champs du dépôt
-    depot.note = note ; // Met à jour la note si fournie
-    depot.commentaire = commentaire ; // Met à jour le commentaire si fourni
-    depot.etat = etat ; // Met à jour l'état si fourni
+    depot.note = note; // Met à jour la note si fournie
+    depot.commentaire = commentaire; // Met à jour le commentaire si fourni
+    depot.etat = etat; // Met à jour l'état si fourni
 
     await ue.save(); // Sauvegarde l'UE modifiée
 
@@ -505,9 +590,9 @@ export const updateDepotForGrading = async (req, res, next) => {
       status: 200,
       message: "Depot updated successfully",
       data: {
-          titre_devoir: devoir.titre_devoir,
-          depots: devoir.depots || []
-          }
+        titre_devoir: devoir.titre_devoir,
+        depots: devoir.depots || [],
+      },
     });
   } catch (error) {
     return next({
@@ -516,7 +601,7 @@ export const updateDepotForGrading = async (req, res, next) => {
       data: error,
     });
   }
-}
+};
 
 // Pour recuperer les details d'un devoir spécifique
 export const getDevoirDetails = async (req, res, next) => {
@@ -535,8 +620,8 @@ export const getDevoirDetails = async (req, res, next) => {
         titre_devoir: devoir.titre_devoir,
         desc_devoir: devoir.desc_devoir,
         datetime_fin: devoir.datetime_fin,
-        depots: devoir.depots
-      }
+        depots: devoir.depots,
+      },
     });
   } catch (error) {
     return next({ statusCode: 500, message: "Erreur serveur", data: error });

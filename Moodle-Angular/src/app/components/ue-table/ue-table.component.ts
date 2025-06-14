@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-ue-table',
@@ -6,20 +6,38 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./ue-table.component.css'],
 })
 export class UETableComponent {
-  // ues = [
-  //   { code: 'IT44', name: 'Analyse Numérique' },
-  //   { code: 'SI40', name: "Système d'information" },
-  //   { code: 'SY43', name: 'Android Developpement' },
-  //   { code: 'DE52', name: 'Génie logiciel' },
-  //   {
-  //     code: 'SY41',
-  //     name: 'Informatique embarquée et robotique: Microprocesseurs et microcontrolleurs',
-  //   },
-  //   { code: 'WE4B', name: 'Technologies WEB avancées' },
-  //   { code: 'VA51', name: "Traitement de l'image" },
-  //   { code: 'RS40', name: 'Réseaux et Cybersécurité' },
-  //   { code: 'HM40', name: 'Interface Homme Machine' },
-  // ];
   @Input() ues: any[] = [];
+  @Output() deleteUe = new EventEmitter<string>();
+  @Output() updateUe = new EventEmitter<any>();
+
+  selectedCodeUe: string | null = null;
+  selectedEditUeImage: File | null = null;
+
+  editedUe: any = {};
+
   constructor() {}
+  openDeleteModal(codeUe: string) {
+    this.selectedCodeUe = codeUe;
+  }
+  openEditModal(ue: any) {
+    this.editedUe = { ...ue };
+    this.selectedEditUeImage = null;
+  }
+  onEditUeImageSelected(event: any) {
+    const file = event.target.files[0];
+    this.selectedEditUeImage = file ? file : null;
+  }
+  removeEditUeImage() {
+    this.editedUe.image_ue = null;
+    this.selectedEditUeImage = null;
+  }
+
+  emitUpdateUe() {
+    // Crée l'objet à émettre
+    const ueToUpdate = {
+      ...this.editedUe,
+      imageFile: this.selectedEditUeImage,
+    };
+    this.updateUe.emit(ueToUpdate);
+  }
 }

@@ -12,7 +12,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { ChoixUeComponent } from './pages/choix-ue/choix-ue.component';
 import { DevoirSubmissionComponent } from './pages/devoir-submission/devoir-submission.component';
 import { GradeDevoirComponent } from './pages/grade-devoir/grade-devoir.component';
-
+import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauthorized.component';
 
 // Definition des routes
 const routes: Routes = [
@@ -22,14 +22,35 @@ const routes: Routes = [
   // Route pour register Form
   { path: 'register', component: RegisterPageComponent },
   // Route pour l'espace admin
-  { path: 'espace-admin', component: PageadminComponent , canActivate: [RoleGuard], data: { expectedRoles: ['Admin']}},
-  { path: 'mes-cours', component: ChoixUeComponent , canActivate: [RoleGuard], data: { expectedRoles: ['Etudiant', 'Enseignant', 'Admin']}},
-  { path: 'profile' , component :ProfilePageComponent },
+  {
+    path: 'espace-admin',
+    component: PageadminComponent,
+    canActivate: [RoleGuard],
+    data: { expectedRoles: ['Admin'] },
+  },
+  {
+    path: 'mes-cours',
+    component: ChoixUeComponent,
+    canActivate: [RoleGuard],
+    data: { expectedRoles: ['Etudiant', 'Enseignant'] },
+  },
+  { path: 'profile', component: ProfilePageComponent },
   { path: 'mes-cours/:id', component: ContenuUeComponent },
   // Route pour submission de devoirs
-  {path: 'mes-cours/:id/devoirs/:devoirId', component: DevoirSubmissionComponent , canActivate: [RoleGuard], data: { expectedRoles: ['Etudiant', 'Enseignant']}},
-    // Route pour noter le devoirs
-  {path: 'mes-cours/:id/devoirs/:devoirId/grade-devoir', component: GradeDevoirComponent , canActivate: [RoleGuard], data: { expectedRoles: ['Enseignant']}},
+  {
+    path: 'mes-cours/:id/devoirs/:devoirId',
+    component: DevoirSubmissionComponent,
+    canActivate: [RoleGuard],
+    data: { expectedRoles: ['Etudiant', 'Enseignant'] },
+  },
+  // Route pour noter le devoirs
+  {
+    path: 'mes-cours/:id/devoirs/:devoirId/grade-devoir',
+    component: GradeDevoirComponent,
+    canActivate: [RoleGuard],
+    data: { expectedRoles: ['Enseignant'] },
+  },
+  { path: 'unauthorised-page', component: PageUnauthorizedComponent },
 ];
 
 @NgModule({

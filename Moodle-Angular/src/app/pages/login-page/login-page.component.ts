@@ -15,6 +15,7 @@ export class LoginPageComponent implements OnInit {
   email: string = '';
   password: string = '';
   errorMessage: string = '';
+  role: string | null = null;
 
   // Toast properties
   @ViewChild('liveToast', { static: false }) liveToast!: ElementRef;
@@ -54,8 +55,15 @@ export class LoginPageComponent implements OnInit {
         localStorage.setItem('userRole', res.data.role);
         localStorage.setItem('userId', res.data._id);
 
+        this.role = localStorage.getItem('userRole');
+
         this.showToast('success', 'Login réussie !');
-        setTimeout(() => this.router.navigate(['/mes-cours']), 2000);
+
+        if (this.role === 'Admin') {
+          setTimeout(() => this.router.navigate(['/espace-admin']), 2000);
+        } else {
+          setTimeout(() => this.router.navigate(['/mes-cours']), 2000);
+        }
       },
       error: (err) => {
         console.error('Login échoué', err);

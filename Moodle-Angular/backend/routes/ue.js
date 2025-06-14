@@ -1,11 +1,16 @@
 import express from "express";
 import multer from "multer";
-import { verifyToken, verifyEtudiant, verifyEnseignant } from "../utils/verifyToken.js";
+import {
+  verifyToken,
+  verifyEtudiant,
+  verifyEnseignant,
+} from "../utils/verifyToken.js";
 
 import {
   getAllUes, // Contrôleur pour récupérer toutes les UEs
   getUeById, // Contrôleur pour récupérer une UE par son id
   createUe, // Contrôleur pour créer une nouvelle UE
+  updateUe,
   createCours, // Contrôleur pour créer un nouveau cours
   createRessource, // Contrôleur pour créer une nouvelle ressource
   createDevoir, // Contrôleur pour créer un nouveau devoir
@@ -15,6 +20,8 @@ import {
   deleteDevoir, // Contrôleur pour supprimer un devoir
   createForumMessage, // Contrôleur créer un nouveau message au forum
   createForumReply, // // Contrôleur créer un nouveau réponse de message au forum
+  assignEtudiantsToUe, // Contrôleur pour assigner des étudiants à une UE
+  getUeWithEtudiants, // Contrôleur pour récupérer une UE avec ses étudiants
   getDepotForGrading, // Contrôleur pour récupérer un dépôt pour la notation
   submitDepot,
   updateDepotForGrading,
@@ -29,23 +36,27 @@ const router = express.Router();
 
 // Configuration du stockage des fichiers avec multer
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function (_req, _file, cb) {
     cb(null, "uploads/"); // Dossier de destination des fichiers uploadés
   },
   filename: function (req, file, cb) {
-    const uniqueName = Date.now() + "-" + file.originalname; // Génère un nom de fichier unique
+    // Try to get UE id from params or body for uniqueness
+    let ueId = req.params?.id || req.body?.id || "unknownUE";
+    const uniqueName = `${ueId}-${Date.now()}-${file.originalname}`; // Génère un nom de fichier unique par UE
     cb(null, uniqueName); // Définit le nom du fichier uploadé
   },
 });
 
 // Initialise multer avec la configuration de stockage
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage, dest: "uploads/" });
 
 router.get("/", getAllUes); // Route pour récupérer toutes les UEs
 
-router.post("/", createUe); // Route pour créer une nouvelle UE
+router.post("/", upload.single("image_ue"), createUe); // Route pour créer une nouvelle UE
 
 router.get("/:id", getUeById); // Route pour récupérer une UE par son id
+
+router.patch("/:id", upload.single("image_ue"), updateUe); // Route pour modifier certains champs d'une UE
 
 router.delete("/:id", deleteUe); // Route pour supprimer une UE par son id(code UE)
 
@@ -67,15 +78,34 @@ router.delete("/:id/devoir/:devoirId", deleteDevoir);
 router.post("/new-forum/:id", createForumMessage);
 router.post("/new-reply/:id/:forumId", createForumReply);
 
+// Route pour récupérer une UE avec ses étudiants
+router.get("/with-etudiants/:id", getUeWithEtudiants);
+router.post("/assign-etudiants", assignEtudiantsToUe);
 
 // Route pour submettre un devoir
-router.post('/:ueId/devoirs/:devoirId/depots' , verifyToken, verifyEtudiant, upload.single("file"),submitDepot  );
+router.post(
+  "/:ueId/devoirs/:devoirId/depots",
+  verifyToken,
+  verifyEtudiant,
+  upload.single("file"),
+  submitDepot
+);
 
 // Route pour notez un devoir
-router.get('/:ueId/devoirs/:devoirId/grade-devoir' , verifyToken , verifyEnseignant , getDepotForGrading)
-router.put('/:ueId/devoirs/:devoirId/depots/:depotId', verifyToken, verifyEnseignant, updateDepotForGrading);
+router.get(
+  "/:ueId/devoirs/:devoirId/grade-devoir",
+  verifyToken,
+  verifyEnseignant,
+  getDepotForGrading
+);
+router.put(
+  "/:ueId/devoirs/:devoirId/depots/:depotId",
+  verifyToken,
+  verifyEnseignant,
+  updateDepotForGrading
+);
 // Route: GET /ues/:ueId/devoirs/:devoirId
-router.get('/:ueId/devoirs/:devoirId', verifyToken, getDevoirDetails);
+router.get("/:ueId/devoirs/:devoirId", verifyToken, getDevoirDetails);
 
 // Ajouter une section personnalisée
 router.post('/:ueId/custom-section', addCustomSection);

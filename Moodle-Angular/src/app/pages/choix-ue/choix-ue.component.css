@@ -1,0 +1,14 @@
+main {
+  margin: 3rem 5vw;
+  padding: 3rem;
+  background-color: white;
+  border: 0.5px solid lightgray;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.header {
+  margin: 0px 10px;
+}
+.header h1 {
+  text-align: left;
+  color: #333;
+}

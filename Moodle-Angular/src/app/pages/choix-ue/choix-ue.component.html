@@ -1,22 +1,88 @@
 <app-navbar></app-navbar>
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="mb-0">Mes cours</h3>
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-        Afficher
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" href="#">Tous</a></li>
-        <li><a class="dropdown-item" href="#">4</a></li>
-        <li><a class="dropdown-item" href="#">6</a></li>
-      </ul>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-4 mb-4 d-flex align-items-stretch" *ngFor="let ue of ues">
-      <app-ue [ue]="ue" class="w-100"></app-ue>
+<main>
+  <div class="container-fluid">
+    <h1 class="mb-0 fw-semibold mb-3">Mes cours</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0 fw-semibold">Vue l'ensemble de cours</h4>
+      <hr />
+      <button
+        *ngIf="userRole === 'Enseignant'"
+        class="btn btn-success mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#addUeModal"
+      >
+        Ajouter cours
+      </button>
+      <div
+        class="modal fade"
+        id="addUeModal"
+        tabindex="-1"
+        aria-labelledby="addUeModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form (ngSubmit)="submitUe()" #ueForm="ngForm">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addUeModalLabel">
+                  Ajouter un cours
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="codeUe" class="form-label">Code UE</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="codeUe"
+                    name="codeUe"
+                    [(ngModel)]="newUe._id"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="titreUe" class="form-label">Nom UE</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="titreUe"
+                    name="titreUe"
+                    [(ngModel)]="newUe.titre_ue"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button
+                  type="submit"
+                  class="btn btn-success"
+                  [disabled]="!ueForm.form.valid"
+                >
+                  Ajouter
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div
+        class="col-md-4 mb-4 d-flex align-items-stretch"
+        *ngFor="let ue of ues"
+      >
+        <app-ue [ue]="ue" class="w-100"></app-ue>
+      </div>
     </div>
   </div>
-</div>
+</main>
