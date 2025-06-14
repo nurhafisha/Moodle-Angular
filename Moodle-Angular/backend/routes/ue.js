@@ -34,7 +34,7 @@ router.post("/", upload.single("image_ue"), createUe); // Route pour créer une 
 
 router.get("/:id", getUeById); // Route pour récupérer une UE par son id
 
-router.patch("/:id", upload.single("image_ue"), updateUe); // Route pour modifier les champs d'une UE
+router.patch("/:id", upload.single("image_ue"), updateUe); // Route pour modifier certains champs d'une UE
 
 router.delete("/:id", deleteUe); // Route pour supprimer une UE par son id(code UE)
 
