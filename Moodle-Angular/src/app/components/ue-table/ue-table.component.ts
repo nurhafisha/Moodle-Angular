@@ -23,12 +23,10 @@ export class UETableComponent {
     this.editedUe = { ...ue };
     this.selectedEditUeImage = null;
   }
-
   onEditUeImageSelected(event: any) {
     const file = event.target.files[0];
     this.selectedEditUeImage = file ? file : null;
   }
-
   removeEditUeImage() {
     this.editedUe.image_ue = null;
     this.selectedEditUeImage = null;

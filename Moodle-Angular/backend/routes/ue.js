@@ -33,11 +33,13 @@ const router = express.Router();
 
 // Configuration du stockage des fichiers avec multer
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function (_req, _file, cb) {
     cb(null, "uploads/"); // Dossier de destination des fichiers uploadés
   },
   filename: function (req, file, cb) {
-    const uniqueName = Date.now() + "-" + file.originalname; // Génère un nom de fichier unique
+    // Try to get UE id from params or body for uniqueness
+    let ueId = req.params?.id || req.body?.id || "unknownUE";
+    const uniqueName = `${ueId}-${Date.now()}-${file.originalname}`; // Génère un nom de fichier unique par UE
     cb(null, uniqueName); // Définit le nom du fichier uploadé
   },
 });
