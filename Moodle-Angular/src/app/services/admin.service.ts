@@ -36,9 +36,6 @@ export class AdminService {
   updateUser(userId: string, user: any = {}): Observable<any> {
     return this.http.patch<any>(`${this.urlUser}/${userId}`, user);
   }
-  // updateUserNoAuth(userId: string, user: any = {}): Observable<any> {
-  //   return this.http.patch<any>(`${this.urlUser}/noauth/${userId}`, user);
-  // }
 
   deleteUser(userId: string): Observable<any> {
     return this.http.delete<any>(`${this.urlUser}/${userId}`);
