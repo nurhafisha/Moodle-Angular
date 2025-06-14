@@ -30,7 +30,7 @@ export class AdminService {
   }
 
   updateUe(codeUe: string, ue: any = {}): Observable<any> {
-    return this.http.patch<any>(`${this.urlUe}/${codeUe}`, ue);
+    return this.http.patch<any>(`${this.urlUe}${codeUe}`, ue);
   }
 
   updateUser(userId: string, user: any = {}): Observable<any> {
@@ -42,6 +42,6 @@ export class AdminService {
   }
 
   deleteUe(codeUe: string): Observable<any> {
-    return this.http.delete<any>(`${this.urlUe}/${codeUe}`);
+    return this.http.delete<any>(`${this.urlUe}${codeUe}`);
   }
 }
