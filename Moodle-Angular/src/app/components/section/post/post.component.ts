@@ -13,7 +13,7 @@ export class PostComponent{
   @Input() cours: any[] = [];
   @Input() ressources: any[] = [];
   ueId: string | null = null;
-  postId: string | null = null;
+  userRole: string | null = null;
   rootUrl: string = apiUrls.root;
 
   constructor(private route: ActivatedRoute,
@@ -23,6 +23,7 @@ export class PostComponent{
 
   ngOnInit(): void {
     this.ueId = this.route.snapshot.paramMap.get('id');
+    this.userRole = localStorage.getItem('userRole');
   }
 
   deleteCours(id: string): void {
@@ -31,6 +32,7 @@ export class PostComponent{
     this.coursService.deleteCours(this.ueId, id).subscribe({
       next: () => {
         this.cours = this.cours.filter(c => c._id !== id);
+        this.cours = [];
         console.log('Cours supprimé avec succès');
       },
       error: err => {

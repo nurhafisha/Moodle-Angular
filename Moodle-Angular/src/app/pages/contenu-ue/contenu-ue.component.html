@@ -36,10 +36,11 @@
     <div class="mt-3">
       <app-section
         *ngIf="selectedTab === 'post'"
-        [id_ue]="ueData?.id_ue"
         [cours]="ueData?.cours"
         [ressources]="ueData?.ressources"
         [devoirs]="ueData?.devoirs"
+        [customSections]="ueData?.customSections"
+        [customPosts]="ueData?.customPosts"
       ></app-section>
       <app-discussions
         *ngIf="selectedTab === 'discussions'"

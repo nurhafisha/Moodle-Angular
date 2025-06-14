@@ -1,0 +1,23 @@
+<div class="container mt-4" *ngFor="let c of customs">
+  <div class="note-card bg-light bg-gradient shadow-sm">
+    <div class="d-flex justify-content-between mb-2">
+      <div class="d-flex align-items-center mb-2 w-auto">
+        <strong class="me-2">
+          <a *ngIf="c.fichier_joint" href="{{ rootUrl }}{{ c.fichier_joint }}" target="_blank" rel="noopener noreferrer">
+          {{ c.titre }}</a>
+          <strong *ngIf="!c.fichier_joint">
+          {{ c.titre }}</strong>
+        </strong>
+        <button type="button" class="btn btn-sm btn-danger" title="Delete"
+        (click)="deleteCustom(c._id)"
+        *ngIf="userRole === 'Enseignant'">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+      <div class="timestamp">{{ c.datetime_publier | date:'short' }}</div>
+    </div>
+    <div style="white-space: pre-line;">
+      {{ c.desc }}
+    </div>
+  </div>
+</div>

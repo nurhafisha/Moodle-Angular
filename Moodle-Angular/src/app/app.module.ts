@@ -31,9 +31,9 @@ import { DevoirFormComponent } from './components/devoir-form/devoir-form.compon
 import { ParticipantsComponent } from './components/participants/participants.component';
 import { DevoirSubmissionComponent } from './pages/devoir-submission/devoir-submission.component';
 import { GradeDevoirComponent } from './pages/grade-devoir/grade-devoir.component';
+import { CustomPostComponent } from './components/section/post/custom-post/custom-post.component';
+import { CustomPostFormComponent } from './components/section/post/custom-post-form/custom-post-form.component';
 import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauthorized.component';
-
-
 
 @NgModule({
   declarations: [
@@ -60,8 +60,9 @@ import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauth
     ParticipantsComponent,
     DevoirSubmissionComponent,
     GradeDevoirComponent,
+    CustomPostComponent,
+    CustomPostFormComponent,
     PageUnauthorizedComponent
-
   ],
 
   imports: [

@@ -26,6 +26,9 @@ import {
   submitDepot,
   updateDepotForGrading,
   getDevoirDetails,
+  addCustomSection,
+  addCustomPost,
+  deleteCustom
 } from "../controllers/ue-controller.js"; // Importe les fonctions du contrôleur
 
 // Crée un nouveau routeur express
@@ -101,5 +104,12 @@ router.put(
 );
 // Route: GET /ues/:ueId/devoirs/:devoirId
 router.get("/:ueId/devoirs/:devoirId", verifyToken, getDevoirDetails);
+
+// Ajouter une section personnalisée
+router.post('/:ueId/custom-section', addCustomSection);
+// Ajouter un Post dans section personnalisée
+router.post('/:ueId/custom-post',upload.single("fichier_joint"), addCustomPost);
+// Supprimer un Post dans section personnalisée
+router.delete("/:id/custom/:customId", deleteCustom);
 
 export default router; // Exporte le routeur pour l'utiliser dans l'application principale
