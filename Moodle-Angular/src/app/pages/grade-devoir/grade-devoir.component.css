@@ -1,3 +1,11 @@
+main {
+  margin: 3em 5vw;
+  padding: 3em;
+  background-color: white;
+  border: 0.5px solid lightgray;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .truncate-comment:hover {
   white-space: normal;
   word-wrap: break-word;

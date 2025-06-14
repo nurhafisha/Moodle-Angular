@@ -1,152 +1,208 @@
 <app-navbar></app-navbar>
-<div class="container mt-4">
-  <div class="row mb-3">
-    <div class="col-md-12">
-      <h2>Grading - {{ devoirTitre }}</h2>
-      <hr class="hr" />
-    </div>
-    <div class="col-md-6 col-lg-4 mt-4 mb-4">
-      <div class="input-group">
-        <input 
-          type="search" 
-          class="form-control" 
-          placeholder="Nom,Prenom,Status" 
-          [(ngModel)]="searchText" 
-          (keyup)="applyFilter()" />
-        <button id="search-button" type="button" class="btn btn-primary">
-          <i class="bi bi-search"></i>
-        </button>
+
+<main>
+  <div class="container-fluid">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <h2>Grading - {{ devoirTitre }}</h2>
+        <hr class="hr" />
+      </div>
+      <div class="col-md-6 col-lg-4 mt-4 mb-4">
+        <div class="input-group">
+          <input
+            type="search"
+            class="form-control"
+            placeholder="Nom,Prenom,Status"
+            [(ngModel)]="searchText"
+            (keyup)="applyFilter()"
+          />
+          <button id="search-button" type="button" class="btn btn-primary">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Status</th>
-            <th>Note</th>
-            <th>Last modified</th>
-            <th>File submission</th>
-            <th>Submission comment</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let sub of filteredSubmissions; let i = index">
-            <td>{{ sub.id_etudiant.nom}}</td>
-            <td>{{ sub.id_etudiant.prenom}}</td>
-            <td>
-<span [ngClass]="{
-  'text-success': sub.etat === 'corrigé',
-  'text-primary': sub.etat === 'en attente',
-  'text-danger': sub.etat === 'refusé'
-}">
-  <i class="bi bi-check-circle-fill" *ngIf="sub.etat === 'corrigé'"></i>
-  <i class="bi bi-hourglass-split" *ngIf="sub.etat === 'en attente'"></i>
-  <i class="bi bi-x-circle-fill" *ngIf="sub.etat === 'refusé'"></i>
-  {{ sub.etat }}
-</span>
-            </td>
-            <td>{{ sub.note ?? '-'}}</td>
-            <td>{{ sub.datetime | date:'yyyy-MM-dd HH:mm'}}</td>
-            <td>
-              <a [href]="'http://localhost:8800/' + sub.path" target="_blank">Download</a>
-            </td>
-              <td>{{ sub.commentaire || '-' }}</td>
-            <td>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#gradeModal" (click)="openGradeModal(sub)">
-                    <i class="bi bi-pencil-square"></i>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Prenom</th>
+              <th>Status</th>
+              <th>Note</th>
+              <th>Last modified</th>
+              <th>File submission</th>
+              <th>Submission comment</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sub of filteredSubmissions; let i = index">
+              <td>{{ sub.id_etudiant.nom }}</td>
+              <td>{{ sub.id_etudiant.prenom }}</td>
+              <td>
+                <span
+                  [ngClass]="{
+                    'text-success': sub.etat === 'corrigé',
+                    'text-primary': sub.etat === 'en attente',
+                    'text-danger': sub.etat === 'refusé'
+                  }"
+                >
+                  <i
+                    class="bi bi-check-circle-fill"
+                    *ngIf="sub.etat === 'corrigé'"
+                  ></i>
+                  <i
+                    class="bi bi-hourglass-split"
+                    *ngIf="sub.etat === 'en attente'"
+                  ></i>
+                  <i
+                    class="bi bi-x-circle-fill"
+                    *ngIf="sub.etat === 'refusé'"
+                  ></i>
+                  {{ sub.etat }}
+                </span>
+              </td>
+              <td>{{ sub.note ?? "-" }}</td>
+              <td>{{ sub.datetime | date : "yyyy-MM-dd HH:mm" }}</td>
+              <td>
+                <a [href]="'http://localhost:8800/' + sub.path" target="_blank"
+                  >Download</a
+                >
+              </td>
+              <td>{{ sub.commentaire || "-" }}</td>
+              <td>
+                <a
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#gradeModal"
+                  (click)="openGradeModal(sub)"
+                >
+                  <i class="bi bi-pencil-square"></i>
                 </a>
-            </td>
-          </tr>
+              </td>
+            </tr>
             <!-- No results -->
-          <tr *ngIf="filteredSubmissions.length === 0">
-            <td colspan="8" class="text-center text-muted">No submissions found</td>
-          </tr>
-        </tbody>
-      </table>
+            <tr *ngIf="filteredSubmissions.length === 0">
+              <td colspan="8" class="text-center text-muted">
+                No submissions found
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 
-
- <div class="modal fade" id="gradeModal" tabindex="-1" role="form" aria-labelledby="gradeModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="gradeModalLabel">Grade Submission</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" *ngIf="selectedSubmission">
-        <form (ngSubmit)="false">
+  <div
+    class="modal fade"
+    id="gradeModal"
+    tabindex="-1"
+    role="form"
+    aria-labelledby="gradeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="gradeModalLabel">Grade Submission</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body" *ngIf="selectedSubmission">
+          <form (ngSubmit)="(false)">
             <div class="mb-3">
-                <label for="studentName" class="form-label">Etudiant</label>
-                <input type="text" class="form-control" [value]="selectedSubmission?.id_etudiant?.nom + ' ' + selectedSubmission?.id_etudiant?.prenom" readonly>
-
+              <label for="studentName" class="form-label">Etudiant</label>
+              <input
+                type="text"
+                class="form-control"
+                [value]="
+                  selectedSubmission?.id_etudiant?.nom +
+                  ' ' +
+                  selectedSubmission?.id_etudiant?.prenom
+                "
+                readonly
+              />
             </div>
             <div class="mb-3">
-                <label for="note" class="form-label">Note</label>
-                <input type="text"
-                  class="form-control"
-                  id="Note"
-                  [(ngModel)]="selectedSubmission.note"
-                  name="note"
-                  placeholder="1-20"
+              <label for="note" class="form-label">Note</label>
+              <input
+                type="text"
+                class="form-control"
+                id="Note"
+                [(ngModel)]="selectedSubmission.note"
+                name="note"
+                placeholder="1-20"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="Comment" class="form-label">Comment</label>
+              <input
+                type="text"
+                class="form-control"
+                id="Comment"
+                [(ngModel)]="selectedSubmission.commentaire"
+                name="commentaire"
+                placeholder="Enter your comment here"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label d-block">Status</label>
+
+              <!-- En attente -->
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="etat"
+                  [value]="'en attente'"
+                  [(ngModel)]="selectedSubmission.etat"
                 />
-            </div>
-            <div class="mb-3">
-                <label for="Comment" class="form-label">Comment</label>
-                <input type="text" class="form-control" id="Comment" 
-                  [(ngModel)]="selectedSubmission.commentaire"
-                  name="commentaire"
-                 placeholder="Enter your comment here">
-            </div>
-            <div class="mb-3">
-            <label class="form-label d-block">Status</label>
+                <label class="form-check-label">En attente</label>
+              </div>
 
-            <!-- En attente -->
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="etat"
-                [value]="'en attente'"
-                [(ngModel)]="selectedSubmission.etat" />
-              <label class="form-check-label">En attente</label>
-            </div>
+              <!-- Corrigé -->
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="etat"
+                  [value]="'corrigé'"
+                  [(ngModel)]="selectedSubmission.etat"
+                />
+                <label class="form-check-label">Corrigé</label>
+              </div>
 
-            <!-- Corrigé -->
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="etat"
-                [value]="'corrigé'"
-                [(ngModel)]="selectedSubmission.etat" />
-              <label class="form-check-label">Corrigé</label>
+              <!-- Refusé -->
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="etat"
+                  [value]="'refusé'"
+                  [(ngModel)]="selectedSubmission.etat"
+                />
+                <label class="form-check-label">Refusé</label>
+              </div>
             </div>
-
-            <!-- Refusé -->
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="etat"
-                [value]="'refusé'"
-                [(ngModel)]="selectedSubmission.etat" />
-              <label class="form-check-label">Refusé</label>
-            </div>
-            </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="saveGradingChanges()">Save changes</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="saveGradingChanges()"
+          >
+            Save changes
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</main>

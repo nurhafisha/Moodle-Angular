@@ -1,116 +1,187 @@
 <app-navbar></app-navbar>
-<div class="container mt-4">
-  <h3>{{ ueId }} : {{ ueData?.titre_ue }}</h3>
+
+<main>
+  <div class="container-fluid">
+    <h3>{{ ueId }} : {{ ueData?.titre_ue }}</h3>
     <div class="col-md-12 mt-4 mb-4 bg-light p-3 rounded">
-        <h4 class="col-md-12">
-          <i class="bi bi-file-earmark-arrow-up-fill"></i>
-          {{ selectedDevoir?.titre_devoir }}</h4>
-        <div class="col-md-12">
-            <hr class="hr" />
-            <ul class="list-group mt-4">
-                <li class="list-unstyled">
-                 <strong>Opened:</strong> {{ selectedDevoir?.datetime_debut | date: 'fullDate' }}
-                </li>
-                <li class="list-unstyled">
-                 <strong>Due:</strong> {{ selectedDevoir?.datetime_fin | date: 'fullDate' }}
-                 </li>
-            </ul>
+      <h4 class="col-md-12">
+        <i class="bi bi-file-earmark-arrow-up-fill"></i>
+        {{ selectedDevoir?.titre_devoir }}
+      </h4>
+      <div class="col-md-12">
+        <hr class="hr" />
+        <ul class="list-group mt-4">
+          <li class="list-unstyled">
+            <strong>Opened:</strong>
+            {{ selectedDevoir?.datetime_debut | date : "fullDate" }}
+          </li>
+          <li class="list-unstyled">
+            <strong>Due:</strong>
+            {{ selectedDevoir?.datetime_fin | date : "fullDate" }}
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-12 mt-4">
+        <button
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#submissionModal"
+          *ngIf="userRole === 'Etudiant'"
+        >
+          Ajouter une soumission
+        </button>
+        <div class="mt-4">
+          <h5>Statut de soumission</h5>
+          <p *ngIf="userRole === 'Enseignant'">
+            <a
+              [routerLink]="[
+                '/mes-cours',
+                ueId,
+                'devoirs',
+                devoirId,
+                'grade-devoir'
+              ]"
+              class="text-primary text-decoration-underline"
+              style="cursor: pointer"
+              >Voir le submission des étudiants
+            </a>
+          </p>
+          <table
+            class="table table-bordered mt-4"
+            *ngIf="userRole === 'Etudiant'"
+          >
+            <tbody>
+              <tr>
+                <th scope="row" style="width: 30%">Statut de soumission</th>
+                <td class="table-success" *ngIf="submissionStatus === 'soumis'">
+                  Soumis
+                </td>
+                <td *ngIf="submissionStatus !== 'soumis'">Non soumis</td>
+              </tr>
+              <tr>
+                <th scope="row">Temps Restant</th>
+                <td>
+                  <!-- Show assignment due only if the student has NOT yet submitted -->
+                  <span
+                    *ngIf="
+                      !selectedDepot &&
+                      timeRemaining &&
+                      status !== 'Avance' &&
+                      status !== 'Retard' &&
+                      status == 'Assignment'
+                    "
+                  >
+                    Temps restant: {{ timeRemaining }}
+                  </span>
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      !selectedDepot &&
+                      timeRemaining &&
+                      status !== 'Avance' &&
+                      status !== 'Retard' &&
+                      status == 'overdue'
+                    "
+                  >
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i> En
+                    retard : {{ timeRemaining }}
+                  </span>
+                  <!-- Show assignment due only if the student has been submitted -->
+                  <span
+                    *ngIf="selectedDepot?.earlyStatus === 'Retard'"
+                    class="text-danger"
+                  >
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i> Soumis
+                    en retard : {{ selectedDepot?.earlyText }}
+                  </span>
+                  <span
+                    *ngIf="selectedDepot?.earlyStatus === 'Avance'"
+                    class="text-success"
+                  >
+                    <i class="bi bi-check-circle-fill me-2"></i> Soumis en
+                    avance : {{ selectedDepot?.earlyText }}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Dernière modification</th>
+                <td>
+                  {{
+                    selectedDepot?.datetime
+                      ? (selectedDepot.datetime | date : "full")
+                      : "-"
+                  }}
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Statut de notation</th>
+                <td>
+                  <span *ngIf="selectedDepot?.etat === 'en attente'"
+                    >⏳ En attente</span
+                  >
+                  <span *ngIf="selectedDepot?.etat === 'corrigé'"
+                    >✅ Corrigé</span
+                  >
+                  <span *ngIf="selectedDepot?.etat === 'refusé'"
+                    >❌ Refusé</span
+                  >
+                  <span *ngIf="!selectedDepot?.etat">❓ Non corrigé</span>
+                </td>
+              </tr>
+              <tr *ngIf="selectedDepot">
+                <th scope="row">Note</th>
+                <td>{{ selectedDepot.note ?? "-" }}</td>
+              </tr>
+              <tr *ngIf="selectedDepot">
+                <th scope="row">Commentaire du correcteur</th>
+                <td>{{ selectedDepot.commentaire ?? "-" }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class = "col-md-12 mt-4">
-            <button 
-                class="btn btn-primary" 
-                data-bs-toggle="modal" 
-                data-bs-target="#submissionModal"
-                *ngIf="userRole === 'Etudiant'"
-                >
-                 Ajouter une soumission
-            </button>           
-            <div class="mt-4" >
-                <h5>Statut de soumission</h5>
-                <p *ngIf="userRole === 'Enseignant'">
-                  <a
-                   [routerLink]="['/mes-cours', ueId, 'devoirs', devoirId, 'grade-devoir']"
-                    class="text-primary text-decoration-underline"
-                    style="cursor: pointer;"
-                     >Voir le submission des étudiants </a>
-                </p>
-                <table class="table table-bordered mt-4" *ngIf="userRole === 'Etudiant'">
-                    <tbody>
-                        <tr>
-                            <th scope="row" style="width: 30%;"> Statut de soumission</th>
-                            <td class="table-success" *ngIf="submissionStatus === 'soumis'">Soumis</td>
-                            <td *ngIf="submissionStatus !== 'soumis'">Non soumis</td>
-                        </tr>
-                        <tr>
-                            <th scope="row" > Temps Restant </th>
-                           <td>
-                            <!-- Show assignment due only if the student has NOT yet submitted -->
-                            <span *ngIf="!selectedDepot && timeRemaining && status !== 'Avance' && status !== 'Retard' && status == 'Assignment'" >
-                              Temps restant: {{ timeRemaining }}
-                             </span>
-                               <span class="text-danger" *ngIf="!selectedDepot && timeRemaining && status !== 'Avance' && status !== 'Retard' && status == 'overdue'" >
-                                <i class="bi bi-exclamation-triangle-fill me-2"></i> En retard : {{ timeRemaining }}
-                              </span>
-                             <!-- Show assignment due only if the student has been submitted -->
-                            <span *ngIf="selectedDepot?.earlyStatus === 'Retard'" class="text-danger">
-                              <i class="bi bi-exclamation-triangle-fill me-2"></i> Soumis en retard : {{ selectedDepot?.earlyText }}
-                            </span>
-                            <span *ngIf="selectedDepot?.earlyStatus === 'Avance'" class="text-success">
-                              <i class="bi bi-check-circle-fill me-2"></i> Soumis en avance : {{ selectedDepot?.earlyText }}
-                            </span>
+      </div>
 
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"> Dernière modification </th>
-                            <td> {{ selectedDepot?.datetime ? (selectedDepot.datetime | date: 'full' ) : '-' }} </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Statut de notation</th>
-                            <td>
-                              <span *ngIf="selectedDepot?.etat === 'en attente'">⏳ En attente</span>
-                              <span *ngIf="selectedDepot?.etat === 'corrigé'">✅ Corrigé</span>
-                              <span *ngIf="selectedDepot?.etat === 'refusé'">❌ Refusé</span>
-                              <span *ngIf="!selectedDepot?.etat">❓ Non corrigé</span>
-                            </td>
-                        </tr>
-                        <tr *ngIf="selectedDepot">
-                          <th scope="row">Note</th>
-                          <td>{{ selectedDepot.note ?? '-' }}</td>
-                        </tr>
-                        <tr *ngIf="selectedDepot">
-                          <th scope="row">Commentaire du correcteur</th>
-                          <td>{{ selectedDepot.commentaire ?? '-' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+      <!-- Modal dialogue pour submission de devoir -->
+      <div
+        class="modal fade"
+        id="submissionModal"
+        tabindex="-1"
+        #submissionModal
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Submit Assignment</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
             </div>
-        </div>
-
-
-<!-- Modal dialogue pour submission de devoir -->
-<div class="modal fade" id="submissionModal" tabindex="-1" #submissionModal>
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Submit Assignment</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label class="form-label">Upload File</label>
-            <input type="file" class="form-control" (change)="onFileSelected($event)">
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label class="form-label">Upload File</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    (change)="onFileSelected($event)"
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="OnsubmitDepot()"
+              >
+                Submit
+              </button>
+            </div>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="OnsubmitDepot()">Submit</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-    </div>
-</div>
+</main>
