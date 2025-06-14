@@ -18,6 +18,7 @@ app.use("/backend/auth", authRoute);
 app.use("/backend/user", userRoute);
 app.use("/backend/ues", ueRoute);
 app.use("/uploads", express.static("uploads"));
+app.use("/uploads/profiles", express.static("uploads/profiles"));
 
 //Response handling middleware
 app.use((err, req, res, next) => {
