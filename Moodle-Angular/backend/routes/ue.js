@@ -10,6 +10,7 @@ import {
   getAllUes, // Contrôleur pour récupérer toutes les UEs
   getUeById, // Contrôleur pour récupérer une UE par son id
   createUe, // Contrôleur pour créer une nouvelle UE
+  updateUe,
   createCours, // Contrôleur pour créer un nouveau cours
   createRessource, // Contrôleur pour créer une nouvelle ressource
   createDevoir, // Contrôleur pour créer un nouveau devoir
