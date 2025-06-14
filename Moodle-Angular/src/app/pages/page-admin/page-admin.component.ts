@@ -77,6 +77,43 @@ export class PageadminComponent implements OnInit {
     });
   }
 
+  // Modifier un utilisateur
+  updateUser(user: any) {
+    const updateData: any = {
+      nom: user.nom,
+      prenom: user.prenom,
+      email: user.email,
+      password: user.password,
+      role: user.role,
+    };
+    if (user.password && user.password.trim() !== '') {
+      updateData.password = user.password;
+    }
+    this.adminService.updateUser(user._id, updateData).subscribe(() => {
+      this.loadUsers();
+      (window as any).bootstrap.Modal.getOrCreateInstance(
+        document.getElementById('user-modify')
+      ).hide();
+    });
+  }
+  // updateUser(user: any) {
+  //   const updateData: any = {
+  //     nom: user.nom,
+  //     prenom: user.prenom,
+  //     email: user.email,
+  //     role: user.role,
+  //   };
+  //   if (user.password && user.password.trim() !== '') {
+  //     updateData.password = user.password;
+  //   }
+  //   this.adminService.updateUser(user._id, updateData).subscribe(() => {
+  //     this.loadUsers();
+  //     (window as any).bootstrap.Modal.getOrCreateInstance(
+  //       document.getElementById('user-modify')
+  //     ).hide();
+  //   });
+  // }
+
   // Modifier une UE
   updateUe(ue: any) {
     const formData = new FormData();
