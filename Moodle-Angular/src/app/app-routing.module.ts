@@ -32,7 +32,7 @@ const routes: Routes = [
     path: 'mes-cours',
     component: ChoixUeComponent,
     canActivate: [RoleGuard],
-    data: { expectedRoles: ['Etudiant', 'Enseignant', 'Admin'] },
+    data: { expectedRoles: ['Etudiant', 'Enseignant'] },
   },
   { path: 'profile', component: ProfilePageComponent },
   { path: 'mes-cours/:id', component: ContenuUeComponent },
