@@ -44,7 +44,7 @@ const depotSchema = new mongoose.Schema({
   },
   etat: {
     type: String,
-    enum: ["corrigé", "refusé" , "en attente" ],
+    enum: ["corrigé", "en attente" ],
     default: "en attente",
   },
   note: { type: Number, default: null },
