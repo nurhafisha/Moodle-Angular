@@ -34,11 +34,11 @@ export class AdminService {
   }
 
   updateUser(userId: string, user: any = {}): Observable<any> {
-    return this.http.patch<any>(`${this.urlUser}/${userId}`, user);
+    return this.http.patch<any>(`${this.urlUser}${userId}`, user);
   }
 
   deleteUser(userId: string): Observable<any> {
-    return this.http.delete<any>(`${this.urlUser}/${userId}`);
+    return this.http.delete<any>(`${this.urlUser}${userId}`);
   }
 
   deleteUe(codeUe: string): Observable<any> {
