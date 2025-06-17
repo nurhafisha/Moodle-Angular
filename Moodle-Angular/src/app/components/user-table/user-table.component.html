@@ -18,13 +18,7 @@
         <td>
           <div class="d-flex align-items-center">
             <!-- Button trigger modal -->
-            <button
-              type="button"
-              class="btn btn-sm btn-warning"
-              data-bs-toggle="modal"
-              data-bs-target="#user-modify"
-              (click)="openUpdateModal(user._id)"
-            >
+            <button type="button" class="btn btn-sm btn-warning">
               Modifier
             </button>
             <button
@@ -44,96 +38,6 @@
 </div>
 
 <!-- Modal pour update  -->
-<div
-  class="modal fade"
-  id="user-modify"
-  tabindex="-1"
-  aria-labelledby="user-modifyLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="user-modifyLabel">
-          Modifier l'utilisateur
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label">Nom</label>
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="editedUser.nom"
-            name="edit_nom"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Prénom</label>
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="editedUser.prenom"
-            name="edit_prenom"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            [(ngModel)]="editedUser.email"
-            name="edit_email"
-          />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Mot de passe</label>
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="editedUser.password"
-            name="edit_password"
-          />
-          <div class="mb-3">
-            <label class="form-label">Rôle</label>
-            <select
-              class="form-select"
-              [(ngModel)]="editedUser.role"
-              name="edit_role"
-            >
-              <option value="admin">Admin</option>
-              <option value="enseignant">Enseignant</option>
-              <option value="etudiant">Étudiant</option>
-            </select>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Annuler
-          </button>
-          <button
-            type="button"
-            class="btn btn-success"
-            (click)="emitUpdateUser()"
-          >
-            Enregistrer
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Modal pour delete  -->
 <div
