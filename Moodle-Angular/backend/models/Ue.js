@@ -71,6 +71,7 @@ const ueSchema = new mongoose.Schema({
   _id: { type: String, required: true },
   titre_ue: { type: String, required: true },
   image_ue: { type: String, default: null },
+  participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   cours: [coursSchema],
   ressources: [ressourceSchema],
   forums: [forumSchema],

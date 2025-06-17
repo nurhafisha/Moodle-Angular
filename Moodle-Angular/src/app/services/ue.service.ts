@@ -58,17 +58,23 @@ export class UeService {
       })
     );
   }
-  getUeWithEtudiants(ueId: string): Observable<any> {
+  getUeWithParticipants(ueId: string): Observable<any> {
     return this.http
-      .get<any>(apiUrls.ue + `with-etudiants/${ueId}`, {
+      .get<any>(apiUrls.ue + `with-participants/${ueId}`, {
         withCredentials: true,
       })
       .pipe(
         map((res) => res.data),
         catchError((err) => {
-          console.error('Failed to fetch UE with etudiants:', err);
+          console.error('Failed to fetch UE with participants:', err);
           return of(null);
         })
       );
+  }
+  assignParticipants(ueId: string, participantIds: string[]): Observable<any> {
+    return this.http.post(apiUrls.ue + 'assign-participants', {
+      ueId,
+      participantIds
+    });
   }
 }
