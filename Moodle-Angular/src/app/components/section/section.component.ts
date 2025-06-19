@@ -28,11 +28,11 @@ export class SectionComponent{
     const trimmedName = this.newSectionName.trim();
     if (!trimmedName) return;
 
-    // Mettre en majuscule la premiere lettre
-    const formattedName = trimmedName.charAt(0).toUpperCase() + trimmedName.slice(1).toLowerCase();
+    // Mettre en majuscule tout le texte
+    const formattedName = trimmedName.toUpperCase();
 
     const alreadyExists = this.customSections.some(
-      section => section.toLowerCase() === formattedName.toLowerCase()
+      section => section.toUpperCase() === formattedName
     );
 
     if (alreadyExists) {
