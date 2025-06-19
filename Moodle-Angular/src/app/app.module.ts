@@ -12,7 +12,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AppRoutingModule } from './app-routing.module'; // Import AngularFireAuthModule for authentication
 import { FormsModule } from '@angular/forms';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
-import { UeComponent } from './components/ue/ue.component';
+import { UeComponent } from './components/ue/ue.component';   // Conteneur de l'UE sur la page Mes Cours
 import { ChoixUeComponent } from './pages/choix-ue/choix-ue.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageadminComponent } from './pages/page-admin/page-admin.component';
@@ -26,13 +26,13 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { DevoirComponent } from './components/section/devoir/devoir.component';
 import { CoursFormComponent } from './components/cours-form/cours-form.component';
-import { RessourceFormComponent } from './components/ressources-form/ressource-form.component';
-import { DevoirFormComponent } from './components/devoir-form/devoir-form.component';
+import { RessourceFormComponent } from './components/section/post/ressources-form/ressource-form.component';
+import { DevoirFormComponent } from './components/section/devoir/devoir-form/devoir-form.component';
 import { ParticipantsComponent } from './components/participants/participants.component';
 import { DevoirSubmissionComponent } from './pages/devoir-submission/devoir-submission.component';
 import { GradeDevoirComponent } from './pages/grade-devoir/grade-devoir.component';
 import { CustomPostComponent } from './components/section/post/custom-post/custom-post.component';
-import { CustomPostFormComponent } from './components/section/post/custom-post-form/custom-post-form.component';
+import { CustomPostFormComponent } from './components/section/post/custom-post/custom-post-form/custom-post-form.component';
 import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauthorized.component';
 
 @NgModule({

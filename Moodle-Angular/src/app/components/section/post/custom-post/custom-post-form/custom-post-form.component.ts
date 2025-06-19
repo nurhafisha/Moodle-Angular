@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CustomPostService } from 'src/app/services/custom-post.service';
 
@@ -17,25 +17,43 @@ export class CustomPostFormComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   showForm = false;
-  post = { titre: '', desc: '', datetime_publier: ''};
   userRole: string | null = null;
   file: File | null = null;
 
-  constructor(private route: ActivatedRoute, private customPostService: CustomPostService) {
+  postForm!: FormGroup;
+
+  constructor(
+    private route: ActivatedRoute,
+    private customPostService: CustomPostService,
+    private fb: FormBuilder
+  ) {
     this.id_ue = this.route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit() {this.userRole = localStorage.getItem('userRole');}
+  ngOnInit() {
+    this.userRole = localStorage.getItem('userRole');
+
+    // Création du FormGroup avec FormBuilder
+    this.postForm = this.fb.group({
+      titre: ['', Validators.required],
+      desc: [''],
+      fichier_joint: [null], // Pour gérer le fichier, on ne le bind pas directement
+    });
+  }
 
   onFileChange(event: any) {
     this.file = event.target.files[0];
   }
 
-  onSubmit(form: NgForm) {
-    console.log(form);
+  onSubmit() {
+    if (this.postForm.invalid) {
+      this.postForm.markAllAsTouched();
+      return;
+    }
+
     const formData = new FormData();
-    formData.append('titre', this.post.titre);
-    formData.append('desc', this.post.desc);
+    formData.append('titre', this.postForm.value.titre);
+    formData.append('desc', this.postForm.value.desc || '');
     const now = new Date();
     formData.append('datetime_publier', now.toISOString());
     formData.append('section', this.sectionName);
@@ -46,7 +64,7 @@ export class CustomPostFormComponent implements OnInit {
     this.customPostService.addCustomPost(this.id_ue, formData).subscribe({
       next: (res) => {
         this.customAdded.emit(res);
-        form.resetForm();
+        this.postForm.reset();
         this.file = null;
         this.fileInput.nativeElement.value = '';
       },
