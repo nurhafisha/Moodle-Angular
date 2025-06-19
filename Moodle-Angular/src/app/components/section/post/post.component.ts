@@ -32,7 +32,6 @@ export class PostComponent{
     this.coursService.deleteCours(this.ueId, id).subscribe({
       next: () => {
         this.cours = this.cours.filter(c => c._id !== id);
-        this.cours = [];
         console.log('Cours supprimé avec succès');
       },
       error: err => {
@@ -53,5 +52,9 @@ export class PostComponent{
         console.error('Erreur lors de la suppression de la ressource', err);
       }
     });
+  }
+
+  deletePost(id: string): void{
+    
   }
 }
