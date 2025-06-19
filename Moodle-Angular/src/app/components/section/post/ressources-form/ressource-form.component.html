@@ -3,31 +3,28 @@
 </button>
 
 <div [class.show]="showForm" class="form-container">
-  <form (ngSubmit)="onSubmit(ressourceForm)" #ressourceForm="ngForm" class="p-4 border rounded shadow-sm bg-light">
+  <form [formGroup]="ressourceForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light">
+    
     <div class="mb-3">
-      <label for="titreRessource" class="form-label">Titre du Ressource <span class="text-danger">*</span></label>
+      <label for="titreRessource" class="form-label">Titre de la Ressource <span class="text-danger">*</span></label>
       <input
         type="text"
         id="titreRessource"
         class="form-control"
-        [(ngModel)]="ressource.titre_ressource"
-        name="titre_ressource"
-        required
-        #titreRessource="ngModel"
+        formControlName="titre_ressource"
       />
-      <div *ngIf="titreRessource.invalid && titreRessource.touched" class="text-danger small">
+      <div *ngIf="ressourceForm.get('titre_ressource')?.invalid && ressourceForm.get('titre_ressource')?.touched" class="text-danger small">
         Ce champ est obligatoire.
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="descResssource" class="form-label">Description</label>
+      <label for="descRessource" class="form-label">Description</label>
       <input
         type="text"
-        id="descResssource"
+        id="descRessource"
         class="form-control"
-        [(ngModel)]="ressource.desc_ressource"
-        name="desc_ressource"
+        formControlName="desc_ressource"
       />
     </div>
 

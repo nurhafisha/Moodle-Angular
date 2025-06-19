@@ -3,19 +3,17 @@
 </button>
 
 <div [class.show]="showForm" class="form-container">
-  <form (ngSubmit)="onSubmit(coursForm)" #coursForm="ngForm" class="p-4 border rounded shadow-sm bg-light">
+  <form [formGroup]="coursForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light">
+    
     <div class="mb-3">
       <label for="titreCours" class="form-label">Titre du Cours <span class="text-danger">*</span></label>
       <input
         type="text"
         id="titreCours"
         class="form-control"
-        [(ngModel)]="cours.titre_cours"
-        name="titre_cours"
-        required
-        #titreCours="ngModel"
+        formControlName="titre_cours"
       />
-      <div *ngIf="titreCours.invalid && titreCours.touched" class="text-danger small">
+      <div *ngIf="coursForm.get('titre_cours')?.invalid && coursForm.get('titre_cours')?.touched" class="text-danger small">
         Ce champ est obligatoire.
       </div>
     </div>
@@ -23,11 +21,9 @@
     <div class="mb-3">
       <label for="descCours" class="form-label">Description</label>
       <textarea
-        type="text"
         id="descCours"
         class="form-control"
-        [(ngModel)]="cours.desc_cours"
-        name="desc_cours"
+        formControlName="desc_cours"
       ></textarea>
     </div>
 

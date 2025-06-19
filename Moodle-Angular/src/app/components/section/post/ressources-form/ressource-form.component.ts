@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RessourceService } from 'src/app/services/ressource.service';
 
 @Component({
@@ -9,33 +8,47 @@ import { RessourceService } from 'src/app/services/ressource.service';
   templateUrl: './ressource-form.component.html',
   styleUrls: ['./ressource-form.component.css']
 })
-export class RessourceFormComponent{
+export class RessourceFormComponent implements OnInit {
   id_ue: string | null = null;
   @Output() ressourceAdded = new EventEmitter<any>();
   @Output() error = new EventEmitter<void>();
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   showForm = false;
-  ressource = { titre_ressource: '', desc_ressource: '', datetime_publier: ''};
   userRole: string | null = null;
   file: File | null = null;
 
-  constructor(private route: ActivatedRoute, private ressourceService: RessourceService) {
+  ressourceForm!: FormGroup;
+
+  constructor(
+    private route: ActivatedRoute,
+    private ressourceService: RessourceService,
+    private fb: FormBuilder
+  ) {
     this.id_ue = this.route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit() {this.userRole = localStorage.getItem('userRole');}
+  ngOnInit(): void {
+    this.userRole = localStorage.getItem('userRole');
 
-  onFileChange(event: any) {
+    this.ressourceForm = this.fb.group({
+      titre_ressource: ['', Validators.required],
+      desc_ressource: ['']
+    });
+  }
+
+  onFileChange(event: any): void {
     this.file = event.target.files[0];
   }
 
-  onSubmit(form: NgForm) {
+  onSubmit(): void {
+    if (this.ressourceForm.invalid) return;
+
     const formData = new FormData();
-    formData.append('titre_ressource', this.ressource.titre_ressource);
-    formData.append('desc_ressource', this.ressource.desc_ressource);
-    const now = new Date();
-    formData.append('datetime_publier', now.toISOString());
+    formData.append('titre_ressource', this.ressourceForm.value.titre_ressource);
+    formData.append('desc_ressource', this.ressourceForm.value.desc_ressource || '');
+    formData.append('datetime_publier', new Date().toISOString());
+
     if (this.file) {
       formData.append('fichier_joint', this.file);
     }
@@ -44,7 +57,9 @@ export class RessourceFormComponent{
       next: (res) => {
         console.log('Ressource ajoutée avec succès !', res);
         this.ressourceAdded.emit(res);
-        form.resetForm();
+        this.ressourceForm.reset();
+        this.file = null;
+        this.fileInput.nativeElement.value = '';
       },
       error: (err) => {
         console.error('Erreur lors de l\'ajout de la ressource', err);
@@ -52,5 +67,4 @@ export class RessourceFormComponent{
       }
     });
   }
-
 }

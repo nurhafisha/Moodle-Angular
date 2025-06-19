@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CoursService } from 'src/app/services/cours.service';
 
 @Component({
@@ -9,36 +8,45 @@ import { CoursService } from 'src/app/services/cours.service';
   templateUrl: './cours-form.component.html',
   styleUrls: ['./cours-form.component.css']
 })
-export class CoursFormComponent{
+export class CoursFormComponent implements OnInit {
   id_ue: string | null = null;
   @Output() coursAdded = new EventEmitter<any>();
   @Output() error = new EventEmitter<void>();
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   showForm = false;
-  cours = { titre_cours: '', desc_cours: '', datetime_publier: ''};
-
-  // role de l'utilisateur
+  coursForm!: FormGroup;
   userRole: string | null = null;
-
   file: File | null = null;
 
-  constructor(private route: ActivatedRoute, private coursService: CoursService) {
+  constructor(
+    private route: ActivatedRoute,
+    private coursService: CoursService,
+    private fb: FormBuilder
+  ) {
     this.id_ue = this.route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit() {this.userRole = localStorage.getItem('userRole');}
+  ngOnInit(): void {
+    this.userRole = localStorage.getItem('userRole');
+    this.coursForm = this.fb.group({
+      titre_cours: ['', Validators.required],
+      desc_cours: ['']
+    });
+  }
 
-  onFileChange(event: any) {
+  onFileChange(event: any): void {
     this.file = event.target.files[0];
   }
 
-  onSubmit(form: NgForm): void {
+  onSubmit(): void {
+    if (this.coursForm.invalid) return;
+
     const formData = new FormData();
-    formData.append('titre_cours', this.cours.titre_cours);
-    formData.append('desc_cours', this.cours.desc_cours);
-    const now = new Date();
-    formData.append('datetime_publier', now.toISOString());
+    formData.append('titre_cours', this.coursForm.value.titre_cours);
+    formData.append('desc_cours', this.coursForm.value.desc_cours || '');
+    formData.append('datetime_publier', new Date().toISOString());
+
     if (this.file) {
       formData.append('fichier_joint', this.file);
     }
@@ -47,7 +55,7 @@ export class CoursFormComponent{
       next: (res) => {
         console.log('Cours ajouté avec succès !', res);
         this.coursAdded.emit(res);
-        form.resetForm();
+        this.coursForm.reset();
         this.file = null;
         this.fileInput.nativeElement.value = '';
       },

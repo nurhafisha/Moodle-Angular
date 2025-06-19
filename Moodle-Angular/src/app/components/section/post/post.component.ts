@@ -53,8 +53,4 @@ export class PostComponent{
       }
     });
   }
-
-  deletePost(id: string): void{
-    
-  }
 }
