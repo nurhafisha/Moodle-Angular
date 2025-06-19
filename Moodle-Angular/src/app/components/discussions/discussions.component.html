@@ -60,17 +60,22 @@
 
         <!-- Formulaire réponse -->
         <div class="card card-body mt-2" *ngIf="afficherFormulaires[i]" (click)="$event.stopPropagation()">
-          <form (ngSubmit)="onReplySubmit(forum._id, replyText[i], i)">
+          <form [formGroup]="replyForms[i]" (ngSubmit)="onReplySubmit(forum._id, i)">
             <div class="mb-2">
               <label for="message-rep" class="form-label">Réponse</label>
-              <textarea 
-                        #replyTextarea
-                        class="form-control"
-                        [(ngModel)]="replyText[i]"
-                        name="replyText{{i}}"
-                        rows="2"></textarea>
+              <textarea
+                #replyTextarea
+                class="form-control"
+                id="message-rep-{{i}}"
+                rows="2"
+                formControlName="reply"
+                placeholder="Votre réponse...">
+              </textarea>
+              <div *ngIf="replyForms[i].get('reply')?.invalid && replyForms[i].get('reply')?.touched" class="text-danger small">
+                La réponse ne peut pas être vide.
+              </div>
             </div>
-            <button type="submit" class="btn btn-sm btn-primary">Envoyer</button>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="replyForms[i].invalid">Envoyer</button>
           </form>
         </div>
       </div>
