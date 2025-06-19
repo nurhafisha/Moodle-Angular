@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class UeComponent implements OnInit {
   @Input() ue: any;
   userId = localStorage.getItem('userId');
+  userRole = localStorage.getItem('userRole');
   progressionPercentage: number | null = null;
 
   ngOnInit() {

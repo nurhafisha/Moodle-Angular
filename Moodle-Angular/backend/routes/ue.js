@@ -11,12 +11,8 @@ import {
   getUeById, // Contrôleur pour récupérer une UE par son id
   createUe, // Contrôleur pour créer une nouvelle UE
   updateUe,
-  createCours, // Contrôleur pour créer un nouveau cours
-  createRessource, // Contrôleur pour créer une nouvelle ressource
   createDevoir, // Contrôleur pour créer un nouveau devoir
   deleteUe, // Contrôleur pour créer un nouveau devoir
-  deleteCours, // Contrôleur pour supprimer un cours
-  deleteRessource, // Contrôleur pour supprimer une ressource
   deleteDevoir, // Contrôleur pour supprimer un devoir
   createForumMessage, // Contrôleur créer un nouveau message au forum
   createForumReply, // // Contrôleur créer un nouveau réponse de message au forum
@@ -58,20 +54,8 @@ router.patch("/:id", upload.single("image_ue"), updateUe); // Route pour modifie
 
 router.delete("/:id", deleteUe); // Route pour supprimer une UE par son id(code UE)
 
-// Route pour créer un nouveau cours avec upload de fichier
-router.post("/new-cours/:id", upload.single("fichier_joint"), createCours);
-
-// Route pour créer une nouvelle ressource avec upload de fichier
-router.post(
-  "/new-ressource/:id",
-  upload.single("fichier_joint"),
-  createRessource
-);
-
 // Route pour créer un nouveau devoir avec upload de fichier
 router.post("/new-devoir/:id", upload.single("fichier_joint"), createDevoir);
-router.delete("/:id/cours/:coursId", deleteCours);
-router.delete("/:id/ressource/:ressourceId", deleteRessource);
 router.delete("/:id/devoir/:devoirId", deleteDevoir);
 router.post("/new-forum/:id", createForumMessage);
 router.post("/new-reply/:id/:forumId", createForumReply);

@@ -16,11 +16,16 @@ export class DiscussionsComponent implements OnInit {
   usersMap: { [id: string]: string } = {};
   userId = localStorage.getItem('userId');
   forumForm!: FormGroup;
-  replyText: { [forumId: string]: string } = {};
+  replyForms: FormGroup[] = [];
   afficherReponses: boolean[] = [];
   afficherFormulaires: boolean[] = [];
 
-  constructor(private route: ActivatedRoute, private ueService: UeService, private discussionService: DiscussionService, private fb: FormBuilder) {
+  constructor(
+    private route: ActivatedRoute,
+    private ueService: UeService,
+    private discussionService: DiscussionService,
+    private fb: FormBuilder
+  ) {
     this.id_ue = this.route.snapshot.paramMap.get('id');
   }
 
@@ -28,21 +33,27 @@ export class DiscussionsComponent implements OnInit {
     this.forumForm = this.fb.group({
       message: ['', [Validators.required, Validators.minLength(3)]]
     });
+
     this.afficherReponses = this.forums.map(() => false);
     this.afficherFormulaires = this.forums.map(() => false);
+
+    // Crée un Reactive Form pour chaque réponse
+    this.replyForms = this.forums.map(() =>
+      this.fb.group({
+        reply: ['', Validators.required]
+      })
+    );
 
     this.ueService.getUserData().subscribe(usersMap => {
       this.usersMap = Object.fromEntries(usersMap);
     });
   }
 
-  // Affiche/masque les réponses (clic global)
   toggleReponses(index: number): void {
-  this.afficherReponses = this.afficherReponses.map((_, i) => i === index ? !this.afficherReponses[i] : false);
-  this.afficherFormulaires = this.afficherFormulaires.map(() => false);
-}
+    this.afficherReponses = this.afficherReponses.map((_, i) => i === index ? !this.afficherReponses[i] : false);
+    this.afficherFormulaires = this.afficherFormulaires.map(() => false);
+  }
 
-  // Affiche uniquement le formulaire (sans propagation du clic global)
   toggleFormulaire(index: number, event: Event): void {
     event.stopPropagation();
     this.afficherFormulaires[index] = !this.afficherFormulaires[index];
@@ -76,6 +87,13 @@ export class DiscussionsComponent implements OnInit {
       next: (res) => {
         this.forums.unshift(res);
         this.forumForm.reset();
+
+        // Initialise les nouveaux états/formulaires après ajout
+        this.afficherReponses.unshift(false);
+        this.afficherFormulaires.unshift(false);
+        this.replyForms.unshift(
+          this.fb.group({ reply: ['', Validators.required] })
+        );
       },
       error: (err) => {
         console.error('Erreur lors de l\'ajout du message', err);
@@ -83,28 +101,30 @@ export class DiscussionsComponent implements OnInit {
     });
   }
 
-  onReplySubmit(forumId: string, reply: string, index: number): void {
-    if (!reply?.trim()) return;
+  onReplySubmit(forumId: string, index: number): void {
+    const replyControl = this.replyForms[index].get('reply');
+    if (!replyControl || replyControl.invalid) return;
+
+    const replyMessage = replyControl.value;
 
     const newForumReply = {
       userId: this.userId,
       forumId: forumId,
-      reply: reply,
+      reply: replyMessage,
       datetime_publier: new Date().toISOString()
     };
 
-    console.log('Replying to forum ID:', forumId, 'with message:', reply);
     this.discussionService.ajouterForumReponse(this.id_ue, newForumReply).subscribe({
       next: (res) => {
-        let f = this.forums.find((forum) => forum._id === forumId);
+        const f = this.forums.find((forum) => forum._id === forumId);
         if (f) {
           f.reponses = f.reponses || [];
           f.reponses.push(res);
-          this.replyText[index] = '';
+          replyControl.reset();
         }
       },
       error: (err) => {
-        console.error('Erreur lors de l\'ajout de reponse', err);
+        console.error('Erreur lors de l\'ajout de réponse', err);
       }
     });
   }

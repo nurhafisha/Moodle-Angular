@@ -13,20 +13,6 @@ const forumSchema = new mongoose.Schema({
   reponses: [reponseSchema],
 });
 
-const coursSchema = new mongoose.Schema({
-  titre_cours: String,
-  desc_cours: String,
-  datetime_publier: Date,
-  fichier_joint: { type: String, default: null },
-});
-
-const ressourceSchema = new mongoose.Schema({
-  titre_ressource: String,
-  desc_ressource: String,
-  datetime_publier: Date,
-  fichier_joint: { type: String, default: null },
-});
-
 const depotSchema = new mongoose.Schema({
   id_etudiant: {
   type: mongoose.Schema.Types.ObjectId,
@@ -72,8 +58,6 @@ const ueSchema = new mongoose.Schema({
   titre_ue: { type: String, required: true },
   image_ue: { type: String, default: null },
   participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  cours: [coursSchema],
-  ressources: [ressourceSchema],
   forums: [forumSchema],
   devoirs: [devoirSchema],
   customSections: [String],   // noms de section personnalisées
