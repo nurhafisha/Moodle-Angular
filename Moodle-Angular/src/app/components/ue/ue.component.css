@@ -8,3 +8,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.pg-bar{
+  height: 24px;
+  width: 100%;
+  max-width: 220px;
+  border-radius: 50px;
+  background-color: #e9ecef;
+}
