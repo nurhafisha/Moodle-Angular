@@ -25,34 +25,6 @@
 
   <div class="accordion-item">
     <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCours" aria-expanded="true" aria-controls="collapseCours">
-        Cours
-      </button>
-    </h2>
-    <div id="collapseCours" class="accordion-collapse collapse show" data-bs-parent="#foldedList">
-      <div class="accordion-body">
-        <app-cours-form (coursAdded)="onCoursAdded($event)"></app-cours-form>
-        <app-post [cours]="cours"></app-post>
-      </div>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRessources" aria-expanded="false" aria-controls="collapseRessources">
-        Ressources
-      </button>
-    </h2>
-    <div id="collapseRessources" class="accordion-collapse collapse" data-bs-parent="#foldedList">
-      <div class="accordion-body">
-        <app-ressource-form (ressourceAdded)="onRessourceAdded($event)"></app-ressource-form>
-        <app-post [ressources]="ressources"></app-post>
-      </div>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <h2 class="accordion-header">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDevoirs" aria-expanded="false" aria-controls="collapseDevoirs">
         Devoirs
       </button>

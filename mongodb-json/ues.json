@@ -1,34 +1,52 @@
 {
   "_id": "DA51",
   "titre_ue": "Blockchain and Distributed Systems",
-  "enseignants": [],
-  "etudiants": [],
-  "image_ue": null,
+  "image_ue": "https://www.tdk.com/en/tech-mag/sites/default/files/2024-03/Blockchain-Cryptocurrency.jpg",
   "cours": [
     {
+      "_id": {
+        "$oid": "68489a611a4ce74c59c77075"
+      },
       "titre_cours": "Support du cours CM1",
       "desc_cours": "Voici le powerpoint de CM1 le lundi dernier. Veuillez consulter cette slide avant le prochain cours",
-      "datetime_publier": "2025-05-28T10:20:00Z",
+      "datetime_publier": {
+        "$date": "2025-05-28T10:20:00.000Z"
+      },
       "fichier_joint": "uploads/cm1.pdf"
     },
     {
+      "_id": {
+        "$oid": "68489a611a4ce74c59c77076"
+      },
       "titre_cours": "Support du cours CM2",
       "desc_cours": "Voici le powerpoint de CM2 le lundi dernier. Veuillez consulter cette slide avant le prochain cours",
-      "datetime_publier": "2025-06-29T10:20:00Z",
+      "datetime_publier": {
+        "$date": "2025-06-29T10:20:00.000Z"
+      },
       "fichier_joint": "uploads/cm1.pdf"
     }
   ],
   "ressources": [
     {
+      "_id": {
+        "$oid": "6848a043d8301b91f18bbe7b"
+      },
       "titre_ressource": "Ressources TP1",
       "desc_ressource": "Fichier TP1",
-      "datetime_publier": "2025-05-28T10:20:00Z",
+      "datetime_publier": {
+        "$date": "2025-05-28T10:20:00.000Z"
+      },
       "fichier_joint": "uploads/cm1.pdf"
     },
     {
+      "_id": {
+        "$oid": "6848a043d8301b91f18bbe7c"
+      },
       "titre_ressource": "Ressources TP2",
       "desc_ressource": "Fichier pour TP2",
-      "datetime_publier": "2025-06-29T10:20:00Z",
+      "datetime_publier": {
+        "$date": "2025-06-29T10:20:00.000Z"
+      },
       "fichier_joint": "uploads/cm1.pdf"
     }
   ],
@@ -55,32 +73,281 @@
           "datetime_publier": "2025-05-28T10:30:00Z"
         }
       ]
+    },
+    {
+      "id_user": {
+        "$oid": "68378146741f2ffb9cf79f73"
+      },
+      "sujet": "Question?",
+      "datetime_publier": {
+        "$date": "2025-06-19T16:04:25.319Z"
+      },
+      "reponses": [
+        {
+          "id_user": {
+            "$oid": "683866005e2b55389c42e26a"
+          },
+          "message": "Reponse",
+          "datetime_publier": {
+            "$date": "2025-06-19T16:04:57.254Z"
+          },
+          "_id": {
+            "$oid": "68543529d40748860939e7a2"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "68543509d40748860939e75b"
+      }
     }
   ],
   "devoirs": [
     {
+      "_id": {
+        "$oid": "68488ada25cb5f91c03dbe85"
+      },
       "titre_devoir": "Mini-projet TP1",
       "desc_devoir": "Veuillez rendre votre mini-projet de tp1",
-      "datetime_debut": "2025-05-28T10:20:00Z",
-      "datetime_fin": "2025-06-28T10:20:00Z",
+      "datetime_debut": {
+        "$date": "2025-05-28T10:20:00.000Z"
+      },
+      "datetime_fin": {
+        "$date": "2025-06-28T10:20:00.000Z"
+      },
       "depots": [
         {
-          "id_etudiant": 2,
-          "fichier": "uploads/cm1.pdf",
-          "datetime": "2025-05-29T10:20:00Z",
+          "id_etudiant": {
+            "$oid": "683866005e2b55389c42e26a"
+          },
+          "originalname": "TD3_WE4B.pdf",
+          "filename": "1749652871135-TD3_WE4B.pdf",
+          "path": "uploads/1749652871135-TD3_WE4B.pdf",
+          "taille": 359636,
+          "type": "application/pdf",
+          "datetime": {
+            "$date": "2025-06-11T14:41:11.179Z"
+          },
           "etat": "corrigé",
-          "note": 18,
-          "commentaire": "Merci d'envoyer votre travail. Il est parfait."
+          "note": 20,
+          "commentaire": "Il est parfait !",
+          "_id": {
+            "$oid": "68499587e6129b43a53a7ed7"
+          }
         },
         {
-          "id_etudiant": 3,
-          "fichier": "uploads/cm1.pdf",
-          "datetime": "2025-05-29T10:20:00Z",
+          "id_etudiant": {
+            "$oid": "6847ff038539729a369e1302"
+          },
+          "originalname": "5vowu87h2tep2uy7vtwfukik4atg.png",
+          "filename": "1749667214687-5vowu87h2tep2uy7vtwfukik4atg.png",
+          "path": "uploads/1749667214687-5vowu87h2tep2uy7vtwfukik4atg.png",
+          "taille": 127017,
+          "type": "image/png",
+          "datetime": {
+            "$date": "2025-06-11T18:40:14.727Z"
+          },
           "etat": "en attente",
           "note": null,
-          "commentaire": null
+          "commentaire": null,
+          "_id": {
+            "$oid": "6849cd8e913867e7e3394993"
+          }
+        },
+        {
+          "id_etudiant": {
+            "$oid": "683e53eae022cdcc1f114ea9"
+          },
+          "originalname": "sign_mama.jpg",
+          "filename": "1749827354712-sign_mama.jpg",
+          "path": "uploads/1749827354712-sign_mama.jpg",
+          "taille": 14184,
+          "type": "image/jpeg",
+          "datetime": {
+            "$date": "2025-06-13T15:09:14.944Z"
+          },
+          "etat": "en attente",
+          "note": null,
+          "commentaire": null,
+          "_id": {
+            "$oid": "684c3f1a8ecc7ee360e32165"
+          }
         }
       ]
+    },
+    {
+      "titre_devoir": "Mini-projet TP2",
+      "desc_devoir": "",
+      "datetime_debut": {
+        "$date": "2025-06-15T11:19:53.731Z"
+      },
+      "datetime_fin": {
+        "$date": "2025-06-27T21:59:00.000Z"
+      },
+      "depots": [
+        {
+          "id_etudiant": {
+            "$oid": "683866005e2b55389c42e26a"
+          },
+          "originalname": "we4b-project.pdf",
+          "filename": "1749986687864-we4b-project.pdf",
+          "path": "uploads\\1749986687864-we4b-project.pdf",
+          "taille": 345022,
+          "type": "application/pdf",
+          "datetime": {
+            "$date": "2025-06-15T11:24:47.893Z"
+          },
+          "etat": "corrigé",
+          "note": 12,
+          "commentaire": "Bien",
+          "_id": {
+            "$oid": "684ead7f1cd197bf8b1161c8"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "684eac591cd197bf8b11611d"
+      }
+    },
+    {
+      "titre_devoir": "Mini-projet TP3",
+      "desc_devoir": "",
+      "datetime_debut": {
+        "$date": "2025-06-15T11:27:02.943Z"
+      },
+      "datetime_fin": {
+        "$date": "2025-06-20T11:26:00.000Z"
+      },
+      "depots": [
+        {
+          "id_etudiant": {
+            "$oid": "683866005e2b55389c42e26a"
+          },
+          "originalname": "we4b-project.pdf",
+          "filename": "1749986918788-we4b-project.pdf",
+          "path": "uploads\\1749986918788-we4b-project.pdf",
+          "taille": 345022,
+          "type": "application/pdf",
+          "datetime": {
+            "$date": "2025-06-15T11:28:38.815Z"
+          },
+          "etat": "en attente",
+          "note": null,
+          "commentaire": null,
+          "_id": {
+            "$oid": "684eae661cd197bf8b116301"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "684eae061cd197bf8b1162b8"
+      }
+    },
+    {
+      "titre_devoir": "Mini-projet TP4",
+      "desc_devoir": "",
+      "datetime_debut": {
+        "$date": "2025-06-15T11:30:36.082Z"
+      },
+      "datetime_fin": {
+        "$date": "2025-06-24T11:30:00.000Z"
+      },
+      "depots": [],
+      "_id": {
+        "$oid": "684eaedc1cd197bf8b116408"
+      }
+    },
+    {
+      "titre_devoir": "Tp5",
+      "desc_devoir": "",
+      "datetime_debut": {
+        "$date": "2025-06-19T16:08:40.651Z"
+      },
+      "datetime_fin": {
+        "$date": "2025-06-26T16:08:00.000Z"
+      },
+      "depots": [],
+      "_id": {
+        "$oid": "68543608d40748860939e837"
+      }
     }
-  ]
+  ],
+  "__v": 133,
+  "customPosts": [
+    {
+      "section": "Examens",
+      "titre": "CC",
+      "desc": "On aura un CC lundi prochain.",
+      "datetime_publier": {
+        "$date": "2025-06-14T21:50:32.791Z"
+      },
+      "fichier_joint": null,
+      "_id": {
+        "$oid": "684deea886619e8314f1c643"
+      }
+    },
+    {
+      "section": "Examens",
+      "titre": "Finale",
+      "desc": "Examen Final DA51.",
+      "datetime_publier": {
+        "$date": "2025-06-19T14:21:28.370Z"
+      },
+      "fichier_joint": null,
+      "_id": {
+        "$oid": "68541ce8c744ebe0b356a115"
+      }
+    },
+    {
+      "section": "Cours",
+      "titre": "Support du cours CM1",
+      "desc": "Voici le powerpoint de CM1 le lundi dernier. Veuillez consulter cette slide avant le prochain cours",
+      "datetime_publier": {
+        "$date": "2025-05-28T10:20:00.000Z"
+      },
+      "fichier_joint": "uploads/cm1.pdf",
+      "_id": {
+        "$oid": "68489a611a4ce74c59c77075"
+      }
+    },
+    {
+      "section": "Cours",
+      "titre": "Support du cours CM2",
+      "desc": "Voici le powerpoint de CM2 le lundi dernier. Veuillez consulter cette slide avant le prochain cours",
+      "datetime_publier": {
+        "$date": "2025-06-29T10:20:00.000Z"
+      },
+      "fichier_joint": "uploads/cm1.pdf",
+      "_id": {
+        "$oid": "68489a611a4ce74c59c77076"
+      }
+    },
+    {
+      "section": "Ressources",
+      "titre": "Ressources TP1",
+      "desc": "Fichier TP1",
+      "datetime_publier": {
+        "$date": "2025-05-28T10:20:00.000Z"
+      },
+      "fichier_joint": "uploads/cm1.pdf",
+      "_id": {
+        "$oid": "6848a043d8301b91f18bbe7b"
+      }
+    },
+    {
+      "section": "Ressources",
+      "titre": "Ressources TP2",
+      "desc": "Fichier pour TP2",
+      "datetime_publier": {
+        "$date": "2025-06-29T10:20:00.000Z"
+      },
+      "fichier_joint": "uploads/cm1.pdf",
+      "_id": {
+        "$oid": "6848a043d8301b91f18bbe7c"
+      }
+    }
+  ],
+  "customSections": [
+    "Examens", "Ressources", "Cours"
+  ],
+  "participants": []
 }

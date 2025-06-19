@@ -9,8 +9,6 @@ import { CustomPostService } from 'src/app/services/custom-post.service';
 })
 export class SectionComponent{
   id_ue: string | null = null;
-  @Input() cours: any[] = [];
-  @Input() ressources: any[] = [];
   @Input() devoirs: any[] = [];
   @Input() forums: any[] = [];
   // Ajouter Autres Sections
@@ -32,14 +30,6 @@ export class SectionComponent{
 
     // Mettre en majuscule la premiere lettre
     const formattedName = trimmedName.charAt(0).toUpperCase() + trimmedName.slice(1).toLowerCase();
-
-    // Verifier si le nom de section existe deja
-    const reservedNames = ['Cours', 'Ressources', 'Devoirs'];
-    if (reservedNames.includes(formattedName)) {
-      console.warn('Nom de section réservé : ', formattedName);
-      this.showNotification('Le nom de section '+formattedName+' est réservé', 'error');
-      return;
-    }
 
     const alreadyExists = this.customSections.some(
       section => section.toLowerCase() === formattedName.toLowerCase()
@@ -63,31 +53,13 @@ export class SectionComponent{
     });
   }
 
-  onCoursAdded(newCours: any) {
-    this.cours = [...this.cours, newCours];
-    this.showNotification('Cours ajouté avec succès', 'success');
-  }
-
-  onCoursAddError() {
-    this.showNotification('Échec de l\'ajout du cours', 'error');
-  }
-
-  onRessourceAdded(newRessource: any) {
-    this.ressources = [...this.ressources, newRessource];
-    this.showNotification('Ressource ajoutée avec succès', 'success');
-  }
-
-  onRessourceAddError() {
-    this.showNotification('Échec de l\'ajout de la ressource', 'error');
-  }
-
   onDevoirAdded(newDevoir: any) {
     this.devoirs = [...this.devoirs, newDevoir];
-    this.showNotification('Ressource ajoutée avec succès', 'success');
+    this.showNotification('Devoir ajoutée avec succès', 'success');
   }
 
   onDevoirAddError() {
-    this.showNotification('Échec de l\'ajout de la ressource', 'error');
+    this.showNotification('Échec de l\'ajout du devoir', 'error');
   }
 
   onCustomAdded(newCustom: any) {

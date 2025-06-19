@@ -25,8 +25,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { DevoirComponent } from './components/section/devoir/devoir.component';
-import { CoursFormComponent } from './components/section/post/cours-form/cours-form.component';
-import { RessourceFormComponent } from './components/section/post/ressources-form/ressource-form.component';
 import { DevoirFormComponent } from './components/section/devoir/devoir-form/devoir-form.component';
 import { ParticipantsComponent } from './components/participants/participants.component';
 import { DevoirSubmissionComponent } from './pages/devoir-submission/devoir-submission.component';
@@ -54,8 +52,6 @@ import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauth
     ProfilePageComponent,
     SectionComponent,
     DevoirComponent,
-    CoursFormComponent,
-    RessourceFormComponent,
     DevoirFormComponent,
     ParticipantsComponent,
     DevoirSubmissionComponent,
