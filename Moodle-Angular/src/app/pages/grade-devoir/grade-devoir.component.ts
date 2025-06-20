@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { apiUrls } from 'src/app/backend_urls';
@@ -16,15 +16,20 @@ export class GradeDevoirComponent implements OnInit {
   expandedCommentIndex: number | null = null;
   submissions: any[] = []; // pour stocker les données de soumission de devoirs
 
+  // sert pour breadcrumbs
+  ueId : string | null = this.route.snapshot.paramMap.get('id');
+  titre_ue : string | null = '';
+  devoirId : any;
+
   constructor(private route: ActivatedRoute , private http: HttpClient) { }
 
   ngOnInit(): void {
-    const ueId = this.route.snapshot.paramMap.get('id');
-    const devoirId = this.route.snapshot.paramMap.get('devoirId');
+    this.ueId = this.route.snapshot.paramMap.get('id');
+    this.devoirId = this.route.snapshot.paramMap.get('devoirId');
     
 
-    if (ueId && devoirId){
-      this.http.get<any>(`${apiUrls.ue}${ueId}/devoirs/${devoirId}/grade-devoir`)
+    if (this.ueId && this.devoirId){
+      this.http.get<any>(`${apiUrls.ue}${this.ueId}/devoirs/${this.devoirId}/grade-devoir`)
       .subscribe({
         next: (res) => {
           this.submissions = res.data;
@@ -37,7 +42,7 @@ export class GradeDevoirComponent implements OnInit {
     }
 
     // Get devoir title
-    this.http.get<any>(`${apiUrls.ue}${ueId}/devoirs/${devoirId}`).subscribe({
+    this.http.get<any>(`${apiUrls.ue}${this.ueId}/devoirs/${this.devoirId}`).subscribe({
       next: (res) => {
         this.devoirTitre = res.data.titre_devoir;
       },
@@ -45,6 +50,18 @@ export class GradeDevoirComponent implements OnInit {
         console.error("Error fetching devoir title", err);
       }
     });
+
+    // Get UE title (titre_ue)
+    if (this.ueId) {
+      this.http.get<any>(`${apiUrls.ue}${this.ueId}`).subscribe({
+        next: (res) => {
+          this.titre_ue = res.data.titre_ue;
+        },
+        error: (err) => {
+          console.error("Error fetching UE title", err);
+        }
+      });
+    }
   }
 
   // search-filtrer bar

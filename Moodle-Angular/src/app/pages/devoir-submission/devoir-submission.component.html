@@ -1,6 +1,13 @@
 <app-navbar></app-navbar>
 
 <main>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" ><a routerLink="/mes-cours" routerLinkActive="active">Mes Cours</a></li>
+      <li class="breadcrumb-item" ><a routerLink="/mes-cours/{{ueId}}" routerLinkActive="active">{{ ueId }} : {{ ueData?.titre_ue }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Devoir : {{selectedDevoir?.titre_devoir}}</li>
+    </ol>
+  </nav>
   <div class="container-fluid">
     <h3>{{ ueId }} : {{ ueData?.titre_ue }}</h3>
     <div class="col-md-12 mt-4 mb-4 bg-light p-3 rounded">
@@ -43,7 +50,7 @@
               ]"
               class="text-primary text-decoration-underline"
               style="cursor: pointer"
-              >Voir le submission des étudiants
+              >Voir le soumission des étudiants
             </a>
           </p>
           <table

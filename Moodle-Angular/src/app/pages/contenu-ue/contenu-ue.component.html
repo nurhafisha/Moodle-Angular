@@ -1,6 +1,12 @@
 <app-navbar></app-navbar>
 
 <main>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" ><a routerLink="/mes-cours" routerLinkActive="active">Mes Cours</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ ueId }} : {{ ueData?.titre_ue }}</li>
+    </ol>
+  </nav>
   <div class="container-fluid">
     <h1>{{ ueId }} : {{ ueData?.titre_ue }}</h1>
     <ul class="nav nav-tabs">

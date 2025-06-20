@@ -5,3 +5,17 @@ main {
   border: 0.5px solid lightgray;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.breadcrumb {
+  padding: 15px;
+  background-color: lightgrey;
+  width: fit-content;
+  border-radius: 10px;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/";
+  padding: 0 0.5rem;
+}
+.breadcrumb-item a {
+  text-decoration: none;
+}

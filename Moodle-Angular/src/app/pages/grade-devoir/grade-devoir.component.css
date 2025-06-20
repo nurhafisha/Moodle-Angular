@@ -15,3 +15,17 @@ main {
   z-index: 2;
   position: relative;
 }
+
+.breadcrumb {
+  padding: 15px;
+  background-color: lightgrey;
+  width: fit-content;
+  border-radius: 10px;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/";
+  padding: 0 0.5rem;
+}
+.breadcrumb-item a {
+  text-decoration: none;
+}

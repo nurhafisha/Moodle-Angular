@@ -16,6 +16,9 @@ export class SectionComponent{
   @Input() customSections: string[] = [];
   @Input() customPosts: any[] = [];
 
+  // sert pour l'affichage breadcrumbs
+  role: string | null = localStorage.getItem('userRole');
+
   constructor(private route: ActivatedRoute, private customPostService: CustomPostService) {
     this.id_ue = this.route.snapshot.paramMap.get('id');
   }

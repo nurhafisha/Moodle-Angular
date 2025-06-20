@@ -17,3 +17,17 @@ main {
 .nav-tabs {
   border-bottom: 1px solid #ccc;
 }
+
+.breadcrumb {
+  padding: 15px;
+  background-color: lightgrey;
+  width: fit-content;
+  border-radius: 10px;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/";
+  padding: 0 0.5rem;
+}
+.breadcrumb-item a {
+  text-decoration: none;
+}
