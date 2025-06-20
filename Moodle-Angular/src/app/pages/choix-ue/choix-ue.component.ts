@@ -18,18 +18,14 @@ export class ChoixUeComponent implements OnInit {
 
   ngOnInit(): void {
     this.userRole = localStorage.getItem('userRole');
-    this.ueService.getAllUes().subscribe({
-      next: (data) => {
-        console.log("UEs loaded:", data); 
-        this.ues = data;
+    this.ueService.getUesByRole().subscribe({
+      next: (ues) => {
+        this.ues = ues;
       },
       error: (err) => {
-        console.error("Failed to load UEs:", err);
+        console.error("Erreur lors du chargement des UEs", err);
       }
-    });
-
-    
-    
+    });   
   }
 
   newUe = {
@@ -51,5 +47,4 @@ export class ChoixUeComponent implements OnInit {
       }
     });
   }
-
 }
