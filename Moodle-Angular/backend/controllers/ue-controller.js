@@ -9,7 +9,7 @@ export const getAllUes = async (req, res) => {
     .status(200)
     .json({ success: true, message: "UEs récupérés avec succès", data: ues }); // Renvoie la liste
 };
-
+// Récupérer les UEs pour un utilisateur spécifique (participants dans l'UE)
 export const getUesForUser = async (req, res, next) => {
   try {
     const role = req.user.role;
@@ -29,8 +29,6 @@ export const getUesForUser = async (req, res, next) => {
     next(CreateError(500, "Erreur serveur", err));
   }
 };
-
-
 
 // Récupérer une UE par son ID
 export const getUeById = async (req, res, next) => {
