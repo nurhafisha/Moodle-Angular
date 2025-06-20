@@ -33,6 +33,21 @@
           Gestion des UEs
         </button>
       </li>
+
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="activity-log"
+          data-bs-toggle="tab"
+          data-bs-target="#log"
+          type="button"
+          role="tab"
+          aria-controls="log"
+          aria-selected="false"
+        >
+          Historique de connexions
+        </button>
+      </li>
     </ul>
     <div class="tab-content" id="myTabContent">
       <div
@@ -80,11 +95,21 @@
           (updateUe)="updateUe($event)"
         ></app-ue-table>
       </div>
+
+      <div
+        class="tab-pane fade"
+        id="log"
+        role="tabpanel"
+        aria-labelledby="activity-log"
+      >
+        <div class="d-flex align-items-center justify-content-between mt-4">
+          <!-- <h5 class="fw-bold">Historique de connexion</h5> -->
+        </div>
+      </div>
     </div>
   </div>
 </main>
 
-<!-- Modal d'ajout UE -->
 <!-- Modal d'ajout UE -->
 <div
   class="modal fade"
