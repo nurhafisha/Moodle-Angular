@@ -24,7 +24,8 @@ import {
   getDevoirDetails,
   addCustomSection,
   addCustomPost,
-  deleteCustom
+  deleteCustom,
+  getUesForUser
 } from "../controllers/ue-controller.js"; // Importe les fonctions du contrôleur
 
 // Crée un nouveau routeur express
@@ -46,6 +47,9 @@ const upload = multer({ storage: storage, dest: "uploads/" });
 
 router.get("/", getAllUes); // Route pour récupérer toutes les UEs
 
+router.get('/by-role', verifyToken, getUesForUser); // Route pour récupérer les UEs en fonction du rôle de l'utilisateur
+
+
 router.post("/", upload.single("image_ue"), createUe); // Route pour créer une nouvelle UE
 
 router.get("/:id", getUeById); // Route pour récupérer une UE par son id
@@ -63,6 +67,7 @@ router.post("/new-reply/:id/:forumId", createForumReply);
 // Route pour récupérer une UE avec ses étudiants
 router.get('/with-participants/:id', getUeWithParticipants);
 router.post('/assign-participants', assignParticipantsToUe);
+
 
 // Route pour submettre un devoir
 router.post(

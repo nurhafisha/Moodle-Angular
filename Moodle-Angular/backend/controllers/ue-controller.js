@@ -10,6 +10,28 @@ export const getAllUes = async (req, res) => {
     .json({ success: true, message: "UEs récupérés avec succès", data: ues }); // Renvoie la liste
 };
 
+export const getUesForUser = async (req, res, next) => {
+  try {
+    const role = req.user.role;
+    const userId = req.user.id;
+
+    let ues;
+    if (role === "Etudiant") {
+      ues = await UE.find({ participants: userId });
+    } else if (role === "Enseignant" || role === "Admin") {
+      ues = await UE.find(); // ✅ fetch all UEs
+    } else {
+      return next(CreateError(403, "Unauthorized role"));
+    }
+
+    res.status(200).json({ success: true, data: ues });
+  } catch (err) {
+    next(CreateError(500, "Erreur serveur", err));
+  }
+};
+
+
+
 // Récupérer une UE par son ID
 export const getUeById = async (req, res, next) => {
   try {

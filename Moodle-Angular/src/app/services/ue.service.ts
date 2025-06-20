@@ -77,4 +77,10 @@ export class UeService {
       participantIds
     });
   }
+  getUesByRole(): Observable<any> {
+    return this.http.get<any>(apiUrls.ue + 'by-role', {
+      withCredentials: true
+    }).pipe(map(res => res.data));
+  }
+
 }
