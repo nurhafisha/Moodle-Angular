@@ -8,18 +8,17 @@
       style="height: 150px; background-size: cover; background-position: center"
       [ngStyle]="
         ue?.image_ue
-          ? { 'background-image': 'url(' + ue.image_ue + ')' }
+          ? {
+              'background-image':
+                'url(http://localhost:8800/uploads/image-asset/' + ue.image_ue + ')'
+            }
           : { 'background-color': '#FFFAF0' }
       "
     ></div>
     <div class="card-body text-center">
-      <h5 class="card-title mb-2 fw-bold">
-        {{ ue?._id }}: {{ ue?.titre_ue }}
-      </h5>
+      <h5 class="card-title mb-2 fw-bold">{{ ue?._id }}: {{ ue?.titre_ue }}</h5>
       <ng-container *ngIf="userRole === 'Etudiant'">
-        <div
-          class="progress mx-auto mt-2 position-relative pg-bar"
-        >
+        <div class="progress mx-auto mt-2 position-relative pg-bar">
           <ng-container *ngIf="progressionPercentage !== null; else noDevoir">
             <div
               class="progress-bar progress-bar-striped progress-bar-animated"
@@ -30,13 +29,16 @@
               aria-valuemax="100"
               [ngClass]="{
                 'bg-success': progressionPercentage === 100,
-                'bg-primary': progressionPercentage > 0 && progressionPercentage < 100,
+                'bg-primary':
+                  progressionPercentage > 0 && progressionPercentage < 100,
                 'bg-secondary': progressionPercentage === 0
               }"
-              style="border-radius: 50px; transition: width 0.5s ease;"
+              style="border-radius: 50px; transition: width 0.5s ease"
             ></div>
             <!-- Centered Percentage -->
-            <div class="position-absolute w-100 h-100 d-flex justify-content-center align-items-center">
+            <div
+              class="position-absolute w-100 h-100 d-flex justify-content-center align-items-center"
+            >
               <span
                 class="fw-semibold"
                 [ngStyle]="{
@@ -49,8 +51,12 @@
           </ng-container>
 
           <ng-template #noDevoir>
-            <div class="position-absolute w-100 h-100 d-flex justify-content-center align-items-center">
-              <span class="fw-semibold" style="color: #6c757d;">Aucun Devoir</span>
+            <div
+              class="position-absolute w-100 h-100 d-flex justify-content-center align-items-center"
+            >
+              <span class="fw-semibold" style="color: #6c757d"
+                >Aucun Devoir</span
+              >
             </div>
           </ng-template>
         </div>
@@ -58,4 +64,3 @@
     </div>
   </div>
 </a>
-

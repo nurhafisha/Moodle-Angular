@@ -31,6 +31,9 @@ export class DevoirSubmissionComponent implements OnInit {
   userRole: string | null = null;
   submissionStatus = 'non soumis'; 
 
+  // sert pour l'affichage breadcrumbs
+  role: string | null = localStorage.getItem('userRole');
+
   constructor(
     private route: ActivatedRoute,
     private DevoirService: DevoirService,

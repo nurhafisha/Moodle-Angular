@@ -12,7 +12,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AppRoutingModule } from './app-routing.module'; // Import AngularFireAuthModule for authentication
 import { FormsModule } from '@angular/forms';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
-import { UeComponent } from './components/ue/ue.component';   // Conteneur de l'UE sur la page Mes Cours
+import { UeComponent } from './components/ue/ue.component'; // Conteneur de l'UE sur la page Mes Cours
 import { ChoixUeComponent } from './pages/choix-ue/choix-ue.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageadminComponent } from './pages/page-admin/page-admin.component';
@@ -58,7 +58,7 @@ import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauth
     GradeDevoirComponent,
     CustomPostComponent,
     CustomPostFormComponent,
-    PageUnauthorizedComponent
+    PageUnauthorizedComponent,
   ],
 
   imports: [
@@ -71,13 +71,11 @@ import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauth
     HttpClientModule,
   ],
 
-  // JWT Components: 
-  providers: [ 
-  {provide: HTTP_INTERCEPTORS,
-  useClass: AuthInterceptor,
-  multi: true}],
+  // JWT Components:
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
 
   bootstrap: [AppComponent],
-
 })
 export class AppModule {}

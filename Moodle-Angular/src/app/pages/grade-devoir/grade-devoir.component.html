@@ -1,6 +1,14 @@
 <app-navbar></app-navbar>
 
 <main>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" ><a routerLink="/mes-cours" routerLinkActive="active">Mes Cours</a></li>
+      <li class="breadcrumb-item" ><a routerLink="/mes-cours/{{ueId}}" routerLinkActive="active">{{ ueId }} : {{ titre_ue }}</a></li>
+      <li class="breadcrumb-item" ><a routerLink="/mes-cours/{{ueId}}/devoirs/{{devoirId}}" routerLinkActive="active">Devoir : {{devoirTitre}}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Soumission</li>
+    </ol>
+  </nav>
   <div class="container-fluid">
     <div class="row mb-3">
       <div class="col-md-12">

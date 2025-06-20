@@ -68,7 +68,9 @@ export const updateUe = async (req, res) => {
     let updateFields = { titre_ue };
 
     // Si une nouvelle image est uploadée
-    if (req.body.image_ue === null || req.body.image_ue === "") {
+    if (req.file) {
+      updateFields.image_ue = req.file.filename;
+    } else if (req.body.image_ue === null || req.body.image_ue === "") {
       updateFields.image_ue = null;
     }
 
@@ -251,10 +253,11 @@ export const assignParticipantsToUe = async (req, res) => {
       return res.status(404).json({ message: "UE not found" });
     }
 
-   
-    const objectIds = participantIds.map(id => new mongoose.Types.ObjectId(id));
+    const objectIds = participantIds.map(
+      (id) => new mongoose.Types.ObjectId(id)
+    );
 
-    ue.participants = objectIds; 
+    ue.participants = objectIds;
     await ue.save();
 
     res.status(200).json({ message: "Participants updated", ue });
@@ -267,7 +270,9 @@ export const assignParticipantsToUe = async (req, res) => {
 // Récupérer une UE avec ses participants
 export const getUeWithParticipants = async (req, res, next) => {
   try {
-    const ue = await UE.findOne({ _id: req.params.id }).populate('participants');
+    const ue = await UE.findOne({ _id: req.params.id }).populate(
+      "participants"
+    );
     if (!ue) {
       return next({ statusCode: 404, message: "UE not found" });
     }
@@ -284,7 +289,7 @@ export const addCustomSection = async (req, res) => {
 
   try {
     const ue = await UE.findById(ueId);
-    if (!ue) return res.status(404).send('UE not found');
+    if (!ue) return res.status(404).send("UE not found");
 
     if (!ue.customSections.includes(sectionName)) {
       ue.customSections.push(sectionName);
@@ -304,10 +309,10 @@ export const addCustomPost = async (req, res) => {
 
   try {
     const ue = await UE.findById(req.params.ueId);
-    if (!ue) return res.status(404).send('UE not found');
+    if (!ue) return res.status(404).send("UE not found");
 
     if (!ue.customSections.includes(section)) {
-      return res.status(400).json({ message: 'Section not registered.' });
+      return res.status(400).json({ message: "Section not registered." });
     }
 
     const newPost = {
@@ -316,13 +321,13 @@ export const addCustomPost = async (req, res) => {
       titre,
       desc,
       fichier_joint,
-      datetime_publier
-    };   // Ajoute le custom post à l'UE
+      datetime_publier,
+    }; // Ajoute le custom post à l'UE
 
     ue.customPosts.push(newPost);
-    await ue.save();   // Sauvegarde l'UE modifiée
+    await ue.save(); // Sauvegarde l'UE modifiée
 
-    res.status(201).json(newPost);   // Renvoie notification de succes
+    res.status(201).json(newPost); // Renvoie notification de succes
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -339,7 +344,9 @@ export const deleteCustom = async (req, res) => {
     }
 
     const initialLength = ue.customPosts.length;
-    ue.customPosts = ue.customPosts.filter(c => c._id.toString() !== customId);
+    ue.customPosts = ue.customPosts.filter(
+      (c) => c._id.toString() !== customId
+    );
 
     if (ue.customPosts.length === initialLength) {
       return res.status(404).json({ message: "Post not found" });
@@ -349,8 +356,10 @@ export const deleteCustom = async (req, res) => {
 
     res.status(200).json({ message: "Post deleted successfully", customId });
   } catch (err) {
-    console.error('Erreur lors de la suppression du Post :', err);
-    res.status(500).json({ message: "Error deleting Post", error: err.message || err });
+    console.error("Erreur lors de la suppression du Post :", err);
+    res
+      .status(500)
+      .json({ message: "Error deleting Post", error: err.message || err });
   }
 };
 
