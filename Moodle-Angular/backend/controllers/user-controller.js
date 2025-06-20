@@ -10,7 +10,6 @@ import bcrypt from "bcrypt";
 /**
  * Creer un utilisateur
  */
-
 export const createUser = async (req, res) => {
   try {
     const { nom, prenom, email, password, role } = req.body;
@@ -38,7 +37,6 @@ export const createUser = async (req, res) => {
 /**
  * Obtenir tous les utilisateurs
  */
-
 export const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find().select("-password").populate("role"); // On ne renvoie pas le mot de passe
@@ -123,7 +121,7 @@ export const updateUser = async (req, res, next) => {
       return next(CreateError(403, "Unauthorized access"));
     }
 
-    if (req.file){
+    if (req.file) {
       req.body.profilePicture = req.file.filename;
     }
 

@@ -10,7 +10,7 @@ import {
   getAllUes, // Contrôleur pour récupérer toutes les UEs
   getUeById, // Contrôleur pour récupérer une UE par son id
   createUe, // Contrôleur pour créer une nouvelle UE
-  updateUe,
+  updateUe, //Controleur pour mettre a jour une UE
   createDevoir, // Contrôleur pour créer un nouveau devoir
   deleteUe, // Contrôleur pour créer un nouveau devoir
   deleteDevoir, // Contrôleur pour supprimer un devoir
@@ -24,7 +24,7 @@ import {
   getDevoirDetails,
   addCustomSection,
   addCustomPost,
-  deleteCustom
+  deleteCustom,
 } from "../controllers/ue-controller.js"; // Importe les fonctions du contrôleur
 
 // Crée un nouveau routeur express
@@ -61,8 +61,8 @@ router.post("/new-forum/:id", createForumMessage);
 router.post("/new-reply/:id/:forumId", createForumReply);
 
 // Route pour récupérer une UE avec ses étudiants
-router.get('/with-participants/:id', getUeWithParticipants);
-router.post('/assign-participants', assignParticipantsToUe);
+router.get("/with-participants/:id", getUeWithParticipants);
+router.post("/assign-participants", assignParticipantsToUe);
 
 // Route pour submettre un devoir
 router.post(
@@ -90,9 +90,13 @@ router.put(
 router.get("/:ueId/devoirs/:devoirId", verifyToken, getDevoirDetails);
 
 // Ajouter une section personnalisée
-router.post('/:ueId/custom-section', addCustomSection);
+router.post("/:ueId/custom-section", addCustomSection);
 // Ajouter un Post dans section personnalisée
-router.post('/:ueId/custom-post',upload.single("fichier_joint"), addCustomPost);
+router.post(
+  "/:ueId/custom-post",
+  upload.single("fichier_joint"),
+  addCustomPost
+);
 // Supprimer un Post dans section personnalisée
 router.delete("/:id/custom/:customId", deleteCustom);
 
