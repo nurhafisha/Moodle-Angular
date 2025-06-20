@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between mb-2">
       <div class="d-flex align-items-center mb-2 w-auto">
         <strong class="me-2">
-          <a *ngIf="c.fichier_joint" href="{{ rootUrl }}{{ c.fichier_joint }}" target="_blank" rel="noopener noreferrer">
+          <a *ngIf="c.fichier_joint" href="{{ rootUrl }}uploads/fichier-post/{{ c.fichier_joint }}" target="_blank" rel="noopener noreferrer">
           {{ c.titre }}</a>
           <strong *ngIf="!c.fichier_joint">
           {{ c.titre }}</strong>

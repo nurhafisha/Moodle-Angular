@@ -47,7 +47,7 @@ export const updateUe = async (req, res) => {
 
     // Si une nouvelle image est uploadée
     if (req.file) {
-      updateFields.image_ue = req.file.path; // ou req.file.filename selon ton usage
+      updateFields.image_ue = req.file.filename;
     } else if (req.body.image_ue === null || req.body.image_ue === "") {
       updateFields.image_ue = null;
     }
