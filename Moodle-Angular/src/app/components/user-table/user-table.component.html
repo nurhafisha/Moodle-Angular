@@ -11,7 +11,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of users">
-        <td>{{ user.nom }}</td>
+        <!-- pipe pour afficher le nom en majuscule -->
+        <td>{{ user.nom | uppercase }}</td>
         <td>{{ user.prenom }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.role }}</td>
