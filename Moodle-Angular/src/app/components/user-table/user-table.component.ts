@@ -8,6 +8,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 export class UserTableComponent implements OnInit {
   @Input() users: any[] = [];
   @Output() deleteUser = new EventEmitter<string>();
+  @Output() updateUser = new EventEmitter<any>();
 
   selectedUserId: string | null = null;
 
@@ -17,5 +18,9 @@ export class UserTableComponent implements OnInit {
 
   openDeleteModal(userId: string) {
     this.selectedUserId = userId;
+  }
+
+  onUpdate(user: any) {
+    this.updateUser.emit(user);
   }
 }
