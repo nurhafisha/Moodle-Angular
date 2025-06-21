@@ -57,7 +57,7 @@ export const getAllUsers = async (req, res, next) => {
  */
 export const getUserById = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id)
+    const user = await User.findOne(req.params._id)
       .select("-password")
       .populate("role");
 
@@ -65,13 +65,13 @@ export const getUserById = async (req, res, next) => {
       return next(CreateError(404, "User not found"));
     }
 
-    if (
-      req.user.role !== "Admin" &&
-      req.user.role !== "Enseignant" &&
-      req.user.id !== req.params.id
-    ) {
-      return next(CreateError(403, "Unauthorized access"));
-    }
+    // if (
+    //   req.user.role !== "Admin" &&
+    //   req.user.role !== "Enseignant" &&
+    //   req.user.id !== req.params.id
+    // ) {
+    //   return next(CreateError(403, "Unauthorized access"));
+    // }
 
     return next(CreateSuccess(200, "User retrieved successfully", user));
   } catch (error) {
@@ -151,5 +151,18 @@ export const deleteUser = async (req, res, next) => {
     return next(CreateSuccess(200, "User deleted successfully"));
   } catch (error) {
     return next(CreateError(500, "Internal server error!"));
+  }
+};
+
+export const updateUserField = async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(500).json({ message: "Patch failed", error: err });
   }
 };
