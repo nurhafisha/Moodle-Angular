@@ -9,21 +9,22 @@ declare var bootstrap: any; // pour utiliser bootstrap.Modal
   styleUrls: ['./page-admin.component.css'],
 })
 export class PageadminComponent implements OnInit {
-  users: any[] = [];
-  ues: any[] = [];
-  newUe = { _id: '', titre_ue: '', image_ue: '' };
-  newUser = { nom: '', prenom: '', email: '', password: '', role: 'Etudiant' };
-  roles = ['Admin', 'Enseignant', 'Etudiant'];
+  users: any[] = []; // Liste des utilisateurs
+  ues: any[] = []; // Liste des UEs
+  newUe = { _id: '', titre_ue: '', image_ue: '' }; // Modèle pour une nouvelle UE
+  newUser = { nom: '', prenom: '', email: '', password: '', role: 'Etudiant' }; // Modèle pour un nouvel utilisateur
+  roles = ['Admin', 'Enseignant', 'Etudiant']; // Rôles disponibles
 
-  selectedUeImage: File | null = null;
-  selectedUser: any = null;
-  userForm!: FormGroup;
+  selectedUeImage: File | null = null; // Image sélectionnée pour une UE
+  selectedUser: any = null; // Utilisateur sélectionné pour modification
+  userForm!: FormGroup; // Formulaire de modification utilisateur
 
-  @ViewChild('editUserModal') editUserModal!: ElementRef;
+  @ViewChild('editUserModal') editUserModal!: ElementRef; // Référence au modal d'édition utilisateur
 
   constructor(private fb: FormBuilder, private adminService: AdminService) {}
 
   ngOnInit() {
+    // Initialisation du formulaire utilisateur avec validation
     this.userForm = this.fb.group({
       nom: [''],
       prenom: [''],
@@ -38,66 +39,70 @@ export class PageadminComponent implements OnInit {
       ],
       role: [''],
     });
-    this.loadUsers();
-    this.loadUes();
+    this.loadUsers(); // Charger les utilisateurs au démarrage
+    this.loadUes(); // Charger les UEs au démarrage
   }
 
-  // Recuperer tous les utilisateurs
+  // Récupérer tous les utilisateurs
   loadUsers() {
     this.adminService.getUsers().subscribe((response) => {
-      this.users = response.data; // récupère bien le tableau
+      this.users = response.data; // Met à jour la liste des utilisateurs
     });
   }
 
-  // Recuperer tous les UEs
+  // Récupérer toutes les UEs
   loadUes() {
     this.adminService.getUes().subscribe((response) => {
-      this.ues = response.data; // récupère bien le tableau
+      this.ues = response.data; // Met à jour la liste des UEs
     });
   }
 
-  // Creer une UE
+  // Créer une UE
   onAddUe() {
     const formData = new FormData();
     formData.append('_id', this.newUe._id);
     formData.append('titre_ue', this.newUe.titre_ue);
     if (this.selectedUeImage) {
-      formData.append('image_ue', this.selectedUeImage);
+      formData.append('image_ue', this.selectedUeImage); // Ajoute l'image si sélectionnée
     }
 
     this.adminService.addUe(formData).subscribe(() => {
-      this.loadUes();
-      this.newUe = { _id: '', titre_ue: '', image_ue: '' };
+      this.loadUes(); // Rafraîchit la liste des UEs
+      this.newUe = { _id: '', titre_ue: '', image_ue: '' }; // Réinitialise le formulaire
       this.selectedUeImage = null;
+      // Ferme le modal d'ajout d'UE
       (window as any).bootstrap.Modal.getOrCreateInstance(
         document.getElementById('addUeModal')
       ).hide();
     });
   }
 
+  // Gestion de la sélection d'image pour une UE
   onUeImageSelected(event: any) {
     const file = event.target.files[0];
     this.selectedUeImage = file ? file : null;
   }
 
-  // Creer un utilisateur
+  // Créer un utilisateur
   onAddUser() {
     this.adminService.addUser(this.newUser).subscribe(() => {
-      this.loadUsers();
+      this.loadUsers(); // Rafraîchit la liste des utilisateurs
       this.newUser = {
         nom: '',
         prenom: '',
         email: '',
         password: '',
         role: 'Etudiant',
-      };
+      }; // Réinitialise le formulaire
       console.log('Utilisateur créé :', this.newUser.prenom);
+      // Ferme le modal d'ajout d'utilisateur
       (window as any).bootstrap.Modal.getOrCreateInstance(
         document.getElementById('addUserModal')
       ).hide();
     });
   }
 
+  // Charge les données d'un utilisateur dans le formulaire pour modification
   loadUser(user: any) {
     this.selectedUser = user;
     this.userForm.patchValue({
@@ -106,7 +111,7 @@ export class PageadminComponent implements OnInit {
       role: user.role,
     });
     const modal = new bootstrap.Modal(this.editUserModal.nativeElement);
-    modal.show();
+    modal.show(); // Affiche le modal d'édition
   }
 
   // Modifier un utilisateur
@@ -122,11 +127,11 @@ export class PageadminComponent implements OnInit {
 
     this.adminService.updateUser(this.selectedUser._id, data).subscribe({
       next: () => {
-        this.loadUsers();
+        this.loadUsers(); // Rafraîchit la liste des utilisateurs
         const modal = bootstrap.Modal.getInstance(
           this.editUserModal.nativeElement
         );
-        modal.hide();
+        modal.hide(); // Ferme le modal d'édition
         this.userForm.reset();
       },
       error: (err) => {
@@ -134,21 +139,22 @@ export class PageadminComponent implements OnInit {
       },
     });
   }
+
   // Modifier une UE
   updateUe(ue: any) {
     const formData = new FormData();
     formData.append('titre_ue', ue.titre_ue);
     if (ue.imageFile) {
-      formData.append('image_ue', ue.imageFile);
+      formData.append('image_ue', ue.imageFile); // Ajoute la nouvelle image si présente
     }
     if (ue.image_ue === null) {
-      formData.append('image_ue', '');
+      formData.append('image_ue', ''); // Gère le cas où l'image est supprimée
     }
     this.adminService.updateUe(ue._id, formData).subscribe(() => {
-      this.loadUes();
+      this.loadUes(); // Rafraîchit la liste des UEs
       (window as any).bootstrap.Modal.getOrCreateInstance(
         document.getElementById('ue-modify')
-      ).hide();
+      ).hide(); // Ferme le modal de modification
     });
   }
 
@@ -156,20 +162,20 @@ export class PageadminComponent implements OnInit {
   deleteUser(userId: string) {
     this.adminService.deleteUser(userId).subscribe({
       next: () => {
-        this.loadUsers();
+        this.loadUsers(); // Rafraîchit la liste après suppression
       },
     });
   }
 
-  // Supprimer une Ue
+  // Supprimer une UE
   deleteUe(codeUe: string) {
     this.adminService.deleteUe(codeUe).subscribe(() => {
       console.log('UE supprimé!');
-      this.loadUes();
+      this.loadUes(); // Rafraîchit la liste après suppression
     });
   }
 
-  // Email domaine validation : prenom-nom@utbm.fr
+  // Validation du domaine email : prenom-nom@utbm.fr
   get email() {
     return this.newUser?.email || '';
   }
@@ -180,7 +186,7 @@ export class PageadminComponent implements OnInit {
     return regex.test(this.email);
   }
 
-  // Mot de passe validation
+  // Validation du mot de passe
   get password() {
     return this.newUser?.password || '';
   }
