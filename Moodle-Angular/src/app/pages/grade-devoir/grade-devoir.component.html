@@ -3,9 +3,21 @@
 <main>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item" ><a routerLink="/mes-cours" routerLinkActive="active">Mes Cours</a></li>
-      <li class="breadcrumb-item" ><a routerLink="/mes-cours/{{ueId}}" routerLinkActive="active">{{ ueId }} : {{ titre_ue }}</a></li>
-      <li class="breadcrumb-item" ><a routerLink="/mes-cours/{{ueId}}/devoirs/{{devoirId}}" routerLinkActive="active">Devoir : {{devoirTitre}}</a></li>
+      <li class="breadcrumb-item">
+        <a routerLink="/mes-cours" routerLinkActive="active">Mes Cours</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a routerLink="/mes-cours/{{ ueId }}" routerLinkActive="active"
+          >{{ ueId }} : {{ titre_ue }}</a
+        >
+      </li>
+      <li class="breadcrumb-item">
+        <a
+          routerLink="/mes-cours/{{ ueId }}/devoirs/{{ devoirId }}"
+          routerLinkActive="active"
+          >Devoir : {{ devoirTitre }}</a
+        >
+      </li>
       <li class="breadcrumb-item active" aria-current="page">Soumission</li>
     </ol>
   </nav>
@@ -48,7 +60,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let sub of filteredSubmissions; let i = index">
-              <td>{{ sub.id_etudiant.nom }}</td>
+              <td>{{ sub.id_etudiant.nom | uppercase }}</td>
               <td>{{ sub.id_etudiant.prenom }}</td>
               <td>
                 <span
