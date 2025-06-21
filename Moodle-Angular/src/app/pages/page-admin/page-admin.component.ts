@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/services/admin.service';
+declare var bootstrap: any; // pour utiliser bootstrap.Modal
 
 @Component({
   selector: 'app-page-admin',
@@ -11,12 +13,31 @@ export class PageadminComponent implements OnInit {
   ues: any[] = [];
   newUe = { _id: '', titre_ue: '', image_ue: '' };
   newUser = { nom: '', prenom: '', email: '', password: '', role: 'Etudiant' };
+  roles = ['Admin', 'Enseignant', 'Etudiant'];
 
   selectedUeImage: File | null = null;
+  selectedUser: any = null;
+  userForm!: FormGroup;
 
-  constructor(private adminService: AdminService) {}
+  @ViewChild('editUserModal') editUserModal!: ElementRef;
+
+  constructor(private fb: FormBuilder, private adminService: AdminService) {}
 
   ngOnInit() {
+    this.userForm = this.fb.group({
+      nom: [''],
+      prenom: [''],
+      password: [
+        '',
+        [
+          Validators.minLength(10),
+          Validators.pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d])/
+          ),
+        ],
+      ],
+      role: [''],
+    });
     this.loadUsers();
     this.loadUes();
   }
@@ -77,8 +98,42 @@ export class PageadminComponent implements OnInit {
     });
   }
 
-  // Modifier un utilisateur
+  loadUser(user: any) {
+    this.selectedUser = user;
+    this.userForm.patchValue({
+      nom: user.nom,
+      prenom: user.prenom,
+      role: user.role,
+    });
+    const modal = new bootstrap.Modal(this.editUserModal.nativeElement);
+    modal.show();
+  }
 
+  // Modifier un utilisateur
+  updateUser() {
+    if (!this.selectedUser || this.userForm.invalid) return;
+
+    const data = this.userForm.value;
+
+    // Si le mot de passe est vide, ne pas l’envoyer
+    if (!data.password || data.password.trim() === '') {
+      delete data.password;
+    }
+
+    this.adminService.updateUser(this.selectedUser._id, data).subscribe({
+      next: () => {
+        this.loadUsers();
+        const modal = bootstrap.Modal.getInstance(
+          this.editUserModal.nativeElement
+        );
+        modal.hide();
+        this.userForm.reset();
+      },
+      error: (err) => {
+        console.error('Erreur de mise à jour', err);
+      },
+    });
+  }
   // Modifier une UE
   updateUe(ue: any) {
     const formData = new FormData();
@@ -99,9 +154,10 @@ export class PageadminComponent implements OnInit {
 
   // Supprimer un utilisateur
   deleteUser(userId: string) {
-    this.adminService.deleteUser(userId).subscribe(() => {
-      console.log('Utilisateur supprimé!');
-      this.loadUsers();
+    this.adminService.deleteUser(userId).subscribe({
+      next: () => {
+        this.loadUsers();
+      },
     });
   }
 
