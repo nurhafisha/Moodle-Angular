@@ -1,12 +1,28 @@
 <app-navbar></app-navbar>
 
 <main>
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item" ><a routerLink="/mes-cours" routerLinkActive="active">Mes Cours</a></li>
-      <li class="breadcrumb-item active" aria-current="page">{{ ueId }} : {{ ueData?.titre_ue }}</li>
-    </ol>
-  </nav>
+  <div class="breadcrumb-header d-flex justify-content-between align-items-center mb-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb m-0">
+        <li class="breadcrumb-item">
+          <a routerLink="/mes-cours" routerLinkActive="active">Mes Cours</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {{ ueId }} : {{ ueData?.titre_ue }}
+        </li>
+      </ol>
+    </nav>
+    <div *ngIf="userRole === 'Enseignant'">
+      <button
+        class="btn btn-danger"
+        data-bs-toggle="modal"
+        data-bs-target="#ue-delete"
+        (click)="openDeleteModal(ueId!)"
+      >
+        <i class="bi bi-trash-fill"></i> Supprimer ce cours
+      </button>
+    </div>
+  </div>
   <div class="container-fluid">
     <h1>{{ ueId }} : {{ ueData?.titre_ue }}</h1>
     <ul class="nav nav-tabs">
@@ -55,3 +71,43 @@
     </div>
   </div>
 </main>
+
+<!-- Modal de confirmation pour supprimer une UE -->
+<div
+  class="modal fade"
+  id="ue-delete"
+  tabindex="-1"
+  aria-labelledby="ueDeleteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ueDeleteLabel">Confirmer la suppression</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Voulez-vous vraiment supprimer ce cours ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Annuler
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          (click)="confirmDeleteUe()"
+        >
+          Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

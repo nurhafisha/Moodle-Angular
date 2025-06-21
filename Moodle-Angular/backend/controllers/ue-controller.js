@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { error } from "console";
 import UE from "../models/Ue.js"; // Importe le modèle UE (Mongoose)
+import { CreateError, CreateSuccess } from "../utils/responseHandler.js";
 
 // Récupérer toutes les UEs
 export const getAllUes = async (req, res) => {
