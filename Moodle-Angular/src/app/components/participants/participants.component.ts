@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { UeService } from '../../services/ue.service';
 import { apiUrls } from 'src/app/backend_urls';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-participants',
   templateUrl: './participants.component.html',
@@ -15,7 +17,7 @@ export class ParticipantsComponent implements OnInit {
   participantsInscrits: any[] = [];
   userRole: string | null = null;
   searchTerm: string = '';
-
+  
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
@@ -26,7 +28,7 @@ export class ParticipantsComponent implements OnInit {
     this.userRole = localStorage.getItem('userRole');
     this.fetchParticipants();
   }
-
+  //Fonction pour récupérer les participants inscrits à l'UE
   fetchParticipants(): void {
     const ueId = this.route.snapshot.paramMap.get('id');
     if (!ueId) return;
@@ -35,7 +37,7 @@ export class ParticipantsComponent implements OnInit {
       if (!ue) return;
 
       this.participantsInscrits = (ue.participants || []).sort((a: any, b: any) => {
-        if (a.role === 'Enseignant' && b.role !== 'Enseignant') return -1;
+        if (a.role === 'Enseignant' && b.role !== 'Enseignant') return -1;// Enseignants en priorité dans la liste
         if (a.role !== 'Enseignant' && b.role === 'Enseignant') return 1;
         return 0;
       });
@@ -71,8 +73,14 @@ export class ParticipantsComponent implements OnInit {
       participantIds: selectedIds
     }).subscribe({
       next: () => {
-        alert('Participants mis à jour avec succès');
         this.fetchParticipants();
+        // Fermer le modal principal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('ajouterParticipantModal'));
+          modal.hide();
+
+        // Montrer le modal de succès
+        const successModal = new bootstrap.Modal(document.getElementById('updateSuccessModal'));
+        successModal.show();
       },
       error: () => alert("Erreur lors de la mise à jour des participants")
     });
@@ -85,5 +93,4 @@ export class ParticipantsComponent implements OnInit {
         .includes(this.searchTerm.toLowerCase())
     );
   }
-
 }

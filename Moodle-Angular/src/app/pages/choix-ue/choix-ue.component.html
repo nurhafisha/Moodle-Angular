@@ -3,86 +3,104 @@
 <main>
   <div class="container-fluid">
     <h1 class="mb-0 fw-semibold mb-3">Mes cours</h1>
+
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4 class="mb-0 fw-semibold">Vue l'ensemble de cours</h4>
-      <hr />
+      <h4 class="mb-0 fw-semibold">Vue d'ensemble de cours</h4>
+
       <button
         *ngIf="userRole === 'Enseignant'"
-        class="btn btn-success mb-3"
+        class="btn btn-success"
         data-bs-toggle="modal"
         data-bs-target="#addUeModal"
       >
         Ajouter cours
       </button>
-      <div
-        class="modal fade"
-        id="addUeModal"
-        tabindex="-1"
-        aria-labelledby="addUeModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <form (ngSubmit)="submitUe()" #ueForm="ngForm">
-              <div class="modal-header">
-                <h5 class="modal-title" id="addUeModalLabel">
-                  Ajouter un cours
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-
-              <div class="modal-body">
-                <div class="mb-3">
-                  <label for="codeUe" class="form-label">Code UE</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="codeUe"
-                    name="codeUe"
-                    [(ngModel)]="newUe._id"
-                    required
-                  />
-                </div>
-
-                <div class="mb-3">
-                  <label for="titreUe" class="form-label">Nom UE</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="titreUe"
-                    name="titreUe"
-                    [(ngModel)]="newUe.titre_ue"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div class="modal-footer">
-                <button
-                  type="submit"
-                  class="btn btn-success"
-                  [disabled]="!ueForm.form.valid"
-                >
-                  Ajouter
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
     </div>
+
+    <!-- Liste des UEs -->
     <div class="row">
-      <div
-        class="col-md-4 mb-4 d-flex align-items-stretch"
-        *ngFor="let ue of ues"
-      >
+      <div class="col-md-4 mb-4 d-flex align-items-stretch" *ngFor="let ue of ues">
         <app-ue [ue]="ue" class="w-100"></app-ue>
       </div>
     </div>
   </div>
 </main>
+
+<!-- Modal Ajouter UE -->
+<div class="modal fade" id="addUeModal" tabindex="-1" aria-labelledby="addUeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content" (ngSubmit)="submitUe()" #ueForm="ngForm">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addUeModalLabel">Ajouter un cours</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Code UE</label>
+          <input
+            type="text"
+            class="form-control"
+            name="codeUe"
+            [(ngModel)]="newUe._id"
+            required
+            pattern="^[A-Z]{2}([0-9]{2}|[0-9]{1}[A-Z]{1})"
+            #codeUe="ngModel"
+          />
+          <div class="text-danger mt-1" *ngIf="codeUe.invalid && codeUe.touched">
+            <span *ngIf="codeUe.errors?.['required']">Code UE obligatoire</span>
+            <span *ngIf="codeUe.errors?.['pattern']">Format du code incorrect</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Nom UE</label>
+          <input
+            type="text"
+            class="form-control"
+            name="titreUe"
+            [(ngModel)]="newUe.titre_ue"
+            required
+            #titreUe="ngModel"
+          />
+          <div class="text-danger mt-1" *ngIf="titreUe.invalid && titreUe.touched">
+            Nom UE obligatoire
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Image UE</label>
+          <input
+            type="file"
+            class="form-control"
+            (change)="onUeImageSelected($event)"
+            accept="image/*"
+          />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-success" [disabled]="ueForm.invalid">Ajouter</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal de confirmation -->
+<div class="modal fade" id="courseCreatedModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h5 class="modal-title">Succès</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        Le nouveau cours a été créé avec succès.
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success ms-auto" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
