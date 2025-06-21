@@ -6,9 +6,7 @@ import { PostComponent } from './components/section/post/post.component';
 import { DiscussionsComponent } from './components/discussions/discussions.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { FormComponent } from './components/form/form.component';
-import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AppRoutingModule } from './app-routing.module'; // Import AngularFireAuthModule for authentication
 import { FormsModule } from '@angular/forms';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
@@ -63,8 +61,6 @@ import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauth
 
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase), // Initialize Firebase with the environment configuration
-    AngularFireAuthModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
