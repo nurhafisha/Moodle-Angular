@@ -5,6 +5,7 @@ import {
   updateUser,
   deleteUser,
   createUser,
+  updateUserField,
 } from "../controllers/user-controller.js";
 import {
   verifyToken,
@@ -12,7 +13,7 @@ import {
   verifyEnseignant,
 } from "../utils/verifyToken.js";
 import { getUserProfile } from "../controllers/user-controller.js";
-import {uploadImage} from "../utils/upload.js";
+import { uploadImage } from "../utils/upload.js";
 
 import multer from "multer"; // Pour gérer les téléchargements de fichiers
 
@@ -21,13 +22,13 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/profiles"); 
+    cb(null, "uploads/profiles");
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + file.originalname;
+    const uniqueSuffix = Date.now() + "-" + file.originalname;
     cb(null, uniqueSuffix);
   },
-})
+});
 const upload = multer({ storage });
 
 // creation d'un utilisateur
@@ -36,13 +37,17 @@ router.post("/", createUser);
 // Recuperer tous les utilisateurs disponibles
 router.get("/", getAllUsers);
 
+// Recuperer utilisateurs par ID
+// router.get("/:id", getUserById);
+
 // Supprimer l'utilisateur par ID
 router.delete("/:id", deleteUser);
 
 // Recuperer le profil de l'utilisateur authentifié
 router.get("/profile", verifyToken, getUserProfile);
 
-router.patch("/:id", updateUser);
+// Mettre à jour champs d'unutilisateur pour admin
+router.patch("/:id", updateUserField);
 
 // Mettre à jour le profil d'un utilisateur
 router.put(
