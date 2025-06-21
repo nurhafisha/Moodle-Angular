@@ -33,8 +33,8 @@ export class AdminService {
     return this.http.patch<any>(`${this.urlUe}${codeUe}`, ue);
   }
 
-  updateUser(userId: string, user: any = {}): Observable<any> {
-    return this.http.patch<any>(`${this.urlUser}${userId}`, user);
+  updateUser(id: string, partialData: any): Observable<any> {
+    return this.http.patch(`${this.urlUser}${id}`, partialData);
   }
 
   deleteUser(userId: string): Observable<any> {
