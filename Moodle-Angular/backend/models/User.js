@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import validator from "validator";
 
-// Schema for the User
+// Schéma pour les utilisateurs
 const UserSchema = new mongoose.Schema(
   {
     nom: {

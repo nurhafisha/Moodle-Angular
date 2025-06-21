@@ -1,4 +1,4 @@
-import express from "express";
+import express from "express"; 
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoute from "./routes/auth.js";
@@ -6,6 +6,8 @@ import userRoute from "./routes/user.js";
 import ueRoute from "./routes/ue.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+
+// Page Express Server 
 
 const app = express();
 dotenv.config();
@@ -44,7 +46,7 @@ const connectMongoDB = async () => {
   }
 };
 
-// demarrer le serveur
+// Demarrer le serveur
 app.listen(8800, () => {
   connectMongoDB();
   console.log("Backend server is running on port 8800");
