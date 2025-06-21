@@ -69,6 +69,7 @@
         <!-- Composant pour la table des utilisateurs -->
         <app-user-table
           [users]="users"
+          (updateUser)="loadUser($event)"
           (deleteUser)="deleteUser($event)"
         ></app-user-table>
       </div>
@@ -338,6 +339,74 @@
           [disabled]="addUserForm.invalid"
         >
           Ajouter
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal de mise à jour utilisateur -->
+<div
+  class="modal fade"
+  #editUserModal
+  id="editUserModal"
+  tabindex="-1"
+  aria-labelledby="editUserLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <form
+      [formGroup]="userForm"
+      (ngSubmit)="updateUser()"
+      class="modal-content"
+    >
+      <div class="modal-header">
+        <h5 class="modal-title" id="editUserLabel">Modifier Utilisateur</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Fermer"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label>Nom</label>
+          <input formControlName="nom" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label>Prénom</label>
+          <input formControlName="prenom" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label>Mot de passe</label>
+          <input
+            formControlName="password"
+            type="password"
+            class="form-control"
+          />
+          <small class="text-muted"
+            >8 caractères, majuscule, minuscule, chiffre, caractère
+            spécial</small
+          >
+        </div>
+        <div class="mb-3">
+          <label>Rôle</label>
+          <select formControlName="role" class="form-select">
+            <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="userForm.invalid"
+        >
+          Enregistrer
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Annuler
         </button>
       </div>
     </form>
