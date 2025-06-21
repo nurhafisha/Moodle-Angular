@@ -59,22 +59,34 @@ export class LoginPageComponent implements OnInit {
 
         this.showToast('success', 'Login réussie !');
 
-        if (this.role === 'Admin') {
-          setTimeout(() => this.router.navigate(['/espace-admin']), 2000);
-        } else {
-          setTimeout(() => this.router.navigate(['/mes-cours']), 2000);
-        }
-      },
-      error: (err) => {
-        console.error('Login échoué', err);
+        // Utiliser le token pour recuperer le profil d'utilisateur
+      this.authService.fetchUserProfile().subscribe({
+        next: (profileRes) => {
+          this.authService.setUser(profileRes.data); 
 
-        this.errorMessage =
-          err.error?.message ||
-          'Échec de la connexion. Veuillez vérifier vos identifiants.';
-        this.showToast('error', this.errorMessage);
-      },
-    });
-  }
+          setTimeout(() => {
+            if (this.role === 'Admin') {
+              this.router.navigate(['/espace-admin']);
+            } else {
+              this.router.navigate(['/mes-cours']);
+            }
+          }, 2000);
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération du profil', err);
+          this.showToast('error', 'Erreur lors de la récupération du profil.');
+        }
+      });
+    },
+    error: (err) => {
+      console.error('Login échoué', err);
+      this.errorMessage =
+        err.error?.message ||
+        'Échec de la connexion. Veuillez vérifier vos identifiants.';
+      this.showToast('error', this.errorMessage);
+    },
+  });
+}
 
   // fonction montrer/cacher mot de passe
   showPassword: boolean = false;

@@ -2,6 +2,8 @@ import { Component, OnInit , ElementRef , ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { apiUrls } from 'src/app/backend_urls';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 declare var bootstrap: any;
 
@@ -43,7 +45,7 @@ export class ProfilePageComponent implements OnInit {
       }
     }
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(private fb: FormBuilder, private http: HttpClient , private authService : AuthService) {}
   
   ngOnInit(): void {
     
@@ -66,6 +68,7 @@ export class ProfilePageComponent implements OnInit {
     }).subscribe({
     next: (response) => {
         const user = response.data; 
+        this.authService.setUser(user);
 
       this.profileForm.patchValue({
         nom: user.nom,

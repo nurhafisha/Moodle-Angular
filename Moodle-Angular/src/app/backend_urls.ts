@@ -1,4 +1,4 @@
-//pour reusabilité de API url
+// Pour reusabilité de API url
 export const apiUrls = {
   root: 'http://localhost:8800/',
   AuthService: 'http://localhost:8800/backend/auth/',

@@ -16,10 +16,11 @@ export class RoleGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const token = localStorage.getItem('authToken');
-    const expectedRoles: string[] = route.data['expectedRoles'];
-    const userRole = localStorage.getItem('userRole');
+    const token = localStorage.getItem('authToken'); // verifier si utilisateur est authentifié
+    const expectedRoles: string[] = route.data['expectedRoles']; // Obtenir les rôles attendus 
+    const userRole = localStorage.getItem('userRole'); // Récupérer le rôle de l'utilisateur
 
+    // Si le token ou le rôle de l'utilisateur n'existe pas, rediriger vers la page Login
     if (!token || !userRole) {
       this.router.navigate(['/login']);
       return false;
@@ -29,6 +30,7 @@ export class RoleGuard implements CanActivate {
       return true;
     }
 
+  // Si le rôle de l'utilisateur n'est pas autorisé, rediriger vers la page non autorisée
     this.router.navigate(['/unauthorised-page']);
     return false;
   }
