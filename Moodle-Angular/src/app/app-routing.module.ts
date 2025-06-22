@@ -50,7 +50,7 @@ const routes: Routes = [
     canActivate: [RoleGuard],
     data: { expectedRoles: ['Enseignant'] },
   },
-  // Route pour non autorisée
+  // Route pour la page non autorisée
   { path: 'unauthorised', component: PageUnauthorizedComponent },
 ];
 
