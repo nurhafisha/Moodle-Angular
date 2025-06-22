@@ -50,7 +50,8 @@ const routes: Routes = [
     canActivate: [RoleGuard],
     data: { expectedRoles: ['Enseignant'] },
   },
-  { path: 'unauthorised-page', component: PageUnauthorizedComponent },
+  // Route pour non autorisée
+  { path: 'unauthorised', component: PageUnauthorizedComponent },
 ];
 
 @NgModule({
