@@ -9,9 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   role: string | null = null;
-  nomPrenom: string | null = null;
+  nom: string | null = null;
+  prenom: string | null = null;
 
-  constructor(private router: Router , private authService : AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     // Load role initially
@@ -24,20 +25,18 @@ export class NavbarComponent implements OnInit {
       }
     });
 
-    this.authService.user$.subscribe(user => {
+    this.authService.user$.subscribe((user) => {
       if (user) {
-        this.nomPrenom = `${user.prenom} ${user.nom}`;
-     } else {
-      this.nomPrenom = null;
-     }
-   });
-
+        this.nom = `${user.nom}`;
+        this.prenom = `${user.prenom}`;
+      } else {
+        this.nom = null;
+        this.prenom = null;
+      }
+    });
   }
-    logout() {
-      this.authService.logout();
-      this.router.navigate(['/login']); // or wherever you want
-
-    }
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']); // or wherever you want
+  }
 }
-
-

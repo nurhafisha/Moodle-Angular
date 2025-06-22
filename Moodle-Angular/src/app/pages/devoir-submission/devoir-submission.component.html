@@ -3,13 +3,22 @@
 <main>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item" ><a routerLink="/mes-cours" routerLinkActive="active">Mes Cours</a></li>
-      <li class="breadcrumb-item" ><a routerLink="/mes-cours/{{ueId}}" routerLinkActive="active">{{ ueId }} : {{ ueData?.titre_ue }}</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Devoir : {{selectedDevoir?.titre_devoir}}</li>
+      <li class="breadcrumb-item">
+        <a routerLink="/mes-cours" routerLinkActive="active">Mes Cours</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a routerLink="/mes-cours/{{ ueId }}" routerLinkActive="active"
+          >{{ ueId }} : {{ ueData?.titre_ue }}</a
+        >
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Devoir : {{ selectedDevoir?.titre_devoir }}
+      </li>
     </ol>
   </nav>
   <div class="container-fluid">
     <h3>{{ ueId }} : {{ ueData?.titre_ue }}</h3>
+    <hr class="hr" />
     <div class="col-md-12 mt-4 mb-4 bg-light p-3 rounded">
       <h4 class="col-md-12">
         <i class="bi bi-file-earmark-arrow-up-fill"></i>

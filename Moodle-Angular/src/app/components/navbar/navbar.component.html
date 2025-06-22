@@ -50,7 +50,7 @@
           class="nav-link me-2 text-light"
           routerLink="/profile"
           routerLinkActive="active"
-          >{{nomPrenom}}</a
+          >{{ prenom }} {{ nom | uppercase }}</a
         >
         <button class="btn btn-link p-0" title="Logout" (click)="logout()">
           <i class="bi bi-box-arrow-right fs-5 text-light"></i>
