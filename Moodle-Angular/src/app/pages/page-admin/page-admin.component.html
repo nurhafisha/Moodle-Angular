@@ -37,7 +37,7 @@
       <li class="nav-item" role="presentation">
         <button
           class="nav-link"
-          id="activity-log"
+          id="connection-log"
           data-bs-toggle="tab"
           data-bs-target="#log"
           type="button"
@@ -101,11 +101,12 @@
         class="tab-pane fade"
         id="log"
         role="tabpanel"
-        aria-labelledby="activity-log"
+        aria-labelledby="connection-log"
       >
         <div class="d-flex align-items-center justify-content-between mt-4">
-          <!-- <h5 class="fw-bold">Historique de connexion</h5> -->
+          <h5 class="fw-bold">Historique de connexion</h5>
         </div>
+        <app-connection-table [logs]="connectionLogs"></app-connection-table>
       </div>
     </div>
   </div>
