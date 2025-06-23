@@ -11,6 +11,8 @@ declare var bootstrap: any; // pour utiliser bootstrap.Modal
 export class PageadminComponent implements OnInit {
   users: any[] = []; // Liste des utilisateurs
   ues: any[] = []; // Liste des UEs
+  connectionLogs: any[] = [];
+
   newUe = { _id: '', titre_ue: '', image_ue: '' }; // Modèle pour une nouvelle UE
   newUser = { nom: '', prenom: '', email: '', password: '', role: 'Etudiant' }; // Modèle pour un nouvel utilisateur
   roles = ['Admin', 'Enseignant', 'Etudiant']; // Rôles disponibles
@@ -41,6 +43,7 @@ export class PageadminComponent implements OnInit {
     });
     this.loadUsers(); // Charger les utilisateurs au démarrage
     this.loadUes(); // Charger les UEs au démarrage
+    this.loadLogs();
   }
 
   // Récupérer tous les utilisateurs
@@ -55,6 +58,12 @@ export class PageadminComponent implements OnInit {
     this.adminService.getUes().subscribe((response) => {
       this.ues = response.data; // Met à jour la liste des UEs
     });
+  }
+
+  loadLogs() {
+    this.adminService
+      .getConnectionLogs()
+      .subscribe((data) => (this.connectionLogs = data));
   }
 
   // Créer une UE
