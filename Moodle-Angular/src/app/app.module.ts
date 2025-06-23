@@ -30,6 +30,7 @@ import { GradeDevoirComponent } from './pages/grade-devoir/grade-devoir.componen
 import { CustomPostComponent } from './components/section/post/custom-post/custom-post.component';
 import { CustomPostFormComponent } from './components/section/post/custom-post/custom-post-form/custom-post-form.component';
 import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauthorized.component';
+import { ConnectionTableComponent } from './components/connection-table/connection-table.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauth
     CustomPostComponent,
     CustomPostFormComponent,
     PageUnauthorizedComponent,
+    ConnectionTableComponent,
   ],
 
   imports: [

@@ -1,0 +1,20 @@
+<div class="table-responsive">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th scope="col">Utilisateur</th>
+        <th scope="col">Email</th>
+        <th scope="col">Date/Heure</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let log of logs">
+        <td>{{ log.userId?.nom }} {{ log.userId?.prenom }}</td>
+        <td>{{ log.email }}</td>
+        <td>{{ log.timestamp | date : "short" }}</td>
+        <td>{{ log.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
