@@ -1,13 +1,14 @@
-import express from "express"; 
+import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoute from "./routes/auth.js";
 import userRoute from "./routes/user.js";
 import ueRoute from "./routes/ue.js";
+import connectionLogRoute from "./routes/connection.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-// Page Express Server 
+// Page Express Server
 
 const app = express();
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(cors({ origin: "http://localhost:4200", credentials: true }));
 app.use("/backend/auth", authRoute);
 app.use("/backend/user", userRoute);
 app.use("/backend/ues", ueRoute);
+app.use("/backend/connection-log", connectionLogRoute);
 app.use("/uploads", express.static("uploads"));
 app.use("/uploads/profiles", express.static("uploads/profiles"));
 
