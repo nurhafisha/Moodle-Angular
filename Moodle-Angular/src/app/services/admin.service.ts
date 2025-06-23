@@ -10,6 +10,7 @@ export class AdminService {
   //Definition des variables pour le route venant de "backend_urls.ts"
   private urlUser = apiUrls.user;
   private urlUe = apiUrls.ue;
+  private urlConnection = apiUrls.connection;
 
   constructor(private http: HttpClient) {}
 
@@ -44,4 +45,12 @@ export class AdminService {
   deleteUe(codeUe: string): Observable<any> {
     return this.http.delete<any>(`${this.urlUe}${codeUe}`);
   }
+
+  getConnectionLogs(): Observable<any[]> {
+    return this.http.get<any>(this.urlConnection);
+  }
+
+  // getUserConnectionLogs(userId: string): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this.urlConnection}/${userId}`);
+  // }
 }
