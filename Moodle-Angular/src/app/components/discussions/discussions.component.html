@@ -43,9 +43,20 @@
       (click)="toggleReponses(i)"
       [class.reponses-ouvertes]="afficherReponses[i]"
     >
-      <div class="card-header bg-primary text-white">
-        <strong>{{ getUserPrenom(forum.id_user) | uppercase }}</strong> •
-        {{ forum.datetime_publier | date : "short" }}
+      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ getUserPrenom(forum.id_user) | uppercase }}</strong> •
+          {{ forum.datetime_publier | date : "short" }}
+        </div>
+        <button
+          type="button"
+          class="btn btn-sm btn-danger"
+          title="Supprimer"
+          (click)="deleteForum(forum._id, $event)"
+          *ngIf="userRole === 'Enseignant'"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
       </div>
 
       <div class="card-body">
@@ -73,16 +84,29 @@
           (click)="$event.stopPropagation()"
         >
           <div
-            class="card card-body bg-light"
+            class="card card-body bg-light position-relative"
             *ngFor="let rep of forum.reponses"
           >
-            {{ rep.message }}
-            <small class="text-muted d-block mt-1">
-              {{ getUserPrenom(rep.id_user) }} •
-              {{ rep.datetime_publier | date : "short" }}
-            </small>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2"
+              title="Supprimer la réponse"
+              (click)="deleteReply(forum._id, rep._id, i, $event)"
+              *ngIf="userRole === 'Enseignant' || rep.id_user === userId"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+
+            <div class="pe-4">
+              {{ rep.message }}
+              <small class="text-muted d-block mt-2">
+                {{ getUserPrenom(rep.id_user) }} •
+                {{ rep.datetime_publier | date : "short" }}
+              </small>
+            </div>
           </div>
         </div>
+
 
         <!-- Formulaire réponse -->
         <div

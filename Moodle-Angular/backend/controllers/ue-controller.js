@@ -198,6 +198,68 @@ export const createForumMessage = async (req, res) => {
   }
 };
 
+// Supprimer une message de forum
+export const deleteForumMessage = async (req, res) => {
+  try {
+    const { id: ueId, forumId } = req.params;
+
+    const ue = await UE.findById(ueId);
+    if (!ue) {
+      return res.status(404).json({ message: "UE not found" });
+    }
+
+    // verifier si message de forum existe
+    const initialLength = ue.forums.length;
+    ue.forums = ue.forums.filter((f) => f._id.toString() !== forumId);
+
+    if (ue.forums.length === initialLength) {
+      return res.status(404).json({ message: "Message forum not found" });
+    }
+
+    await ue.save();
+
+    res.status(200).json({ message: "Message forum deleted successfully", forumId }); // Renvoie notification de succes
+  } catch (err) {
+    console.error("Erreur lors de la suppression du message forum :", err);
+    res
+      .status(500)
+      .json({ message: "Error deleting Message forum", error: err.message || err });
+  }
+};
+
+// Supprimer une réponse de forum
+export const deleteForumReply = async (req, res) => {
+  try {
+    const { id: ueId, forumId, replyId } = req.params;
+
+    const ue = await UE.findById(ueId);
+    if (!ue) {
+      return res.status(404).json({ message: "UE not found" });
+    }
+
+    const forum = ue.forums.id(forumId);
+    if (!forum) {
+      return res.status(404).json({ message: "Forum message not found" });
+    }
+
+    const initialLength = forum.reponses.length;
+    forum.reponses = forum.reponses.filter((r) => r._id.toString() !== replyId);
+
+    if (forum.reponses.length === initialLength) {
+      return res.status(404).json({ message: "Reply not found" });
+    }
+
+    await ue.save();
+
+    res.status(200).json({ message: "Message forum deleted successfully", forumId }); // Renvoie notification de succes
+  } catch (err) {
+    console.error("Erreur lors de la suppression du message forum :", err);
+    res
+      .status(500)
+      .json({ message: "Error deleting Message forum", error: err.message || err });
+  }
+};
+
 // Créer une réponse de forum
 export const createForumReply = async (req, res) => {
   try {
@@ -216,6 +278,7 @@ export const createForumReply = async (req, res) => {
     }
 
     const newReply = {
+      _id: new mongoose.Types.ObjectId(),
       id_user: userId,
       message: reply,
       datetime_publier: datetime_publier || new Date().toISOString(),

@@ -17,4 +17,12 @@ export class DiscussionService {
   ajouterForumReponse(idUe: string | null, reply: any): Observable<any> {
     return this.http.post(apiUrls.ue + `new-reply/${idUe}/${reply.forumId}`, reply);
   }
+
+  supprimerForumMessage(idUe: string | null, forumId: string): Observable<any> {
+    return this.http.delete(apiUrls.ue + `delete-forum/${idUe}/${forumId}`);
+  }
+
+  supprimerForumReponse(idUe: string | null, forumId: string, replyId: string): Observable<any> {
+    return this.http.delete(apiUrls.ue + `delete-reply/${idUe}/${forumId}/${replyId}`);
+  }
 }

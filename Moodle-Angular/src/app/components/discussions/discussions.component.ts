@@ -13,6 +13,7 @@ export class DiscussionsComponent implements OnInit {
   @Input() forums: any[] = [];
   @ViewChildren('replyTextarea') replyTextareas!: QueryList<ElementRef>;
   id_ue: string | null = null;
+  userRole: string | null = null;
   usersMap: { [id: string]: string } = {};
   userId = localStorage.getItem('userId');
   forumForm!: FormGroup;
@@ -33,6 +34,7 @@ export class DiscussionsComponent implements OnInit {
     this.forumForm = this.fb.group({
       message: ['', [Validators.required, Validators.minLength(3)]]
     });
+    this.userRole = localStorage.getItem('userRole');
 
     this.afficherReponses = this.forums.map(() => false);
     this.afficherFormulaires = this.forums.map(() => false);
@@ -125,6 +127,47 @@ export class DiscussionsComponent implements OnInit {
       },
       error: (err) => {
         console.error('Erreur lors de l\'ajout de réponse', err);
+      }
+    });
+  }
+
+  deleteForum(forumId: string, event: Event): void {
+    event.stopPropagation();
+
+    if (!confirm('Êtes-vous sûr de vouloir supprimer ce message ?')) return;
+
+    this.discussionService.supprimerForumMessage(this.id_ue, forumId).subscribe({
+      next: () => {
+        // Supprimez forum message de la liste de forums
+        const index = this.forums.findIndex(f => f._id === forumId);
+        if (index !== -1) {
+          this.forums.splice(index, 1);
+          this.afficherReponses.splice(index, 1);
+          this.afficherFormulaires.splice(index, 1);
+          this.replyForms.splice(index, 1);
+        }
+        console.log('Message forum supprimé avec succès');
+      },
+      error: (err) => {
+        console.error("Erreur lors de la suppression du message", err);
+      }
+    });
+  }
+
+  deleteReply(forumId: string, replyId: string, forumIndex: number, event: Event): void {
+    event.stopPropagation();
+
+    if (!confirm('Êtes-vous sûr de vouloir supprimer cette réponse ?')) return;
+
+    this.discussionService.supprimerForumReponse(this.id_ue, forumId, replyId).subscribe({
+      next: () => {
+        const forum = this.forums.find(f => f._id === forumId);
+        if (forum && forum.reponses) {
+          forum.reponses = forum.reponses.filter((r: any) => r._id !== replyId);
+        }
+      },
+      error: (err) => {
+        console.error("Erreur lors de la suppression de la réponse", err);
       }
     });
   }

@@ -15,7 +15,7 @@ import {
   deleteUe, // Contrôleur pour créer un nouveau devoir
   deleteDevoir, // Contrôleur pour supprimer un devoir
   createForumMessage, // Contrôleur créer un nouveau message au forum
-  createForumReply, // // Contrôleur créer un nouveau réponse de message au forum
+  createForumReply, // Contrôleur créer un nouveau réponse de message au forum
   getUeWithParticipants, // Contrôleur pour récupérer une UE avec ses participants
   assignParticipantsToUe, // Contrôleur pour assigner des participants à une UE
   getDepotForGrading, // Contrôleur pour récupérer un dépôt pour la notation
@@ -25,7 +25,9 @@ import {
   addCustomSection,
   addCustomPost,
   deleteCustom,
-  getUesForUser
+  getUesForUser,
+  deleteForumMessage,
+  deleteForumReply
 } from "../controllers/ue-controller.js"; // Importe les fonctions du contrôleur
 
 // Crée un nouveau routeur express
@@ -74,8 +76,14 @@ router.delete("/:id", deleteUe); // Route pour supprimer une UE par son id(code 
 // Route pour créer un nouveau devoir avec upload de fichier
 router.post("/new-devoir/:id", uploadPostFile.single("fichier_joint"), createDevoir);
 router.delete("/:id/devoir/:devoirId", deleteDevoir);
+
+// Route pour créer un nouveau message de forum et réponse de message au forum
 router.post("/new-forum/:id", createForumMessage);
 router.post("/new-reply/:id/:forumId", createForumReply);
+
+// Route pour supprimer un message de forum et réponse de message au forum
+router.delete("/delete-forum/:id/:forumId", deleteForumMessage);
+router.delete("/delete-reply/:id/:forumId/:replyId", deleteForumReply);
 
 // Route pour récupérer une UE avec ses étudiants
 router.get('/with-participants/:id', getUeWithParticipants);
