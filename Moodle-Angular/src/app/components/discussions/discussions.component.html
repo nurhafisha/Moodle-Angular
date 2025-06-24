@@ -48,6 +48,7 @@
           <strong>{{ getUserPrenom(forum.id_user) | uppercase }}</strong> •
           {{ forum.datetime_publier | date : "short" }}
         </div>
+        <!-- bouton delete -->
         <button
           type="button"
           class="btn btn-sm btn-danger"
@@ -55,7 +56,7 @@
           (click)="deleteForum(forum._id, $event)"
           *ngIf="userRole === 'Enseignant'"
         >
-          <i class="bi bi-trash"></i>
+          <i class="bi bi-x-lg"></i>
         </button>
       </div>
 
@@ -94,7 +95,7 @@
               (click)="deleteReply(forum._id, rep._id, i, $event)"
               *ngIf="userRole === 'Enseignant' || rep.id_user === userId"
             >
-              <i class="bi bi-trash"></i>
+              <i class="bi bi-x-lg"></i>
             </button>
 
             <div class="pe-4">
