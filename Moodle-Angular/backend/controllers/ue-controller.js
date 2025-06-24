@@ -296,6 +296,51 @@ export const createForumReply = async (req, res) => {
   }
 };
 
+// Modifier un message de forum
+export const editForumMessage = async (req, res) => {
+  const { id: ueId, forumId } = req.params;
+  const { sujet } = req.body;
+
+  try {
+    const ue = await UE.findById(ueId);
+    if (!ue) return res.status(404).json({ message: "UE not found" });
+
+    const forum = ue.forums.id(forumId);
+    if (!forum) return res.status(404).json({ message: "Forum message not found" });
+
+    forum.sujet = sujet;
+    await ue.save();
+
+    res.status(200).json({ message: "Message updated", sujet });
+  } catch (err) {
+    res.status(500).json({ message: "Error updating message", error: err.message });
+  }
+};
+
+// Modifier une reponse de forum
+export const editForumReply = async (req, res) => {
+  const { id: ueId, forumId, replyId } = req.params;
+  const { message } = req.body;
+
+  try {
+    const ue = await UE.findById(ueId);
+    if (!ue) return res.status(404).json({ message: "UE not found" });
+
+    const forum = ue.forums.id(forumId);
+    if (!forum) return res.status(404).json({ message: "Forum message not found" });
+
+    const reply = forum.reponses.id(replyId);
+    if (!reply) return res.status(404).json({ message: "Reply not found" });
+
+    reply.message = message;
+    await ue.save();
+
+    res.status(200).json({ message: "Message updated", message });
+  } catch (err) {
+    res.status(500).json({ message: "Error updating message", error: err.message });
+  }
+};
+
 // export const getAllUe = async (req, res) => {
 //   try {
 //     const ues = await UE.find({}, "titre_ue image_ue _id"); // only needed fields

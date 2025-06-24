@@ -61,7 +61,45 @@
       </div>
 
       <div class="card-body">
-        <p>{{ forum.sujet }}</p>
+        <!-- Sujet affiché ou champ de modification -->
+        <div *ngIf="!editModes[i]; else editFormTemplate" class="d-flex justify-content-between align-items-start">
+          <p class="mb-1 flex-grow-1">{{ forum.sujet }}</p>
+          <button class="btn btn-sm btn-outline-primary"
+                  *ngIf="forum.id_user === userId"
+                  (click)="enableEditMode(i, $event)">
+            <i class="bi bi-pencil-square me-1"></i> Modifier
+          </button>
+        </div>
+
+        <ng-template #editFormTemplate>
+          <form [formGroup]="editForms[i]" (ngSubmit)="submitEdit(forum._id, i)" class="bg-light p-3 rounded shadow-sm">
+            <div class="mb-2">
+              <label class="form-label fw-semibold" for="editSujetInput-{{i}}">Modifier le message</label>
+              <textarea id="editSujetInput-{{i}}"
+                    type="text"
+                    class="form-control"
+                    formControlName="sujet"
+                    [class.is-invalid]="editForms[i].get('sujet')?.invalid && editForms[i].get('sujet')?.touched"
+                    placeholder="Nouveau sujet du message"></textarea>
+              <div class="invalid-feedback">
+                Le sujet est requis (min. 3 caractères).
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button type="button"
+                      class="btn btn-secondary btn-sm me-2"
+                      (click)="cancelEditMode(i)">
+                <i class="bi bi-x-lg me-1"></i> Annuler
+              </button>
+              <button type="submit"
+                      class="btn btn-success btn-sm"
+                      [disabled]="editForms[i].invalid">
+                <i class="bi bi-check-lg me-1"></i> Sauvegarder
+              </button>
+            </div>
+          </form>
+        </ng-template>
 
         <p class="text-muted mb-2">
           <i class="bi bi-chat-left-text"></i>
@@ -85,9 +123,10 @@
           (click)="$event.stopPropagation()"
         >
           <div
-            class="card card-body bg-light position-relative"
-            *ngFor="let rep of forum.reponses"
+            class="card card-body bg-light position-relative mb-2"
+            *ngFor="let rep of forum.reponses; let j = index"
           >
+            <!-- Bouton Supprimer -->
             <button
               type="button"
               class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2"
@@ -98,14 +137,52 @@
               <i class="bi bi-x-lg"></i>
             </button>
 
-            <div class="pe-4">
-              {{ rep.message }}
+            <!-- Affichage ou édition -->
+            <div *ngIf="!replyEditModes[i][j]; else editReplyForm" class="pe-4">
+              <div class="d-flex justify-content-between">
+                <span>{{ rep.message }}</span>
+                <button
+                  class="btn btn-sm btn-light border position-absolute bottom-0 end-0 m-2"
+                  title="Modifier cette réponse"
+                  *ngIf="rep.id_user === userId"
+                  (click)="enableReplyEditMode(i, j, $event)"
+                >
+                  <i class="bi bi-pencil-fill text-primary"></i>
+                </button>
+              </div>
               <small class="text-muted d-block mt-2">
                 {{ getUserPrenom(rep.id_user) }} •
                 {{ rep.datetime_publier | date : "short" }}
               </small>
             </div>
+
+            <!-- Formulaire d'édition -->
+            <ng-template #editReplyForm>
+              <div>
+              <form
+                [formGroup]="replyEditForms[i][j]"
+                (ngSubmit)="submitReplyEdit(forum._id, rep._id, i, j)"
+                style="max-width: 90%;"
+              >
+                <textarea
+                  class="form-control mb-2"
+                  formControlName="message"
+                  rows="2"
+                  placeholder="Modifier la réponse..."
+                ></textarea>
+                <div class="d-flex justify-content-end">
+                  <button type="button" class="btn btn-sm btn-secondary me-2" (click)="cancelReplyEditMode(i, j)">
+                    Annuler
+                  </button>
+                  <button type="submit" class="btn btn-sm btn-success" [disabled]="replyEditForms[i][j].invalid">
+                    Sauvegarder
+                  </button>
+                </div>
+              </form>
+            </div>
+            </ng-template>
           </div>
+
         </div>
 
 

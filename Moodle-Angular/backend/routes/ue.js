@@ -27,7 +27,9 @@ import {
   deleteCustom,
   getUesForUser,
   deleteForumMessage,
-  deleteForumReply
+  deleteForumReply,
+  editForumMessage,
+  editForumReply
 } from "../controllers/ue-controller.js"; // Importe les fonctions du contrôleur
 
 // Crée un nouveau routeur express
@@ -84,6 +86,10 @@ router.post("/new-reply/:id/:forumId", createForumReply);
 // Route pour supprimer un message de forum et réponse de message au forum
 router.delete("/delete-forum/:id/:forumId", deleteForumMessage);
 router.delete("/delete-reply/:id/:forumId/:replyId", deleteForumReply);
+
+// Route pour supprimer un message de forum et réponse de message au forum
+router.patch("/edit-forum/:id/:forumId", editForumMessage);
+router.patch("/edit-reply/:id/:forumId/:replyId", editForumReply);
 
 // Route pour récupérer une UE avec ses étudiants
 router.get('/with-participants/:id', getUeWithParticipants);

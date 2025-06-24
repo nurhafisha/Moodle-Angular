@@ -20,6 +20,10 @@ export class DiscussionsComponent implements OnInit {
   replyForms: FormGroup[] = [];
   afficherReponses: boolean[] = [];
   afficherFormulaires: boolean[] = [];
+  editModes: boolean[] = [];
+  editForms: FormGroup[] = [];
+  replyEditForms: FormGroup[][] = [];
+  replyEditModes: boolean[][] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +53,25 @@ export class DiscussionsComponent implements OnInit {
     this.ueService.getUserData().subscribe(usersMap => {
       this.usersMap = Object.fromEntries(usersMap);
     });
+
+    this.editModes = this.forums.map(() => false);
+    this.editForms = this.forums.map(forum =>
+      this.fb.group({
+        sujet: [forum.sujet, [Validators.required, Validators.minLength(3)]]
+      })
+    );
+
+    this.replyEditForms = this.forums.map(forum =>
+      (forum.reponses || []).map((rep: { message: any; }) =>
+        this.fb.group({
+          message: [rep.message, [Validators.required, Validators.minLength(1)]]
+        })
+      )
+    );
+
+    this.replyEditModes = this.forums.map(forum =>
+      (forum.reponses || []).map(() => false)
+    );
   }
 
   toggleReponses(index: number): void {
@@ -171,4 +194,61 @@ export class DiscussionsComponent implements OnInit {
       }
     });
   }
+
+  // edit forum message
+  enableEditMode(index: number, event: Event): void {
+    event.stopPropagation();
+    this.editModes[index] = true;
+    this.editForms[index].patchValue({ sujet: this.forums[index].sujet });
+  }
+
+  cancelEditMode(index: number): void {
+    this.editModes[index] = false;
+  }
+
+  submitEdit(forumId: string, index: number): void {
+    if (this.editForms[index].invalid) return;
+
+    const updatedSujet = this.editForms[index].value.sujet;
+
+    this.discussionService.editForumMessage(this.id_ue, forumId, { sujet: updatedSujet }).subscribe({
+      next: (res) => {
+        this.forums[index].sujet = updatedSujet;
+        this.editModes[index] = false;
+      },
+      error: (err) => {
+        console.error("Erreur lors de la modification du message", err);
+      }
+    });
+  }
+
+  // edit reply message
+  enableReplyEditMode(forumIndex: number, replyIndex: number, event: Event): void {
+    event.stopPropagation();
+    this.replyEditModes[forumIndex][replyIndex] = true;
+  }
+
+  cancelReplyEditMode(forumIndex: number, replyIndex: number): void {
+    this.replyEditModes[forumIndex][replyIndex] = false;
+  }
+
+  submitReplyEdit(forumId: string, replyId: string, forumIndex: number, replyIndex: number): void {
+    const form = this.replyEditForms[forumIndex][replyIndex];
+    if (form.invalid) return;
+
+    const updatedMessage = form.value.message;
+
+    this.discussionService.editForumReply(this.id_ue, forumId, replyId, { message: updatedMessage }).subscribe({
+      next: () => {
+        const rep = this.forums[forumIndex].reponses[replyIndex];
+        if (rep) rep.message = updatedMessage;
+        this.replyEditModes[forumIndex][replyIndex] = false;
+      },
+      error: (err) => {
+        console.error("Erreur lors de la modification de la réponse", err);
+      }
+    });
+  }
+
+
 }
