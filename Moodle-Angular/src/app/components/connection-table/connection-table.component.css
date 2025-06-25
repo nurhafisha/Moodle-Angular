@@ -26,3 +26,27 @@
   color: #ffffff;
   text-align: left;
 }
+
+.styled-table th:nth-child(1),
+.styled-table td:nth-child(1) {
+  min-width: 80px; /* username */
+  width: 35%;
+}
+
+.styled-table th:nth-child(2),
+.styled-table td:nth-child(2) {
+  min-width: 100px; /* email  */
+  width: 15%;
+}
+
+.styled-table th:nth-child(3),
+.styled-table td:nth-child(3) {
+  min-width: 150px; /* timestamp  */
+  width: 10%;
+}
+
+.styled-table th:nth-child(4),
+.styled-table td:nth-child(4) {
+  min-width: 80px; /* status  */
+  width: 15%;
+}

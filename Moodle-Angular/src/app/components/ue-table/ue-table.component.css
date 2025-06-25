@@ -21,3 +21,21 @@
   color: #ffffff;
   text-align: left;
 }
+
+.styled-table th:nth-child(1),
+.styled-table td:nth-child(1) {
+  min-width: 80px; /* Nom column */
+  width: 20%;
+}
+
+.styled-table th:nth-child(2),
+.styled-table td:nth-child(2) {
+  min-width: 100px; /* Prénom column */
+  width: 60%;
+}
+
+.styled-table th:nth-child(3),
+.styled-table td:nth-child(3) {
+  min-width: 150px; /* Email column */
+  width: 20%;
+}
