@@ -32,6 +32,7 @@ import { CustomPostFormComponent } from './components/section/post/custom-post/c
 import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauthorized.component';
 import { ConnectionTableComponent } from './components/connection-table/connection-table.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CustomPostFormComponent,
     PageUnauthorizedComponent,
     ConnectionTableComponent,
+    FooterComponent,
   ],
 
   imports: [
