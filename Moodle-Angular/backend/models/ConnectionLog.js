@@ -1,4 +1,3 @@
-// models/ConnectionLog.js
 import mongoose from "mongoose";
 
 const connectionLogSchema = new mongoose.Schema({

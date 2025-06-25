@@ -73,7 +73,6 @@ export const login = async (req, res, next) => {
       process.env.JWT_SECRET // secret key from .env
     );
 
-    const email = req.body.email;
     const lastLog = await ConnectionLog.findOne({ userId: user._id })
       .sort({ timestamp: -1 })
       .lean();
