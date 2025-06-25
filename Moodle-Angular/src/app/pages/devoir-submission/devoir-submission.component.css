@@ -1,4 +1,5 @@
 main {
+  min-height: 75vh;
   margin: 3em 5vw;
   padding: 3em;
   background-color: white;
