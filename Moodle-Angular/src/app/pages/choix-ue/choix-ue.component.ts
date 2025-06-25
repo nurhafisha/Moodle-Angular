@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { UeService } from '../../services/ue.service'; 
+import { UeService } from '../../services/ue.service';
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-choix-ue',
   templateUrl: './choix-ue.component.html',
-  styleUrls: ['./choix-ue.component.css']
+  styleUrls: ['./choix-ue.component.css'],
 })
 export class ChoixUeComponent implements OnInit {
   ues: any[] = [];
   userRole: string | null = null;
 
   selectedUeImage: File | null = null;
+
+  page: number = 1;
 
   constructor(private ueService: UeService) {}
 
@@ -23,15 +25,15 @@ export class ChoixUeComponent implements OnInit {
         this.ues = ues;
       },
       error: (err) => {
-        console.error("Erreur lors du chargement des UEs", err);
-      }
-    });   
+        console.error('Erreur lors du chargement des UEs', err);
+      },
+    });
   }
 
   newUe = {
     _id: '',
     titre_ue: '',
-    image_ue: ''
+    image_ue: '',
   };
 
   onUeImageSelected(event: any): void {
@@ -49,19 +51,23 @@ export class ChoixUeComponent implements OnInit {
 
     this.ueService.createUe(formData).subscribe({
       next: (createdUe) => {
-        this.ues.push(createdUe);  
+        this.ues.push(createdUe);
         this.newUe = { _id: '', titre_ue: '', image_ue: '' };
         this.selectedUeImage = null;
 
         // Fermer le modal d'ajout d'UE
-        (window as any).bootstrap.Modal.getOrCreateInstance(document.getElementById('addUeModal')).hide();
+        (window as any).bootstrap.Modal.getOrCreateInstance(
+          document.getElementById('addUeModal')
+        ).hide();
 
         // Montrer le modal success
-        (window as any).bootstrap.Modal.getOrCreateInstance(document.getElementById('courseCreatedModal')).show();
+        (window as any).bootstrap.Modal.getOrCreateInstance(
+          document.getElementById('courseCreatedModal')
+        ).show();
       },
       error: (err) => {
         console.error('Erreur lors de la création de l’UE:', err);
-      }
+      },
     });
   }
 }

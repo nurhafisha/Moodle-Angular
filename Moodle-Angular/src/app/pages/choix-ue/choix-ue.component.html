@@ -19,20 +19,40 @@
 
     <!-- Liste des UEs -->
     <div class="row">
-      <div class="col-md-4 mb-4 d-flex align-items-stretch" *ngFor="let ue of ues">
+      <div
+        class="col-md-4 mb-4 d-flex align-items-stretch"
+        *ngFor="
+          let ue of ues | paginate : { itemsPerPage: 6, currentPage: page }
+        "
+      >
         <app-ue [ue]="ue" class="w-100"></app-ue>
       </div>
+      <pagination-controls
+        class="d-flex justify-content-end align-items-center"
+        (pageChange)="page = $event"
+      ></pagination-controls>
     </div>
   </div>
 </main>
 
 <!-- Modal Ajouter UE -->
-<div class="modal fade" id="addUeModal" tabindex="-1" aria-labelledby="addUeModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="addUeModal"
+  tabindex="-1"
+  aria-labelledby="addUeModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <form class="modal-content" (ngSubmit)="submitUe()" #ueForm="ngForm">
       <div class="modal-header">
         <h5 class="modal-title" id="addUeModalLabel">Ajouter un cours</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Fermer"
+        ></button>
       </div>
 
       <div class="modal-body">
@@ -47,9 +67,14 @@
             pattern="^[A-Z]{2}([0-9]{2}|[0-9]{1}[A-Z]{1})"
             #codeUe="ngModel"
           />
-          <div class="text-danger mt-1" *ngIf="codeUe.invalid && codeUe.touched">
+          <div
+            class="text-danger mt-1"
+            *ngIf="codeUe.invalid && codeUe.touched"
+          >
             <span *ngIf="codeUe.errors?.['required']">Code UE obligatoire</span>
-            <span *ngIf="codeUe.errors?.['pattern']">Format du code incorrect</span>
+            <span *ngIf="codeUe.errors?.['pattern']"
+              >Format du code incorrect</span
+            >
           </div>
         </div>
 
@@ -63,7 +88,10 @@
             required
             #titreUe="ngModel"
           />
-          <div class="text-danger mt-1" *ngIf="titreUe.invalid && titreUe.touched">
+          <div
+            class="text-danger mt-1"
+            *ngIf="titreUe.invalid && titreUe.touched"
+          >
             Nom UE obligatoire
           </div>
         </div>
@@ -80,26 +108,45 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="submit" class="btn btn-success" [disabled]="ueForm.invalid">Ajouter</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Annuler
+        </button>
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="ueForm.invalid"
+        >
+          Ajouter
+        </button>
       </div>
     </form>
   </div>
 </div>
 
 <!-- Modal de confirmation -->
-<div class="modal fade" id="courseCreatedModal" tabindex="-1" aria-hidden="true">
+<div
+  class="modal fade"
+  id="courseCreatedModal"
+  tabindex="-1"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-3">
       <div class="modal-header">
         <h5 class="modal-title">Succès</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
       </div>
       <div class="modal-body text-center">
         Le nouveau cours a été créé avec succès.
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success ms-auto" data-bs-dismiss="modal">OK</button>
+        <button class="btn btn-success ms-auto" data-bs-dismiss="modal">
+          OK
+        </button>
       </div>
     </div>
   </div>
