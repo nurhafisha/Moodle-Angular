@@ -2,36 +2,26 @@ import ConnectionLog from "../models/ConnectionLog.js";
 
 export const getConnectionLog = async (req, res) => {
   try {
-    const logs = await ConnectionLog.find().populate(
-      "userId",
-      "nom prenom email"
-    );
-    res.json(logs);
-  } catch (err) {
-    res.status(500).json({ message: "Erreur serveur" });
-  }
-};
+    const logs = await ConnectionLog.find()
+      .populate("userId", "nom prenom email")
+      .sort({ timestamp: -1 });
 
-export const createConnectionLog = async (req, res) => {
-  try {
-    const { userId, email, status, ip } = req.body;
-    const log = await ConnectionLog.create({
-      userId,
-      email,
-      status,
-      ip,
-      timestamp: new Date(),
+    // Filtrer pour ne garder qu'un log par minute par utilisateur
+    const filteredLogs = [];
+    const seen = {};
+
+    logs.forEach((log) => {
+      const user = log.userId?._id?.toString() || log.userId;
+      const date = new Date(log.timestamp);
+      const key = `${user}-${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}`;
+      if (!seen[key]) {
+        filteredLogs.push(log);
+        seen[key] = true;
+      }
     });
-    res.status(201).json(log);
+
+    res.json(filteredLogs);
   } catch (err) {
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
-// export const getUserConnectionLog = async (req, res) => {
-//   try {
-//     const logs = await ConnectionLog.find({ userId: req.params.userId });
-//     res.json(logs);
-//   } catch (err) {
-//     res.status(500).json({ message: "Erreur serveur" });
-//   }
-// };
