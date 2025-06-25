@@ -9,7 +9,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let log of logs">
+      <tr
+        *ngFor="
+          let log of logs | paginate : { itemsPerPage: 10, currentPage: page }
+        "
+      >
         <td>{{ log.userId?.nom }} {{ log.userId?.prenom }}</td>
         <td>{{ log.email }}</td>
         <td>{{ log.timestamp | date : "short" }}</td>
@@ -17,4 +21,8 @@
       </tr>
     </tbody>
   </table>
+  <pagination-controls
+    class="d-flex justify-content-center align-items-center"
+    (pageChange)="page = $event"
+  ></pagination-controls>
 </div>

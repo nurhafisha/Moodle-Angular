@@ -7,6 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ConnectionTableComponent implements OnInit {
   @Input() logs: any[] = [];
+
+  page: number = 1;
+
   constructor() {}
 
   ngOnInit(): void {}

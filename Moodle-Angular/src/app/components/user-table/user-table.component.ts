@@ -10,6 +10,7 @@ export class UserTableComponent implements OnInit {
   @Output() deleteUser = new EventEmitter<string>();
   @Output() updateUser = new EventEmitter<any>();
 
+  pages: number = 1;
   selectedUserId: string | null = null;
 
   constructor() {}

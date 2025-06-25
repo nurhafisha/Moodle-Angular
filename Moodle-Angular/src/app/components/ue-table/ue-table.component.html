@@ -8,7 +8,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ue of ues">
+      <tr
+        *ngFor="
+          let ue of ues | paginate : { itemsPerPage: 8, currentPage: page }
+        "
+      >
         <td>{{ ue._id }}</td>
         <td>{{ ue.titre_ue }}</td>
         <td>
@@ -37,6 +41,10 @@
       </tr>
     </tbody>
   </table>
+  <pagination-controls
+    class="d-flex justify-content-center align-items-center"
+    (pageChange)="page = $event"
+  ></pagination-controls>
 </div>
 
 <!-- Modal pour modification UE-->

@@ -31,6 +31,7 @@ import { CustomPostComponent } from './components/section/post/custom-post/custo
 import { CustomPostFormComponent } from './components/section/post/custom-post/custom-post-form/custom-post-form.component';
 import { PageUnauthorizedComponent } from './pages/page-unauthorized/page-unauthorized.component';
 import { ConnectionTableComponent } from './components/connection-table/connection-table.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ConnectionTableComponent } from './components/connection-table/connecti
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxPaginationModule,
   ],
 
   // JWT Components:

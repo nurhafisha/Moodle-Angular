@@ -10,7 +10,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
+      <tr
+        *ngFor="
+          let user of users | paginate : { itemsPerPage: 8, currentPage: pages }
+        "
+      >
         <!-- pipe pour afficher le nom en majuscule -->
         <td>{{ user.nom | uppercase }}</td>
         <td>{{ user.prenom }}</td>
@@ -40,6 +44,10 @@
       </tr>
     </tbody>
   </table>
+  <pagination-controls
+    class="d-flex justify-content-center align-items-center"
+    (pageChange)="pages = $event"
+  ></pagination-controls>
 </div>
 
 <!-- Modal pour update  -->

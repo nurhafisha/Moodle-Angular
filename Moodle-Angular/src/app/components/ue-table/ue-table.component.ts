@@ -15,6 +15,8 @@ export class UETableComponent {
 
   editedUe: any = {};
 
+  page: number = 1;
+
   constructor() {}
   openDeleteModal(codeUe: string) {
     this.selectedCodeUe = codeUe;
