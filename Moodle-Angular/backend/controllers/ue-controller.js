@@ -17,9 +17,9 @@ export const getUesForUser = async (req, res, next) => {
     const userId = req.user.id;
 
     let ues;
-    if (role === "Etudiant") {
+    if (role === "Etudiant" || role ==="Enseignant") {
       ues = await UE.find({ participants: userId });
-    } else if (role === "Enseignant" || role === "Admin") {
+    } else if (role === "Admin") {
       ues = await UE.find();
     } else {
       return next(CreateError(403, "Unauthorized role"));
