@@ -27,11 +27,11 @@
       >
         <app-ue [ue]="ue" class="w-100"></app-ue>
       </div>
-      <pagination-controls
-        class="d-flex justify-content-end align-items-center"
-        (pageChange)="page = $event"
-      ></pagination-controls>
     </div>
+    <pagination-controls
+      class="d-flex justify-content-end align-items-end pag-con"
+      (pageChange)="page = $event"
+    ></pagination-controls>
   </div>
 </main>
 

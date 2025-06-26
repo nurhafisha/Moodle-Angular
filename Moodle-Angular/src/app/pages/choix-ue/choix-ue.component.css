@@ -13,3 +13,8 @@ main {
   text-align: left;
   color: #333;
 }
+
+.pag-con {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
