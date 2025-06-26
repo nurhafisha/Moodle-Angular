@@ -90,9 +90,9 @@ export const login = async (req, res, next) => {
         status: "success",
         timestamp: new Date(),
       });
-      console.log("Connexion log créée");
+      //console.log("Connexion log créée");
     } else {
-      console.log("Connexion déjà enregistrée récemment, pas de doublon.");
+      //console.log("Connexion déjà enregistrée récemment, pas de doublon.");
     }
 
     /// Renvoie le jeton et les données utilisateur (le mot de passe n'est pas inclus)
