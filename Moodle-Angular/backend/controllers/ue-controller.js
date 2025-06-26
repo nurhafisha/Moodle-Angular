@@ -48,7 +48,7 @@ export const getUeById = async (req, res, next) => {
 export const createUe = async (req, res) => {
   try {
     const { _id, titre_ue } = req.body;
-    const image_ue = req.file ? req.file.path : null;
+    const image_ue = req.file.filename;
     const ue = new UE({ _id, titre_ue, image_ue });
     await ue.save();
     res.status(201).json({ success: true, data: ue });
